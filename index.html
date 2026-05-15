@@ -5,223 +5,370 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr CV - Acceso Seguro</title>
     <style>
+        :root {
+            --primary: #1e40af;
+            --primary-hover: #1e3a8a;
+            --success: #10b981;
+            --success-hover: #059669;
+            --warning: #f59e0b;
+            --warning-hover: #d97706;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            color: #334155;
+            min-height: 100vh;
         }
-        .contenedor {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+
+        /* Envoltura principal para centrar el Login o la App de manera independiente */
+        .wrapper-principal {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 40px);
             width: 100%;
-            max-width: 420px;
+        }
+
+        .contenedor {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 440px;
             margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-sizing: border-box;
         }
+
         .contenedor-ancho {
-            max-width: 700px;
+            max-width: 800px;
         }
-        h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; margin-top: 0; }
-        label { display: block; margin-top: 15px; font-weight: 600; color: #444; }
+
+        h2 { 
+            color: #1e3a8a; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            margin-top: 0; 
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        label { 
+            display: block; 
+            margin-top: 18px; 
+            font-weight: 600; 
+            color: #475569; 
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         input, select, button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin-top: 8px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
             box-sizing: border-box;
             font-size: 14px;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
         }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.15);
+            background-color: #ffffff;
+        }
+
         button {
-            background-color: #1a73e8;
+            background-color: var(--primary);
             color: white;
             border: none;
             margin-top: 15px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
         }
-        button:hover { background-color: #1557b0; }
+
+        button:hover { 
+            background-color: var(--primary-hover); 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 8px -1px rgba(30, 64, 175, 0.3);
+        }
+
+        button:active { transform: translateY(0); }
+
+        button:disabled {
+            background-color: #94a3b8 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
         
-        .oculto { display: none; }
+        .oculto { display: none !important; }
+
+        /* MENÚ DE NAVEGACIÓN CORPORATIVO */
+        .menu-navegacion {
+            display: flex;
+            justify-content: space-around;
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 440px;
+            box-sizing: border-box;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .pestana {
+            color: #94a3b8;
+            padding: 12px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-align: center;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .pestana:hover { 
+            color: #f8fafc;
+            background-color: rgba(255, 255, 255, 0.05); 
+        }
+
+        .pestana.activa {
+            background-color: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
         .cuadro-resultado {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-left: 5px solid #1a73e8;
-            border-radius: 4px;
+            margin-top: 25px;
+            padding: 18px;
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
         }
-        span { font-weight: bold; color: #1a73e8; }
-        .error { color: red; font-size: 12px; text-align: center; margin-top: 10px; }
-        .saludo { text-align: center; color: #555; margin-bottom: 15px; font-size: 14px; font-weight: bold; }
+
+        .cuadro-resultado p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #475569;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        span { font-weight: 700; color: #0f172a; font-size: 15px; }
         
+        .error { 
+            color: var(--danger); 
+            font-size: 13px; 
+            text-align: center; 
+            margin-top: 15px; 
+            font-weight: 600;
+        }
+        
+        .saludo { 
+            text-align: center; 
+            color: #f8fafc; 
+            margin-bottom: 20px; 
+            font-size: 15px; 
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            width: 100%;
+            max-width: 440px;
+            box-sizing: border-box;
+        }
+        
+        /* TABLA DE REPORTES MODERNA */
+        .tabla-contenedor {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            margin-top: 15px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
             font-size: 13px;
+            background: white;
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            padding: 14px 12px;
             text-align: center;
+            border-bottom: 1px solid #e2e8f0;
         }
+
         th {
-            background-color: #1a73e8;
-            color: white;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
         }
-        tr:nth-child(even) { background-color: #f2f2f2; }
+
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #f8fafc; }
         
         .fila-totales {
-            background-color: #e8f0fe !important;
-            font-weight: bold;
+            background-color: #ecfdf5 !important;
+            font-weight: 700;
             font-size: 14px;
+            color: #065f46;
+            border-top: 2px solid #10b981;
         }
         
         .btn-tabla {
             color: white;
-            padding: 5px 8px;
+            padding: 6px 10px;
             font-size: 12px;
             margin-top: 0;
             width: auto;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             margin: 2px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .btn-borrar { background-color: #dc3545; }
-        .btn-borrar:hover { background-color: #bd2130; }
-        .btn-editar { background-color: #ffc107; color: #333; }
-        .btn-editar:hover { background-color: #e0a800; }
+        .btn-borrar { background-color: var(--danger); }
+        .btn-borrar:hover { background-color: var(--danger-hover); }
+        .btn-editar { background-color: #f59e0b; color: white; }
+        .btn-editar:hover { background-color: #d97706; }
 
-        /* =========================================================
-           REGLAS DE IMPRESIÓN MÁGICAS (Hacen el PDF Perfecto)
-           ========================================================= */
         @media print {
-            body {
-                background-color: white;
-                color: black;
-                display: block;
-                padding: 0;
-            }
-            /* Ocultamos por completo el login, la calculadora y los botones */
-            #seccionLogin, #seccionApp, .columna-accion, button, .saludo {
+            body { background-color: white; color: black; display: block; padding: 0; }
+            #seccionLogin, #seccionApp, .columna-accion, button, .saludo, .menu-navegacion {
                 display: none !important;
             }
-            /* Hacemos que el reporte ocupe toda la hoja de manera elegante */
             .contenedor-ancho {
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
                 max-width: 100% !important;
                 width: 100% !important;
+                display: block !important;
             }
-            h2 {
-                color: black !important;
-                text-align: left;
-                font-size: 24px;
-                border-bottom: 2px solid #333;
-                padding-bottom: 10px;
-            }
-            th {
-                background-color: #f2f2f2 !important;
-                color: black !important;
-                font-weight: bold;
-            }
-            .fila-totales {
-                background-color: #f9f9f9 !important;
-                border-top: 2px solid black;
-            }
+            h2 { color: black !important; text-align: left; font-size: 24px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+            th { background-color: #f1f5f9 !important; color: #0f172a !important; font-weight: bold; }
+            .fila-totales { background-color: #f8fafc !important; border-top: 2px solid black; color: black !important; }
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor" id="seccionLogin">
-        <h2>Dr CV - Login</h2>
-        <label>Usuario:</label>
-        <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario">
-        
-        <label>Contraseña:</label>
-        <input type="password" id="passInput" placeholder="••••••••">
-        
-        <button onclick="validarAcceso()">Entrar al Sistema</button>
-        <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
-    </div>
+    <div class="wrapper-principal">
 
-    <div id="pantallaApp" class="oculto">
-        
-        <div class="contenedor" id="seccionApp">
-            <p id="saludoUsuario" class="saludo"></p>
-            <h2 id="tituloCalculadora">Calculadora Laboral</h2>
+        <div class="contenedor" id="seccionLogin">
+            <h2>Dr CV - Login</h2>
+            <label>Usuario:</label>
+            <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario">
             
-            <label>Fecha del Turno:</label>
-            <input type="date" id="fechaTurno">
-
-            <label>Sueldo Base ($):</label>
-            <input type="number" id="sueldo" value="480">
-
-            <label>Tipo de Jornada:</label>
-            <select id="tipoDia">
-                <option value="NORMAL">Normal (50%)</option>
-                <option value="FIN_DE_SEMANA">Fin de Semana (100%)</option>
-                <option value="FERIADO">Feriado (100%)</option>
-            </select>
-
-            <label>Hora de Entrada:</label>
-            <input type="time" id="entrada">
-
-            <label>Hora de Salida:</label>
-            <input type="time" id="salida">
-
-            <button onclick="calcularExtras()">Calcular Ahora</button>
-            <button onclick="guardarRegistro()" id="btnGuardar" style="background-color: #28a745;" disabled>Guardar Registro</button>
-            <button onclick="cerrarSesion()" style="background-color: #6c757d;">Cerrar Sesión</button>
-
-            <div class="cuadro-resultado">
-                <p>Horas al 50%: <span id="horas50">0.00</span></p>
-                <p>Horas al 100%: <span id="horas100">0.00</span></p>
-                <p>Valor a Pagar: <span id="pagoFinal">$0.00</span></p>
-            </div>
+            <label>Contraseña:</label>
+            <input type="password" id="passInput" placeholder="••••••••">
+            
+            <button onclick="validarAcceso()">Entrar al Sistema</button>
+            <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
         </div>
 
-        <div class="contenedor contenedor-ancho" id="bloqueReporte">
-            <h2 id="tituloReporte">Reporte de Horas Extras</h2>
-            <div style="overflow-x: auto;">
-                <table id="tablaRegistros">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Jornada</th>
-                            <th>Entrada</th>
-                            <th>Salida</th>
-                            <th>H. 50%</th>
-                            <th>H. 100%</th>
-                            <th>Total Pagar</th>
-                            <th class="columna-accion">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaRegistros">
-                        </tbody>
-                    <tfoot id="pieTotales">
-                        </tfoot>
-                </table>
-            </div>
+        <div id="pantallaApp" class="oculto" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             
-            <button onclick="exportarReporteMensual()" id="btnPDF" style="background-color: #e67e22; margin-top: 25px;" disabled>Exportar Reporte y Cerrar Mes</button>
+            <p id="saludoUsuario" class="saludo"></p>
+
+            <div class="menu-navegacion">
+                <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Calculadora</div>
+                <div class="pestana" id="tabReporte" onclick="cambiarMenu('REPORTE')">📊 Reporte Mensual</div>
+            </div>
+
+            <div class="contenedor" id="seccionApp">
+                <h2 id="tituloCalculadora">Calculadora Laboral</h2>
+                
+                <label>Fecha del Turno:</label>
+                <input type="date" id="fechaTurno">
+
+                <label>Sueldo Base ($):</label>
+                <input type="number" id="sueldo" value="480">
+
+                <label>Tipo de Jornada:</label>
+                <select id="tipoDia">
+                    <option value="NORMAL">Normal (50%)</option>
+                    <option value="FIN_DE_SEMANA">Fin de Semana (100%)</option>
+                    <option value="FERIADO">Feriado (100%)</option>
+                </select>
+
+                <label>Hora de Entrada:</label>
+                <input type="time" id="entrada">
+
+                <label>Hora de Salida:</label>
+                <input type="time" id="salida">
+
+                <button onclick="calcularExtras()">Calcular Ahora</button>
+                <button onclick="guardarRegistro()" id="btnGuardar" style="background-color: var(--success);" disabled>Guardar Registro</button>
+                <button onclick="cerrarSesion()" style="background-color: #64748b;">Cerrar Sesión</button>
+
+                <div class="cuadro-resultado">
+                    <p>Horas al 50%: <span id="horas50">0.00</span></p>
+                    <p>Horas al 100%: <span id="horas100">0.00</span></p>
+                    <p>Valor a Pagar: <span id="pagoFinal" style="color: var(--primary); font-size: 17px;">$0.00</span></p>
+                </div>
+            </div>
+
+            <div class="contenedor contenedor-ancho oculto" id="bloqueReporte">
+                <h2>Reporte de Horas Extras</h2>
+                <div class="tabla-contenedor" style="overflow-x: auto;">
+                    <table id="tablaRegistros">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Jornada</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>H. 50%</th>
+                                <th>H. 100%</th>
+                                <th>Total Pagar</th>
+                                <th class="columna-accion">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaRegistros">
+                            </tbody>
+                        <tfoot id="pieTotales">
+                            </tfoot>
+                    </table>
+                </div>
+                
+                <button onclick="exportarReporteMensual()" id="btnPDF" style="background-color: var(--warning); margin-top: 25px;">📄 Exportar / Imprimir PDF</button>
+            </div>
+
         </div>
 
     </div>
 
     <script>
+        // --- BASE DE DATOS DE CLIENTES ---
         const CLIENTES_REGISTRADOS = [
             { user: "jimmy", pass: "12345", nombre: "Jimmy Quituisaca" },
             { user: "cliente1", pass: "fortius2026", nombre: "Usuario Fortius" },
@@ -253,13 +400,32 @@
                 nombreActivo = cliente.nombre;
                 document.getElementById('seccionLogin').classList.add('oculto');
                 document.getElementById('pantallaApp').classList.remove('oculto');
-                document.getElementById('saludoUsuario').innerText = "Bienvenido, " + cliente.nombre;
-                document.getElementById('tituloReporte').innerText = "Reporte Mensual - " + cliente.nombre;
+                document.getElementById('saludoUsuario').innerText = "👤 Conectado como: " + cliente.nombre;
                 errorMsg.classList.add('oculto');
                 
+                cambiarMenu('CALCULADORA');
                 mostrarRegistros();
             } else {
                 errorMsg.classList.remove('oculto');
+            }
+        }
+
+        function cambiarMenu(menu) {
+            const tabCalc = document.getElementById('tabCalculadora');
+            const tabRep = document.getElementById('tabReporte');
+            const seccionCalc = document.getElementById('seccionApp');
+            const seccionRep = document.getElementById('bloqueReporte');
+
+            if (menu === 'CALCULADORA') {
+                tabCalc.classList.add('activa');
+                tabRep.classList.remove('activa');
+                seccionCalc.classList.remove('oculto');
+                seccionRep.classList.add('oculto');
+            } else if (menu === 'REPORTE') {
+                tabRep.classList.add('activa');
+                tabCalc.classList.remove('activa');
+                seccionRep.classList.remove('oculto');
+                seccionCalc.classList.add('oculto');
             }
         }
 
@@ -333,7 +499,7 @@
                 idEdicionActual = null;
                 document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
                 document.getElementById('btnGuardar').innerText = "Guardar Registro";
-                document.getElementById('btnGuardar').style.backgroundColor = "#28a745";
+                document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
             } else {
                 registros.push(calculoActual);
             }
@@ -357,7 +523,7 @@
             let registrosFiltrados = registros.filter(r => r.usuario === usuarioActivo);
 
             if (registrosFiltrados.length === 0) {
-                lista.innerHTML = `<tr><td colspan="8" style="color: #888;">No tienes horas extras registradas aún.</td></tr>`;
+                lista.innerHTML = `<tr><td colspan="8" style="color: #94a3b8; padding: 20px;">No tienes horas extras registradas aún.</td></tr>`;
                 btnPDF.disabled = true;
                 return;
             }
@@ -381,7 +547,7 @@
                         <td>${reg.salida}</td>
                         <td>${reg.h50}</td>
                         <td>${reg.h100}</td>
-                        <td style="color: #28a745; font-weight: bold;">$${reg.total}</td>
+                        <td style="color: #059669; font-weight: bold;">$${reg.total}</td>
                         <td class="columna-accion">
                             <button class="btn-tabla btn-editar" onclick="cargarParaEditar(${indexReal})">✏️</button>
                             <button class="btn-tabla btn-borrar" onclick="eliminarRegistro(${indexReal})">Borrar</button>
@@ -395,7 +561,7 @@
                 <td colspan="4" style="text-align: right; padding-right: 15px;">TOTAL GENERAL:</td>
                 <td>${sumaH50.toFixed(2)}</td>
                 <td>${sumaH100.toFixed(2)}</td>
-                <td style="color: #1a73e8;">$${sumaTotalPagar.toFixed(2)}</td>
+                <td style="color: #1e3a8a;">$${sumaTotalPagar.toFixed(2)}</td>
                 <td class="columna-accion"></td>
             </tr>`;
             pieTotales.innerHTML = filaTotales;
@@ -418,10 +584,10 @@
 
             document.getElementById('tituloCalculadora').innerText = "✏️ Modificando Registro";
             document.getElementById('btnGuardar').innerText = "Actualizar Cambios";
-            document.getElementById('btnGuardar').style.backgroundColor = "#e67e22";
+            document.getElementById('btnGuardar').style.backgroundColor = "var(--warning)";
             document.getElementById('btnGuardar').disabled = false;
 
-            document.getElementById('seccionApp').scrollIntoView({ behavior: 'smooth' });
+            cambiarMenu('CALCULADORA');
         }
 
         function eliminarRegistro(index) {
@@ -435,17 +601,14 @@
                     idEdicionActual = null;
                     document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
                     document.getElementById('btnGuardar').innerText = "Guardar Registro";
-                    document.getElementById('btnGuardar').style.backgroundColor = "#28a745";
+                    document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
                 }
             }
         }
 
-        // --- SOLUCIÓN IMPONENTE: IMPRESIÓN NATIVA CON REGLAS CSS OCULTAS ---
         function exportarReporteMensual() {
-            // 1. Abrir cuadro de impresión nativo (El CSS ocultará el resto automáticamente)
             window.print();
 
-            // 2. Después de que el usuario cierre el cuadro de impresión, limpiamos la memoria del mes
             if (confirm("¿Se descargó el reporte correctamente? Presiona 'Aceptar' para vaciar la tabla y arrancar el nuevo mes limpio.")) {
                 let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
                 let registrosRestantes = registros.filter(r => r.usuario !== usuarioActivo);
