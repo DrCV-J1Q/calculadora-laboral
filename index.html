@@ -25,7 +25,6 @@
             max-width: 420px;
             margin-bottom: 20px;
         }
-        /* El contenedor del reporte ahora se adapta dinámicamente */
         .contenedor-ancho {
             max-width: 750px;
         }
@@ -53,9 +52,6 @@
         
         .oculto { display: none; }
 
-        /* =========================================================
-           NUEVO: ESTILOS PARA EL MENÚ DE PESTAÑAS (TABS)
-           ========================================================= */
         .menu-navegacion {
             display: flex;
             justify-content: space-around;
@@ -76,9 +72,7 @@
             text-align: center;
             flex: 1;
         }
-        .pestana:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+        .pestana:hover { background-color: rgba(255, 255, 255, 0.1); }
         .pestana.activa {
             background-color: white;
             color: #1a73e8;
@@ -107,10 +101,7 @@
             padding: 10px;
             text-align: center;
         }
-        th {
-            background-color: #1a73e8;
-            color: white;
-        }
+        th { background-color: #1a73e8; color: white; }
         tr:nth-child(even) { background-color: #f2f2f2; }
         
         .fila-totales {
@@ -146,7 +137,7 @@
                 padding: 0 !important;
                 max-width: 100% !important;
                 width: 100% !important;
-                display: block !important; /* Fuerza a que se imprima aunque esté oculto en pantalla */
+                display: block !important;
             }
             h2 { color: black !important; text-align: left; font-size: 24px; border-bottom: 2px solid #333; padding-bottom: 10px; }
             th { background-color: #f2f2f2 !important; color: black !important; font-weight: bold; }
@@ -211,7 +202,7 @@
         </div>
 
         <div class="contenedor contenedor-ancho oculto" id="bloqueReporte">
-            <h2 id="tituloReporte">Reporte de Horas Extras</h2>
+            <h2>Reporte de Horas Extras</h2>
             <div style="overflow-x: auto;">
                 <table id="tablaRegistros">
                     <thead>
@@ -233,7 +224,8 @@
                 </table>
             </div>
             
-            <button onclick="exportarReporteMensual()" id="btnPDF" style="background-color: #e67e22; margin-top: 25px;" disabled>Exportar Reporte y Cerrar Mes</button>
+            <button onclick="imprimirReporte()" id="btnPDF" style="background-color: #e67e22; margin-top: 25px;" disabled>📄 Exportar / Imprimir PDF</button>
+            <button onclick="reiniciarMes()" id="btnReiniciar" style="background-color: #dc3545; margin-top: 10px;" disabled>⚠️ Cerrar y Reiniciar Mes Nuevo</button>
         </div>
 
     </div>
@@ -271,10 +263,8 @@
                 document.getElementById('seccionLogin').classList.add('oculto');
                 document.getElementById('pantallaApp').classList.remove('oculto');
                 document.getElementById('saludoUsuario').innerText = "Bienvenido, " + cliente.nombre;
-                document.getElementById('tituloReporte').innerText = "Reporte Mensual - " + cliente.nombre;
                 errorMsg.classList.add('oculto');
                 
-                // Forzar que empiece siempre en el menú de la calculadora
                 cambiarMenu('CALCULADORA');
                 mostrarRegistros();
             } else {
@@ -282,9 +272,6 @@
             }
         }
 
-        /* =========================================================
-           NUEVA FUNCIÓN: CONTROLA EL CAMBIO DE MENÚS (PESTAÑAS)
-           ========================================================= */
         function cambiarMenu(menu) {
             const tabCalc = document.getElementById('tabCalculadora');
             const tabRep = document.getElementById('tabReporte');
@@ -292,17 +279,13 @@
             const seccionRep = document.getElementById('bloqueReporte');
 
             if (menu === 'CALCULADORA') {
-                // Activar pestaña visual calculadora
                 tabCalc.classList.add('activa');
                 tabRep.classList.remove('activa');
-                // Mostrar contenedor calculadora y ocultar reporte
                 seccionCalc.classList.remove('oculto');
                 seccionRep.classList.add('oculto');
             } else if (menu === 'REPORTE') {
-                // Activar pestaña visual reporte
                 tabRep.classList.add('activa');
                 tabCalc.classList.remove('activa');
-                // Mostrar contenedor reporte y ocultar calculadora
                 seccionRep.classList.remove('oculto');
                 seccionCalc.classList.add('oculto');
             }
@@ -395,6 +378,7 @@
             const lista = document.getElementById('listaRegistros');
             const pieTotales = document.getElementById('pieTotales');
             const btnPDF = document.getElementById('btnPDF');
+            const btnReiniciar = document.getElementById('btnReiniciar');
             lista.innerHTML = "";
             pieTotales.innerHTML = "";
 
@@ -404,10 +388,12 @@
             if (registrosFiltrados.length === 0) {
                 lista.innerHTML = `<tr><td colspan="8" style="color: #888;">No tienes horas extras registradas aún.</td></tr>`;
                 btnPDF.disabled = true;
+                btnReiniciar.disabled = true;
                 return;
             }
 
             btnPDF.disabled = false;
+            btnReiniciar.disabled = false;
 
             let sumaH50 = 0;
             let sumaH100 = 0;
@@ -466,7 +452,6 @@
             document.getElementById('btnGuardar').style.backgroundColor = "#e67e22";
             document.getElementById('btnGuardar').disabled = false;
 
-            // Al darle al lápiz, cambiamos automáticamente a la pestaña de la calculadora
             cambiarMenu('CALCULADORA');
         }
 
@@ -486,15 +471,18 @@
             }
         }
 
-        function exportarReporteMensual() {
+        function imprimirReporte() {
             window.print();
+        }
 
-            if (confirm("¿Se descargó el reporte correctamente? Presiona 'Aceptar' para vaciar la tabla y arrancar el nuevo mes limpio.")) {
+        function reiniciarMes() {
+            if (confirm("⚠️ ADVERTENCIA: Asegúrate de haber guardado tu PDF antes de continuar. Esta acción borrará toda la tabla actual de forma permanente para iniciar el nuevo mes limpio. ¿Deseas borrar la tabla?")) {
                 let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
                 let registrosRestantes = registros.filter(r => r.usuario !== usuarioActivo);
                 localStorage.setItem('registrosHoras', JSON.stringify(registrosRestantes));
 
                 mostrarRegistros();
+                alert("Tabla reiniciada con éxito. Ya puedes empezar el nuevo mes.");
             }
         }
     </script>
