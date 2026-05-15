@@ -25,8 +25,9 @@
             max-width: 420px;
             margin-bottom: 20px;
         }
+        /* El contenedor del reporte ahora se adapta dinámicamente */
         .contenedor-ancho {
-            max-width: 700px;
+            max-width: 750px;
         }
         h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; margin-top: 0; }
         label { display: block; margin-top: 15px; font-weight: 600; color: #444; }
@@ -51,6 +52,38 @@
         button:hover { background-color: #1557b0; }
         
         .oculto { display: none; }
+
+        /* =========================================================
+           NUEVO: ESTILOS PARA EL MENÚ DE PESTAÑAS (TABS)
+           ========================================================= */
+        .menu-navegacion {
+            display: flex;
+            justify-content: space-around;
+            background: #1a73e8;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .pestana {
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+        .pestana:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .pestana.activa {
+            background-color: white;
+            color: #1a73e8;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
 
         .cuadro-resultado {
             margin-top: 20px;
@@ -102,44 +135,22 @@
         .btn-editar { background-color: #ffc107; color: #333; }
         .btn-editar:hover { background-color: #e0a800; }
 
-        /* =========================================================
-           REGLAS DE IMPRESIÓN MÁGICAS (Hacen el PDF Perfecto)
-           ========================================================= */
         @media print {
-            body {
-                background-color: white;
-                color: black;
-                display: block;
-                padding: 0;
-            }
-            /* Ocultamos por completo el login, la calculadora y los botones */
-            #seccionLogin, #seccionApp, .columna-accion, button, .saludo {
+            body { background-color: white; color: black; display: block; padding: 0; }
+            #seccionLogin, #seccionApp, .columna-accion, button, .saludo, .menu-navegacion {
                 display: none !important;
             }
-            /* Hacemos que el reporte ocupe toda la hoja de manera elegante */
             .contenedor-ancho {
                 border: none !important;
                 box-shadow: none !important;
                 padding: 0 !important;
                 max-width: 100% !important;
                 width: 100% !important;
+                display: block !important; /* Fuerza a que se imprima aunque esté oculto en pantalla */
             }
-            h2 {
-                color: black !important;
-                text-align: left;
-                font-size: 24px;
-                border-bottom: 2px solid #333;
-                padding-bottom: 10px;
-            }
-            th {
-                background-color: #f2f2f2 !important;
-                color: black !important;
-                font-weight: bold;
-            }
-            .fila-totales {
-                background-color: #f9f9f9 !important;
-                border-top: 2px solid black;
-            }
+            h2 { color: black !important; text-align: left; font-size: 24px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+            th { background-color: #f2f2f2 !important; color: black !important; font-weight: bold; }
+            .fila-totales { background-color: #f9f9f9 !important; border-top: 2px solid black; }
         }
     </style>
 </head>
@@ -159,8 +170,14 @@
 
     <div id="pantallaApp" class="oculto">
         
+        <div class="menu-navegacion">
+            <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Calculadora</div>
+            <div class="pestana" id="tabReporte" onclick="cambiarMenu('REPORTE')">📊 Reporte Mensual</div>
+        </div>
+
+        <p id="saludoUsuario" class="saludo"></p>
+
         <div class="contenedor" id="seccionApp">
-            <p id="saludoUsuario" class="saludo"></p>
             <h2 id="tituloCalculadora">Calculadora Laboral</h2>
             
             <label>Fecha del Turno:</label>
@@ -193,7 +210,7 @@
             </div>
         </div>
 
-        <div class="contenedor contenedor-ancho" id="bloqueReporte">
+        <div class="contenedor contenedor-ancho oculto" id="bloqueReporte">
             <h2 id="tituloReporte">Reporte de Horas Extras</h2>
             <div style="overflow-x: auto;">
                 <table id="tablaRegistros">
@@ -206,7 +223,7 @@
                             <th>H. 50%</th>
                             <th>H. 100%</th>
                             <th>Total Pagar</th>
-                            <th class="columna-accion">Actions</th>
+                            <th class="columna-accion">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="listaRegistros">
@@ -257,9 +274,37 @@
                 document.getElementById('tituloReporte').innerText = "Reporte Mensual - " + cliente.nombre;
                 errorMsg.classList.add('oculto');
                 
+                // Forzar que empiece siempre en el menú de la calculadora
+                cambiarMenu('CALCULADORA');
                 mostrarRegistros();
             } else {
                 errorMsg.classList.remove('oculto');
+            }
+        }
+
+        /* =========================================================
+           NUEVA FUNCIÓN: CONTROLA EL CAMBIO DE MENÚS (PESTAÑAS)
+           ========================================================= */
+        function cambiarMenu(menu) {
+            const tabCalc = document.getElementById('tabCalculadora');
+            const tabRep = document.getElementById('tabReporte');
+            const seccionCalc = document.getElementById('seccionApp');
+            const seccionRep = document.getElementById('bloqueReporte');
+
+            if (menu === 'CALCULADORA') {
+                // Activar pestaña visual calculadora
+                tabCalc.classList.add('activa');
+                tabRep.classList.remove('activa');
+                // Mostrar contenedor calculadora y ocultar reporte
+                seccionCalc.classList.remove('oculto');
+                seccionRep.classList.add('oculto');
+            } else if (menu === 'REPORTE') {
+                // Activar pestaña visual reporte
+                tabRep.classList.add('activa');
+                tabCalc.classList.remove('activa');
+                // Mostrar contenedor reporte y ocultar calculadora
+                seccionRep.classList.remove('oculto');
+                seccionCalc.classList.add('oculto');
             }
         }
 
@@ -421,7 +466,8 @@
             document.getElementById('btnGuardar').style.backgroundColor = "#e67e22";
             document.getElementById('btnGuardar').disabled = false;
 
-            document.getElementById('seccionApp').scrollIntoView({ behavior: 'smooth' });
+            // Al darle al lápiz, cambiamos automáticamente a la pestaña de la calculadora
+            cambiarMenu('CALCULADORA');
         }
 
         function eliminarRegistro(index) {
@@ -440,12 +486,9 @@
             }
         }
 
-        // --- SOLUCIÓN IMPONENTE: IMPRESIÓN NATIVA CON REGLAS CSS OCULTAS ---
         function exportarReporteMensual() {
-            // 1. Abrir cuadro de impresión nativo (El CSS ocultará el resto automáticamente)
             window.print();
 
-            // 2. Después de que el usuario cierre el cuadro de impresión, limpiamos la memoria del mes
             if (confirm("¿Se descargó el reporte correctamente? Presiona 'Aceptar' para vaciar la tabla y arrancar el nuevo mes limpio.")) {
                 let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
                 let registrosRestantes = registros.filter(r => r.usuario !== usuarioActivo);
