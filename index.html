@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr CV - Cálculo de Horas Extras y Rol</title>
+    <title>Dr CV - Acceso Seguro</title>
     <style>
         :root {
             --primary: #1e40af;
@@ -14,9 +14,6 @@
             --warning-hover: #d97706;
             --danger: #ef4444;
             --danger-hover: #dc2626;
-            --naranja-excel: #ed7d31;
-            --finde-excel: #f4b084;
-            --feriado-excel: #ffff00;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
@@ -42,7 +39,7 @@
 
         .contenedor {
             background: #ffffff;
-            padding: 22px;
+            padding: 25px;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             width: 100%;
@@ -53,24 +50,24 @@
         }
 
         .contenedor-ancho {
-            max-width: 1040px;
+            max-width: 880px;
         }
 
-        h2 {
-            color: #0f172a;
-            text-align: center;
-            margin-bottom: 16px;
-            margin-top: 0;
+        h2 { 
+            color: #1e3a8a; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            margin-top: 0; 
             font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        label {
-            display: block;
-            margin-top: 12px;
-            font-weight: 600;
-            color: #475569;
+        label { 
+            display: block; 
+            margin-top: 14px; 
+            font-weight: 600; 
+            color: #475569; 
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -78,7 +75,7 @@
 
         input, select, button {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px;
             margin-top: 6px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
@@ -91,7 +88,7 @@
         input:focus, select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.15);
             background-color: #ffffff;
         }
 
@@ -99,44 +96,47 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            margin-top: 14px;
+            margin-top: 15px;
             font-weight: 700;
             cursor: pointer;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
             box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
         }
 
-        button:hover {
-            background-color: var(--primary-hover);
+        button:hover { 
+            background-color: var(--primary-hover); 
             transform: translateY(-1px);
+            box-shadow: 0 6px 8px -1px rgba(30, 64, 175, 0.3);
         }
+
+        button:active { transform: translateY(0); }
 
         button:disabled {
             background-color: #94a3b8 !important;
             box-shadow: none !important;
             cursor: not-allowed;
-            transform: none;
         }
-
+        
         .oculto { display: none !important; }
 
-        /* MENÚ DE NAVEGACIÓN */
+        /* MENÚ DE NAVEGACIÓN CORPORATIVO */
         .menu-navegacion {
             display: flex;
             justify-content: space-around;
             background: #1e293b;
             border-radius: 12px;
             padding: 5px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             width: 100%;
-            max-width: 560px;
+            max-width: 540px;
             box-sizing: border-box;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
             gap: 4px;
         }
 
         .pestana {
             color: #94a3b8;
-            padding: 10px 8px;
+            padding: 10px 10px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 8px;
@@ -146,220 +146,123 @@
             font-size: 13px;
         }
 
-        .pestana:hover {
+        .pestana:hover { 
             color: #f8fafc;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.05); 
         }
 
         .pestana.activa {
             background-color: #ffffff;
             color: #0f172a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .saludo {
-            text-align: center;
-            color: #f8fafc;
-            margin-bottom: 14px;
+        .cuadro-resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cuadro-resultado p {
+            margin: 6px 0;
             font-size: 14px;
+            color: #475569;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        span { font-weight: 700; color: #0f172a; font-size: 15px; }
+        
+        .error { 
+            color: var(--danger); 
+            font-size: 13px; 
+            text-align: center; 
+            margin-top: 12px; 
+            font-weight: 600;
+        }
+        
+        .saludo { 
+            text-align: center; 
+            color: #f8fafc; 
+            margin-bottom: 15px; 
+            font-size: 14px; 
             font-weight: 500;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             padding: 10px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
             width: 100%;
-            max-width: 560px;
+            max-width: 540px;
             box-sizing: border-box;
         }
-
-        .error {
-            color: var(--danger);
-            font-size: 13px;
-            text-align: center;
-            margin-top: 12px;
-            font-weight: 600;
-        }
-
-        /* BARRA SUPERIOR DE CONFIGURACIÓN DEL MES */
-        .barra-mes-config {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: flex-end;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-        }
-
-        .barra-mes-config .campo-inline {
-            flex: 1;
-            min-width: 140px;
-        }
-
-        .barra-mes-config label {
-            margin-top: 0;
-        }
-
-        .barra-mes-config input,
-        .barra-mes-config select {
-            margin-top: 4px;
-            background: #ffffff;
-        }
-
-        .resumen-dinero-top {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            border-radius: 10px;
-            padding: 10px 14px;
-            margin-bottom: 14px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #1e3a8a;
-        }
-
-        /* TABLA ESTILO EXCEL */
+        
+        /* TABLA DE REPORTES RESPONSIVA */
         .tabla-contenedor {
-            border-radius: 8px;
+            border-radius: 12px;
             overflow-x: auto;
-            border: 1px solid #64748b;
+            border: 1px solid #e2e8f0;
+            margin-top: 15px;
             width: 100%;
-            background: #ffffff;
         }
 
-        .tabla-excel {
+        table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
-            min-width: 780px;
-            background: #ffffff;
+            background: white;
+            min-width: 600px;
         }
 
-        .tabla-excel th {
-            background-color: var(--naranja-excel);
-            color: #ffffff;
-            font-weight: 700;
+        th, td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-weight: 600;
             text-transform: uppercase;
-            font-size: 12px;
-            padding: 10px 8px;
-            border: 1px solid #475569;
-            text-align: center;
-            letter-spacing: 0.3px;
-        }
-
-        .tabla-excel td {
-            border: 1px solid #94a3b8;
-            padding: 5px 6px;
-            text-align: center;
-            font-size: 13px;
-            color: #0f172a;
-            vertical-align: middle;
-        }
-
-        /* Colores de filas como en la imagen */
-        .fila-finde td.col-fecha,
-        .fila-finde td.col-dia {
-            background-color: var(--finde-excel);
-            font-weight: 600;
-        }
-
-        .fila-feriado td.col-fecha,
-        .fila-feriado td.col-dia,
-        .fila-feriado td.col-tipo {
-            background-color: var(--feriado-excel) !important;
-            font-weight: 700;
-            color: #000000;
-        }
-
-        .input-hora-excel {
-            width: 108px;
-            padding: 4px 6px;
-            margin: 0;
-            font-size: 12px;
-            text-align: center;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            background: #ffffff;
-        }
-
-        .select-tipo-dia {
-            width: 132px;
-            padding: 4px 6px;
-            margin: 0;
-            font-size: 12px;
-            font-weight: 600;
-            border-radius: 4px;
-            border: 1px solid #cbd5e1;
-            background: #ffffff;
-        }
-
-        .celda-horas-calc {
-            font-weight: 700;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .fila-subtotal td {
-            background-color: #ffffff !important;
-            font-weight: 800;
-            font-size: 13px;
-            padding: 8px;
-        }
-
-        .fila-subtotal .etiqueta-naranja {
-            background-color: var(--naranja-excel) !important;
-            color: #ffffff !important;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        .fila-total td {
-            background-color: #ffffff !important;
-            font-weight: 800;
-            font-size: 14px;
-            padding: 9px;
-        }
-
-        .fila-total .etiqueta-naranja {
-            background-color: var(--naranja-excel) !important;
-            color: #ffffff !important;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-limpiar-fila {
-            width: auto;
-            margin: 0;
-            padding: 4px 8px;
             font-size: 11px;
-            background-color: #e2e8f0;
-            color: #334155;
-            box-shadow: none;
+            letter-spacing: 0.5px;
         }
 
-        .btn-limpiar-fila:hover {
-            background-color: #cbd5e1;
-            transform: none;
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        
+        .fila-totales {
+            background-color: #ecfdf5 !important;
+            font-weight: 700;
+            font-size: 14px;
+            color: #065f46;
+            border-top: 2px solid #10b981;
         }
-
-        .acciones-inferiores {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .acciones-inferiores button {
-            flex: 1;
-            min-width: 180px;
+        
+        .btn-tabla {
+            color: white;
+            padding: 6px 10px;
+            font-size: 12px;
             margin-top: 0;
+            width: auto;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 2px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
+        .btn-borrar { background-color: var(--danger); }
+        .btn-borrar:hover { background-color: var(--danger-hover); }
+        .btn-editar { background-color: #f59e0b; color: white; }
+        .btn-editar:hover { background-color: #d97706; }
 
-        /* ROL DE PAGOS */
+        /* ESTILOS ESPECÍFICOS ROL DE PAGOS */
         .rol-header-periodo {
             display: flex;
             flex-wrap: wrap;
@@ -379,6 +282,7 @@
             padding: 6px 14px;
             border-radius: 6px;
             font-size: 12px;
+            letter-spacing: 0.5px;
         }
         .rol-input-fecha {
             width: auto;
@@ -388,11 +292,8 @@
             background: white;
         }
         .tabla-rol {
-            width: 100%;
-            min-width: 700px;
-            border-collapse: collapse;
+            min-width: 720px;
             border: 1px solid #94a3b8;
-            background: #ffffff;
         }
         .tabla-rol th {
             background-color: #808080;
@@ -400,16 +301,23 @@
             border: 1px solid #64748b;
             font-size: 12px;
             padding: 10px 8px;
-            text-align: center;
         }
         .tabla-rol td {
             border: 1px solid #cbd5e1;
             padding: 6px 8px;
+            background-color: #ffffff !important;
             font-size: 13px;
-            text-align: center;
         }
-        .celda-concepto { text-align: left !important; font-weight: 600; color: #1e293b; }
-        .celda-monto { text-align: right !important; white-space: nowrap; font-weight: 700; }
+        .celda-concepto {
+            text-align: left !important;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .celda-monto {
+            text-align: right !important;
+            white-space: nowrap;
+            font-weight: 700;
+        }
         .input-rol {
             width: 85px;
             padding: 4px 6px;
@@ -422,13 +330,692 @@
             background-color: #f8fafc;
             color: #0f172a;
         }
-        .input-rol-centro { width: 65px; text-align: center; }
+        .input-rol-centro {
+            width: 60px;
+            text-align: center;
+        }
         .celda-gris-total {
             background-color: #808080 !important;
             color: #ffffff !important;
             font-weight: 700;
             text-align: center !important;
+            letter-spacing: 0.5px;
         }
         .celda-valor-total {
             background-color: #f1f5f9 !important;
-            font-weight: 800
+            font-weight: 800;
+            font-size: 14px;
+            color: #0f172a;
+            text-align: right !important;
+        }
+        .celda-neto {
+            background-color: #ecfdf5 !important;
+            font-weight: 800;
+            font-size: 16px;
+            color: #065f46;
+            text-align: right !important;
+            border: 2px solid #10b981 !important;
+        }
+        .barra-herramientas-rol {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .btn-mini {
+            width: auto;
+            margin-top: 0;
+            padding: 8px 12px;
+            font-size: 12px;
+            background-color: #334155;
+        }
+        .btn-mini:hover { background-color: #1e293b; }
+
+        @media (max-width: 480px) {
+            body { padding: 5px; }
+            .contenedor { padding: 18px; border-radius: 12px; }
+            input, select, button { padding: 10px; font-size: 13px; }
+            h2 { font-size: 19px; }
+            .pestana { padding: 8px 6px; font-size: 12px; }
+        }
+
+        @media print {
+            body { background: white !important; color: black; display: block; padding: 0; }
+            #seccionLogin, #seccionApp, .columna-accion, button, .saludo, .menu-navegacion, .barra-herramientas-rol {
+                display: none !important;
+            }
+            .contenedor-ancho:not(.oculto) {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                display: block !important;
+            }
+            h2 { color: black !important; text-align: center; font-size: 22px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+            .input-rol, .rol-input-fecha {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                font-weight: 700;
+                color: black !important;
+                -webkit-appearance: none;
+            }
+            .rol-badge-naranja, .tabla-rol th, .celda-gris-total {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .tabla-contenedor { border: none; overflow: visible; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper-principal">
+
+        <!-- LOGIN -->
+        <div class="contenedor" id="seccionLogin">
+            <h2>Dr CV - Login</h2>
+            <label>Usuario:</label>
+            <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario">
+            
+            <label>Contraseña:</label>
+            <input type="password" id="passInput" placeholder="••••••••">
+            
+            <button onclick="validarAcceso()">Entrar al Sistema</button>
+            <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
+        </div>
+
+        <!-- APLICACIÓN PRINCIPAL -->
+        <div id="pantallaApp" class="oculto" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            
+            <p id="saludoUsuario" class="saludo"></p>
+
+            <div class="menu-navegacion">
+                <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Calculadora</div>
+                <div class="pestana" id="tabReporte" onclick="cambiarMenu('REPORTE')">📊 Reporte</div>
+                <div class="pestana" id="tabRol" onclick="cambiarMenu('ROL')">💵 Rol de Pagos</div>
+            </div>
+
+            <!-- PESTAÑA 1: CALCULADORA -->
+            <div class="contenedor" id="seccionApp">
+                <h2 id="tituloCalculadora">Calculadora Laboral</h2>
+                
+                <label>Fecha del Turno:</label>
+                <input type="date" id="fechaTurno">
+
+                <label>Sueldo Base ($):</label>
+                <input type="number" id="sueldo" value="487.77" step="0.01" onchange="sincronizarSueldoRol()">
+
+                <label>Tipo de Jornada:</label>
+                <select id="tipoDia">
+                    <option value="NORMAL">Normal (50%)</option>
+                    <option value="FIN_DE_SEMANA">Fin de Semana (100%)</option>
+                    <option value="FERIADO">Feriado (100%)</option>
+                </select>
+
+                <label>Hora de Entrada:</label>
+                <input type="time" id="entrada">
+
+                <label>Hora de Salida:</label>
+                <input type="time" id="salida">
+
+                <button onclick="calcularExtras()">Calcular Ahora</button>
+                <button onclick="guardarRegistro()" id="btnGuardar" style="background-color: var(--success);" disabled>Guardar Registro</button>
+                <button onclick="cerrarSesion()" style="background-color: #64748b;">Cerrar Sesión</button>
+
+                <div class="cuadro-resultado">
+                    <p>Horas al 50%: <span id="horas50">0.00</span></p>
+                    <p>Horas al 100%: <span id="horas100">0.00</span></p>
+                    <p>Valor a Pagar: <span id="pagoFinal" style="color: var(--primary); font-size: 16px;">$0.00</span></p>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 2: REPORTE -->
+            <div class="contenedor contenedor-ancho oculto" id="bloqueReporte">
+                <h2>Reporte de Horas Extras</h2>
+                <div class="tabla-contenedor">
+                    <table id="tablaRegistros">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Jornada</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>H. 50%</th>
+                                <th>H. 100%</th>
+                                <th>Total Pagar</th>
+                                <th class="columna-accion">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaRegistros"></tbody>
+                        <tfoot id="pieTotales"></tfoot>
+                    </table>
+                </div>
+                
+                <button onclick="exportarReporteMensual()" id="btnPDF" style="background-color: var(--warning); margin-top: 20px;">📄 Exportar / Imprimir PDF</button>
+                <button onclick="reiniciarMes()" id="btnReiniciar" style="background-color: var(--danger); margin-top: 10px;">⚠️ Cerrar y Reiniciar Mes</button>
+            </div>
+
+            <!-- PESTAÑA 3: ROL DE PAGOS -->
+            <div class="contenedor contenedor-ancho oculto" id="bloqueRol">
+                <h2>ROL DE PAGOS</h2>
+
+                <div class="barra-herramientas-rol">
+                    <button class="btn-mini" onclick="cargarHorasDesdeReporte()">🔄 Sincronizar Horas del Reporte</button>
+                    <button class="btn-mini" onclick="calcularIESSyFondoAuto()">⚡ Calcular IESS (9.45%) y F. Reserva (8.33%)</button>
+                </div>
+
+                <!-- ENCABEZADO PERIODO -->
+                <div class="rol-header-periodo">
+                    <strong style="font-size: 14px; color: #0f172a;">PERIODO</strong>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="rol-badge-naranja">DESDE</span>
+                        <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-11-16">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="rol-badge-naranja">HASTA</span>
+                        <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-12-15">
+                    </div>
+                </div>
+
+                <!-- TABLA ROL DE PAGOS -->
+                <div class="tabla-contenedor">
+                    <table class="tabla-rol">
+                        <thead>
+                            <tr>
+                                <th style="width: 75px;"># DIAS</th>
+                                <th style="width: 85px;"># HORAS</th>
+                                <th colspan="2">INGRESOS</th>
+                                <th colspan="2">DESCUENTOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- FILA 1: SUELDO / IESS -->
+                            <tr>
+                                <td><input type="number" id="rolDias" class="input-rol input-rol-centro" value="30"></td>
+                                <td></td>
+                                <td class="celda-concepto">SUELDO</td>
+                                <td class="celda-monto">$ <input type="number" id="rolSueldo" class="input-rol" value="487.77" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-concepto">APORTE PERSONAL I.E.S.S</td>
+                                <td class="celda-monto">$ <input type="number" id="rolIess" class="input-rol" value="89.69" step="0.01" oninput="recalcularRol()"></td>
+                            </tr>
+                            <!-- FILA 2: HORAS 50% / ANTICIPO -->
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="rolCantH50" class="input-rol input-rol-centro" value="00:00"></td>
+                                <td class="celda-concepto">HORAS EXTRAS AL 50%</td>
+                                <td class="celda-monto">$ <input type="number" id="rolValH50" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-concepto">ANTICIPO DE SUELDO</td>
+                                <td class="celda-monto">$ <input type="number" id="rolAnticipo" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                            </tr>
+                            <!-- FILA 3: HORAS 100% / LUNCH -->
+                            <tr>
+                                <td></td>
+                                <td><input type="text" id="rolCantH100" class="input-rol input-rol-centro" value="00:00"></td>
+                                <td class="celda-concepto">HORAS EXTRAS AL 100%</td>
+                                <td class="celda-monto">$ <input type="number" id="rolValH100" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-concepto">LUNCH</td>
+                                <td class="celda-monto">$ <input type="number" id="rolDescLunch" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                            </tr>
+                            <!-- FILA 4: FONDO DE RESERVA -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="celda-concepto">FONDO DE RESERVA</td>
+                                <td class="celda-monto">$ <input type="number" id="rolFondoReserva" class="input-rol" value="79.06" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-concepto" style="color:#94a3b8; font-weight:400;">OTROS DESCUENTOS</td>
+                                <td class="celda-monto">$ <input type="number" id="rolOtrosDesc" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                            </tr>
+                            <!-- FILA 5: BONO RESPONSABILIDAD -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="celda-concepto">BONO DE RESPONSABILIDAD</td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoResp" class="input-rol" value="15.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- FILA 6: BONO LUNCH -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="celda-concepto">BONO LUNCH</td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoLunch" class="input-rol" value="24.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- FILA 7: BONO MOVILIZACION -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="celda-concepto">BONO MOVILIZACIÓN</td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoMov" class="input-rol" value="20.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- FILA 8: TOTAL INGRESO / TOTAL EGRESO -->
+                            <tr>
+                                <td colspan="2" style="border:none; background:transparent !important;"></td>
+                                <td class="celda-gris-total">TOTAL DE INGRESO</td>
+                                <td class="celda-valor-total">$ <span id="rolTotalIngreso">0.00</span></td>
+                                <td class="celda-gris-total">TOTAL DE EGRESO</td>
+                                <td class="celda-valor-total">$ <span id="rolTotalEgreso">0.00</span></td>
+                            </tr>
+                            <!-- FILA SEPARADORA -->
+                            <tr>
+                                <td colspan="6" style="height: 10px; border: none; background: transparent !important;"></td>
+                            </tr>
+                            <!-- FILA 9: VALOR NETO A RECIBIR -->
+                            <tr>
+                                <td colspan="2" style="border:none; background:transparent !important;"></td>
+                                <td class="celda-gris-total">VALOR NETO A RECIBIR</td>
+                                <td class="celda-neto">$ <span id="rolNetoRecibir" style="color: #065f46; font-size: 16px;">0.00</span></td>
+                                <td colspan="2" style="border:none; background:transparent !important;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button onclick="guardarDatosRol()" style="background-color: var(--success); margin-top: 20px;">💾 Guardar Configuración del Rol</button>
+                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 10px;">📄 Exportar / Imprimir Rol en PDF</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const CLIENTES_REGISTRADOS = [
+            { user: "jimmy", pass: "12345", nombre: "Jimmy Quituisaca" },
+            { user: "jhon", pass: "andressq", nombre: "Jhon Quituisaca" },
+            { user: "ALEXANDRA", pass: "tequiero", nombre: "HOlA MI AMOR" },
+            { user: "Alexandra", pass: "Tequiero", nombre: "HOlA MI AMOR" }
+        ];
+
+        let calculoActual = null;
+        let usuarioActivo = "";
+        let nombreActivo = "";
+        let idEdicionActual = null;
+
+        window.onload = function() {
+            const hoy = new Date().toISOString().split('T')[0];
+            if(document.getElementById('fechaTurno')) {
+                document.getElementById('fechaTurno').value = hoy;
+            }
+        }
+
+        function validarAcceso() {
+            const userInput = document.getElementById('usuarioInput').value.trim().toLowerCase();
+            const passInput = document.getElementById('passInput').value.trim();
+            const errorMsg = document.getElementById('mensajeError');
+
+            const cliente = CLIENTES_REGISTRADOS.find(c => c.user.toLowerCase() === userInput && c.pass === passInput);
+
+            if (cliente) {
+                usuarioActivo = cliente.user.toLowerCase();
+                nombreActivo = cliente.nombre;
+                document.getElementById('seccionLogin').classList.add('oculto');
+                document.getElementById('pantallaApp').classList.remove('oculto');
+                document.getElementById('saludoUsuario').innerText = "👤 Conectado como: " + cliente.nombre;
+                errorMsg.classList.add('oculto');
+                
+                cambiarMenu('CALCULADORA');
+                mostrarRegistros();
+                cargarDatosRolGuardados();
+            } else {
+                errorMsg.classList.remove('oculto');
+            }
+        }
+
+        function cambiarMenu(menu) {
+            const tabCalc = document.getElementById('tabCalculadora');
+            const tabRep = document.getElementById('tabReporte');
+            const tabRol = document.getElementById('tabRol');
+            const seccionCalc = document.getElementById('seccionApp');
+            const seccionRep = document.getElementById('bloqueReporte');
+            const seccionRol = document.getElementById('bloqueRol');
+
+            tabCalc.classList.remove('activa');
+            tabRep.classList.remove('activa');
+            tabRol.classList.remove('activa');
+            seccionCalc.classList.add('oculto');
+            seccionRep.classList.add('oculto');
+            seccionRol.classList.add('oculto');
+
+            if (menu === 'CALCULADORA') {
+                tabCalc.classList.add('activa');
+                seccionCalc.classList.remove('oculto');
+            } else if (menu === 'REPORTE') {
+                tabRep.classList.add('activa');
+                seccionRep.classList.remove('oculto');
+            } else if (menu === 'ROL') {
+                tabRol.classList.add('activa');
+                seccionRol.classList.remove('oculto');
+                cargarHorasDesdeReporte();
+            }
+        }
+
+        function cerrarSesion() {
+            location.reload(); 
+        }
+
+        function calcularExtras() {
+            const fechaVal = document.getElementById('fechaTurno').value;
+            const sueldoBase = parseFloat(document.getElementById('sueldo').value);
+            const tipoDia = document.getElementById('tipoDia').value;
+            const entrada = document.getElementById('entrada').value;
+            const salida = document.getElementById('salida').value;
+
+            if (!fechaVal || !entrada || !salida) {
+                alert("Por favor, ingresa la fecha y las horas de entrada y salida");
+                return;
+            }
+
+            const partesFecha = fechaVal.split('-');
+            const fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
+
+            const horaInicio = new Date(`2026-01-01T${entrada}:00`);
+            const horaFin = new Date(`2026-01-01T${salida}:00`);
+            let diferenciaHoras = (horaFin - horaInicio) / (1000 * 60 * 60);
+
+            if (diferenciaHoras < 0) diferenciaHoras += 24;
+
+            let horas50 = 0, horas100 = 0, pagoTotal = 0;
+            const valorHoraNormal = sueldoBase / 240;
+
+            if (tipoDia === "NORMAL") {
+                horas50 = Math.max(0, diferenciaHoras - 8);
+                pagoTotal = horas50 * valorHoraNormal * 1.5;
+            } else if (tipoDia === "FIN_DE_SEMANA" || tipoDia === "FERIADO") {
+                horas100 = diferenciaHoras;
+                pagoTotal = horas100 * valorHoraNormal * 2;
+            }
+
+            document.getElementById('horas50').innerText = horas50.toFixed(2);
+            document.getElementById('horas100').innerText = horas100.toFixed(2);
+            document.getElementById('pagoFinal').innerText = `$${pagoTotal.toFixed(2)}`;
+
+            let jornadaTexto = "Normal (50%)";
+            if(tipoDia === "FIN_DE_SEMANA") jornadaTexto = "Fin de Semana (100%)";
+            if(tipoDia === "FERIADO") jornadaTexto = "Feriado (100%)";
+
+            calculoActual = {
+                usuario: usuarioActivo,
+                fecha: fechaFormateada,
+                fechaRaw: fechaVal,
+                jornada: jornadaTexto,
+                jornadaRaw: tipoDia,
+                entrada: entrada,
+                salida: salida,
+                h50: horas50.toFixed(2),
+                h100: horas100.toFixed(2),
+                total: pagoTotal.toFixed(2)
+            };
+
+            document.getElementById('btnGuardar').disabled = false;
+        }
+
+        function guardarRegistro() {
+            if (!calculoActual) return;
+
+            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+            
+            if (idEdicionActual !== null) {
+                registros[idEdicionActual] = calculoActual;
+                idEdicionActual = null;
+                document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
+                document.getElementById('btnGuardar').innerText = "Guardar Registro";
+                document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
+            } else {
+                registros.push(calculoActual);
+            }
+            
+            localStorage.setItem('registrosHoras', JSON.stringify(registros));
+            mostrarRegistros();
+            
+            calculoActual = null;
+            document.getElementById('btnGuardar').disabled = true;
+            alert("Registro guardado con éxito.");
+        }
+
+        function mostrarRegistros() {
+            const lista = document.getElementById('listaRegistros');
+            const pieTotales = document.getElementById('pieTotales');
+            const btnPDF = document.getElementById('btnPDF');
+            const btnReiniciar = document.getElementById('btnReiniciar');
+            lista.innerHTML = "";
+            pieTotales.innerHTML = "";
+
+            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+            let registrosFiltrados = registros.filter(r => r.usuario === usuarioActivo);
+
+            if (registrosFiltrados.length === 0) {
+                lista.innerHTML = `<tr><td colspan="8" style="color: #94a3b8; padding: 20px;">No tienes horas extras registradas aún.</td></tr>`;
+                btnPDF.disabled = true;
+                btnReiniciar.disabled = true;
+                return;
+            }
+
+            btnPDF.disabled = false;
+            btnReiniciar.disabled = false;
+
+            let sumaH50 = 0;
+            let sumaH100 = 0;
+            let sumaTotalPagar = 0;
+
+            registros.forEach((reg, indexReal) => {
+                if (reg.usuario === usuarioActivo) {
+                    sumaH50 += parseFloat(reg.h50);
+                    sumaH100 += parseFloat(reg.h100);
+                    sumaTotalPagar += parseFloat(reg.total);
+
+                    let fila = `<tr>
+                        <td><b>${reg.fecha}</b></td>
+                        <td>${reg.jornada}</td>
+                        <td>${reg.entrada}</td>
+                        <td>${reg.salida}</td>
+                        <td>${reg.h50}</td>
+                        <td>${reg.h100}</td>
+                        <td style="color: #059669; font-weight: bold;">$${reg.total}</td>
+                        <td class="columna-accion">
+                            <button class="btn-tabla btn-editar" onclick="cargarParaEditar(${indexReal})">✏️</button>
+                            <button class="btn-tabla btn-borrar" onclick="eliminarRegistro(${indexReal})">Borrar</button>
+                        </td>
+                    </tr>`;
+                    lista.innerHTML += fila;
+                }
+            });
+
+            let filaTotales = `<tr class="fila-totales">
+                <td colspan="4" style="text-align: right; padding-right: 15px;">TOTAL GENERAL:</td>
+                <td>${sumaH50.toFixed(2)}</td>
+                <td>${sumaH100.toFixed(2)}</td>
+                <td style="color: #1e3a8a;">$${sumaTotalPagar.toFixed(2)}</td>
+                <td class="columna-accion"></td>
+            </tr>`;
+            pieTotales.innerHTML = filaTotales;
+        }
+
+        function cargarParaEditar(index) {
+            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+            let reg = registros[index];
+
+            idEdicionActual = index;
+
+            document.getElementById('fechaTurno').value = reg.fechaRaw || "";
+            document.getElementById('tipoDia').value = reg.jornadaRaw || "NORMAL";
+            document.getElementById('entrada').value = reg.entrada;
+            document.getElementById('salida').value = reg.salida;
+
+            document.getElementById('horas50').innerText = reg.h50;
+            document.getElementById('horas100').innerText = reg.h100;
+            document.getElementById('pagoFinal').innerText = `$${reg.total}`;
+
+            document.getElementById('tituloCalculadora').innerText = "✏️ Modificando Registro";
+            document.getElementById('btnGuardar').innerText = "Actualizar Cambios";
+            document.getElementById('btnGuardar').style.backgroundColor = "var(--warning)";
+            document.getElementById('btnGuardar').disabled = false;
+
+            cambiarMenu('CALCULADORA');
+        }
+
+        function eliminarRegistro(index) {
+            if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+                let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+                registros.splice(index, 1);
+                localStorage.setItem('registrosHoras', JSON.stringify(registros));
+                mostrarRegistros();
+                
+                if(idEdicionActual === index){
+                    idEdicionActual = null;
+                    document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
+                    document.getElementById('btnGuardar').innerText = "Guardar Registro";
+                    document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
+                }
+            }
+        }
+
+        function exportarReporteMensual() {
+            window.print();
+        }
+
+        function reiniciarMes() {
+            if (confirm("⚠️ ADVERTENCIA: Asegúrate de haber guardado tu PDF antes de continuar. Esta acción borrará toda la tabla actual de forma permanente para iniciar el nuevo mes limpio. ¿Deseas borrar la tabla?")) {
+                let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+                let registrosRestantes = registros.filter(r => r.usuario !== usuarioActivo);
+                localStorage.setItem('registrosHoras', JSON.stringify(registrosRestantes));
+
+                mostrarRegistros();
+                alert("Tabla reiniciada con éxito. Ya puedes empezar el nuevo mes.");
+            }
+        }
+
+        /* =========================================================
+           FUNCIONES DE LA PESTAÑA: ROL DE PAGOS
+           ========================================================= */
+
+        function decimalAHorasMinutos(decimal) {
+            const horas = Math.floor(decimal);
+            const minutos = Math.round((decimal - horas) * 60);
+            return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+        }
+
+        function sincronizarSueldoRol() {
+            const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
+            document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
+            recalcularRol();
+        }
+
+        function cargarHorasDesdeReporte() {
+            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
+            let registrosUsuario = registros.filter(r => r.usuario === usuarioActivo);
+
+            let sumaH50 = 0;
+            let sumaH100 = 0;
+            let sumaVal50 = 0;
+            let sumaVal100 = 0;
+
+            registrosUsuario.forEach(reg => {
+                const h50 = parseFloat(reg.h50) || 0;
+                const h100 = parseFloat(reg.h100) || 0;
+                const tot = parseFloat(reg.total) || 0;
+
+                sumaH50 += h50;
+                sumaH100 += h100;
+
+                if (h50 > 0) sumaVal50 += tot;
+                if (h100 > 0) sumaVal100 += tot;
+            });
+
+            document.getElementById('rolCantH50').value = decimalAHorasMinutos(sumaH50);
+            document.getElementById('rolCantH100').value = decimalAHorasMinutos(sumaH100);
+            document.getElementById('rolValH50').value = sumaVal50.toFixed(2);
+            document.getElementById('rolValH100').value = sumaVal100.toFixed(2);
+
+            recalcularRol();
+        }
+
+        function calcularIESSyFondoAuto() {
+            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
+            const h50 = parseFloat(document.getElementById('rolValH50').value) || 0;
+            const h100 = parseFloat(document.getElementById('rolValH100').value) || 0;
+            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
+
+            // Base aportable IESS (Sueldo + Horas Extras + Bonos imponibles)
+            const baseAportable = sueldo + h50 + h100 + bonoResp;
+            const aporteIess = baseAportable * 0.0945; // 9.45% Ecuador
+            const fondoReserva = baseAportable * 0.0833; // 8.33% Ecuador
+
+            document.getElementById('rolIess').value = aporteIess.toFixed(2);
+            document.getElementById('rolFondoReserva').value = fondoReserva.toFixed(2);
+            recalcularRol();
+        }
+
+        function recalcularRol() {
+            // INGRESOS
+            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
+            const valH50 = parseFloat(document.getElementById('rolValH50').value) || 0;
+            const valH100 = parseFloat(document.getElementById('rolValH100').value) || 0;
+            const fondoRes = parseFloat(document.getElementById('rolFondoReserva').value) || 0;
+            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
+            const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
+            const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
+
+            const totalIngreso = sueldo + valH50 + valH100 + fondoRes + bonoResp + bonoLunch + bonoMov;
+
+            // EGRESOS / DESCUENTOS
+            const iess = parseFloat(document.getElementById('rolIess').value) || 0;
+            const anticipo = parseFloat(document.getElementById('rolAnticipo').value) || 0;
+            const descLunch = parseFloat(document.getElementById('rolDescLunch').value) || 0;
+            const otrosDesc = parseFloat(document.getElementById('rolOtrosDesc').value) || 0;
+
+            const totalEgreso = iess + anticipo + descLunch + otrosDesc;
+            const netoRecibir = totalIngreso - totalEgreso;
+
+            document.getElementById('rolTotalIngreso').innerText = totalIngreso.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('rolTotalEgreso').innerText = totalEgreso.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('rolNetoRecibir').innerText = netoRecibir.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function guardarDatosRol() {
+            const configRol = {
+                desde: document.getElementById('rolDesde').value,
+                hasta: document.getElementById('rolHasta').value,
+                dias: document.getElementById('rolDias').value,
+                sueldo: document.getElementById('rolSueldo').value,
+                fondoRes: document.getElementById('rolFondoReserva').value,
+                bonoResp: document.getElementById('rolBonoResp').value,
+                bonoLunch: document.getElementById('rolBonoLunch').value,
+                bonoMov: document.getElementById('rolBonoMov').value,
+                iess: document.getElementById('rolIess').value,
+                anticipo: document.getElementById('rolAnticipo').value,
+                descLunch: document.getElementById('rolDescLunch').value,
+                otrosDesc: document.getElementById('rolOtrosDesc').value
+            };
+            localStorage.setItem(`configRol_${usuarioActivo}`, JSON.stringify(configRol));
+            alert("✅ Configuración del Rol de Pagos guardada para " + nombreActivo);
+        }
+
+        function cargarDatosRolGuardados() {
+            const guardado = JSON.parse(localStorage.getItem(`configRol_${usuarioActivo}`));
+            if (guardado) {
+                document.getElementById('rolDesde').value = guardado.desde || "2026-11-16";
+                document.getElementById('rolHasta').value = guardado.hasta || "2026-12-15";
+                document.getElementById('rolDias').value = guardado.dias || "30";
+                document.getElementById('rolSueldo').value = guardado.sueldo || "487.77";
+                document.getElementById('sueldo').value = guardado.sueldo || "487.77";
+                document.getElementById('rolFondoReserva').value = guardado.fondoRes || "79.06";
+                document.getElementById('rolBonoResp').value = guardado.bonoResp || "15.00";
+                document.getElementById('rolBonoLunch').value = guardado.bonoLunch || "24.00";
+                document.getElementById('rolBonoMov').value = guardado.bonoMov || "20.00";
+                document.getElementById('rolIess').value = guardado.iess || "89.69";
+                document.getElementById('rolAnticipo').value = guardado.anticipo || "0.00";
+                document.getElementById('rolDescLunch').value = guardado.descLunch || "0.00";
+                document.getElementById('rolOtrosDesc').value = guardado.otrosDesc || "0.00";
+            }
+            cargarHorasDesdeReporte();
+        }
+    </script>
+</body>
+</html>
