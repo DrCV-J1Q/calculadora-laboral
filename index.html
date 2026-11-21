@@ -378,6 +378,16 @@
             text-align: right !important;
             border: 2px solid #10b981 !important;
         }
+        .btn-extraer-neto {
+            width: 100%;
+            margin: 0;
+            padding: 8px 10px;
+            font-size: 12px;
+            background-color: var(--success);
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
+        }
+        .btn-extraer-neto:hover { background-color: var(--success-hover); }
+
         .barra-herramientas-rol { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
         .btn-mini { width: auto; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
 
@@ -507,7 +517,7 @@
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-quitar-deuda {
+            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-quitar-deuda, .btn-extraer-neto {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -635,18 +645,18 @@
 
                 <div class="barra-herramientas-rol">
                     <button class="btn-mini" onclick="cargarHorasDesdePlanilla()">🔄 Sincronizar Horas de la Planilla</button>
-                    <button class="btn-mini" onclick="calcularIESSyFondoAuto()">⚡ Calcular IESS (9.45%) y F. Reserva (8.33%)</button>
+                    <button class="btn-mini" onclick="calcularIESSyFondoAuto()">⚡ Recalcular BIESS / IESS y F. Reserva</button>
                 </div>
 
                 <div class="rol-header-periodo">
-                    <strong style="font-size: 14px; color: #0f172a;">PERIODO</strong>
+                    <strong style="font-size: 14px; color: #0f172a;">PERIODO (AUTOMÁTICO 16 - 15)</strong>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span class="rol-badge-naranja">DESDE</span>
-                        <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-10-16">
+                        <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-10-16" onchange="recalcularRol()">
                     </div>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span class="rol-badge-naranja">HASTA</span>
-                        <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-11-15">
+                        <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-11-15" onchange="recalcularRol()">
                     </div>
                 </div>
 
@@ -665,15 +675,15 @@
                                 <td><input type="number" id="rolDias" class="input-rol input-rol-centro" value="30"></td>
                                 <td></td>
                                 <td class="celda-concepto">SUELDO</td>
-                                <td class="celda-monto">$ <input type="number" id="rolSueldo" class="input-rol" value="487.77" step="0.01" oninput="recalcularRol()"></td>
-                                <td class="celda-concepto">APORTE PERSONAL I.E.S.S</td>
+                                <td class="celda-monto">$ <input type="number" id="rolSueldo" class="input-rol" value="487.77" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
+                                <td class="celda-concepto">APORTE PERSONAL I.E.S.S / BIESS</td>
                                 <td class="celda-monto">$ <input type="number" id="rolIess" class="input-rol" value="89.69" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td><input type="text" id="rolCantH50" class="input-rol input-rol-centro" value="00:00"></td>
                                 <td class="celda-concepto">HORAS EXTRAS AL 50%</td>
-                                <td class="celda-monto">$ <input type="number" id="rolValH50" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-monto">$ <input type="number" id="rolValH50" class="input-rol" value="0.00" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
                                 <td class="celda-concepto">ANTICIPO DE SUELDO</td>
                                 <td class="celda-monto">$ <input type="number" id="rolAnticipo" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
@@ -681,7 +691,7 @@
                                 <td></td>
                                 <td><input type="text" id="rolCantH100" class="input-rol input-rol-centro" value="00:00"></td>
                                 <td class="celda-concepto">HORAS EXTRAS AL 100%</td>
-                                <td class="celda-monto">$ <input type="number" id="rolValH100" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-monto">$ <input type="number" id="rolValH100" class="input-rol" value="0.00" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
                                 <td class="celda-concepto">LUNCH</td>
                                 <td class="celda-monto">$ <input type="number" id="rolDescLunch" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
@@ -697,7 +707,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="celda-concepto">BONO DE RESPONSABILIDAD</td>
-                                <td class="celda-monto">$ <input type="number" id="rolBonoResp" class="input-rol" value="15.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoResp" class="input-rol" value="15.00" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -705,7 +715,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="celda-concepto">BONO LUNCH</td>
-                                <td class="celda-monto">$ <input type="number" id="rolBonoLunch" class="input-rol" value="24.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoLunch" class="input-rol" value="24.00" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -713,7 +723,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="celda-concepto">BONO MOVILIZACIÓN</td>
-                                <td class="celda-monto">$ <input type="number" id="rolBonoMov" class="input-rol" value="20.00" step="0.01" oninput="recalcularRol()"></td>
+                                <td class="celda-monto">$ <input type="number" id="rolBonoMov" class="input-rol" value="20.00" step="0.01" oninput="calcularIESSyFondoAuto()"></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -731,7 +741,11 @@
                                 <td colspan="2" style="border:none; background:transparent !important;"></td>
                                 <td class="celda-gris-total">VALOR NETO A RECIBIR</td>
                                 <td class="celda-neto">$ <span id="rolNetoRecibir" style="color: #065f46; font-size: 16px;">0.00</span></td>
-                                <td colspan="2" style="border:none; background:transparent !important;"></td>
+                                <td colspan="2" style="border:none; background:transparent !important; padding: 4px 8px;">
+                                    <button type="button" class="btn-extraer-neto" onclick="extraerNetoADeudasYBeneficios()">
+                                        📤 Enviar a Deudas y Beneficios
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -751,7 +765,7 @@
                     <button class="btn-mini" onclick="enviarIngresoRolAlMesActual()">⚡ Pasar Ingreso del Rol al Mes</button>
                 </div>
 
-                <!-- MATRIZ QUINCENA Y FIN DE MES (ESTILO IMAGEN) -->
+                <!-- MATRIZ QUINCENA Y FIN DE MES -->
                 <div class="grid-quincena-finmes">
                     <!-- BLOQUE QUINCENA -->
                     <table class="tabla-qf" id="tablaQuincena">
@@ -970,6 +984,7 @@
                 tabRol.classList.add('activa');
                 seccionRol.classList.remove('oculto');
                 activarAnimacionSeccion(seccionRol);
+                actualizarRangoAutomaticoRol();
                 cargarHorasDesdePlanilla();
             } else if (menu === 'BENEFICIOS') {
                 tabBen.classList.add('activa');
@@ -977,10 +992,12 @@
                 activarAnimacionSeccion(seccionBen);
                 renderizarTablaDecimoTercero();
                 recalcularBeneficiosExtra();
+                recalcularDeudasQF();
             }
         }
 
         function irARolConHoras() {
+            actualizarRangoAutomaticoRol();
             cargarHorasDesdePlanilla();
             cambiarMenu('ROL');
         }
@@ -1010,6 +1027,15 @@
             return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
         }
 
+        function actualizarRangoAutomaticoRol() {
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const fechaInicio = new Date(anio, mesIdx - 1, 16);
+            const fechaFin = new Date(anio, mesIdx, 15);
+            document.getElementById('rolDesde').value = formatearISO(fechaInicio);
+            document.getElementById('rolHasta').value = formatearISO(fechaFin);
+        }
+
         /* =========================================================
            PLANILLA ESTILO EXCEL (16 AL 15)
            ========================================================= */
@@ -1022,8 +1048,7 @@
             const fechaInicio = new Date(anio, mesIdx - 1, 16);
             const fechaFin = new Date(anio, mesIdx, 15);
 
-            document.getElementById('rolDesde').value = formatearISO(fechaInicio);
-            document.getElementById('rolHasta').value = formatearISO(fechaFin);
+            actualizarRangoAutomaticoRol();
 
             const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
             const datosGuardados = JSON.parse(localStorage.getItem(claveGuardado)) || {};
@@ -1215,7 +1240,7 @@
         function sincronizarSueldoRol() {
             const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
             document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
-            recalcularRol();
+            calcularIESSyFondoAuto();
         }
 
         function cargarHorasDesdePlanilla() {
@@ -1233,7 +1258,7 @@
             document.getElementById('rolCantH100').value = horasDecimalAHHMM(sumaH100);
             document.getElementById('rolValH50').value = sumaVal50.toFixed(2);
             document.getElementById('rolValH100').value = sumaVal100.toFixed(2);
-            recalcularRol();
+            calcularIESSyFondoAuto();
         }
 
         function calcularIESSyFondoAuto() {
@@ -1244,6 +1269,7 @@
             const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
             const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
 
+            // Base: Sueldo + Horas Extras 50% y 100% + Bonos
             const base = sueldo + h50 + h100 + bonoResp + bonoLunch + bonoMov;
             document.getElementById('rolIess').value = (base * 0.0945).toFixed(2);
             document.getElementById('rolFondoReserva').value = (base * 0.0833).toFixed(2);
@@ -1284,6 +1310,21 @@
             });
         }
 
+        function extraerNetoADeudasYBeneficios() {
+            const neto = parseFloat(document.getElementById('rolNetoRecibir').innerText) || 0;
+            const totalIngreso = parseFloat(document.getElementById('rolTotalIngreso').innerText) || 0;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+
+            document.getElementById('fPercibido').value = neto.toFixed(2);
+
+            const ingresosAnuales = obtenerIngresosAnuales(anio);
+            ingresosAnuales[mesIdx] = totalIngreso;
+            localStorage.setItem(`ingresosAnuales_${usuarioActivo}_${anio}`, JSON.stringify(ingresosAnuales));
+
+            cambiarMenu('BENEFICIOS');
+        }
+
         function guardarDatosRol() {
             const configRol = {
                 desde: document.getElementById('rolDesde').value,
@@ -1301,7 +1342,6 @@
             };
             localStorage.setItem(`configRol_${usuarioActivo}`, JSON.stringify(configRol));
 
-            // Actualiza automáticamente el ingreso del mes seleccionado en el historial de Décimo Tercero
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
             const ingresosAnuales = obtenerIngresosAnuales(anio);
@@ -1314,8 +1354,6 @@
         function cargarDatosRolGuardados() {
             const guardado = JSON.parse(localStorage.getItem(`configRol_${usuarioActivo}`));
             if (guardado) {
-                document.getElementById('rolDesde').value = guardado.desde || document.getElementById('rolDesde').value;
-                document.getElementById('rolHasta').value = guardado.hasta || document.getElementById('rolHasta').value;
                 document.getElementById('rolDias').value = guardado.dias || "30";
                 document.getElementById('rolSueldo').value = guardado.sueldo || "487.77";
                 document.getElementById('sueldo').value = guardado.sueldo || "487.77";
@@ -1328,6 +1366,7 @@
                 document.getElementById('rolDescLunch').value = guardado.descLunch || "0.00";
                 document.getElementById('rolOtrosDesc').value = guardado.otrosDesc || "0.00";
             }
+            actualizarRangoAutomaticoRol();
             cargarHorasDesdePlanilla();
         }
 
@@ -1440,13 +1479,8 @@
             if (!deudasMesActual[idx]) return;
             if (campo === 'nombre') {
                 deudasMesActual[idx].nombre = valor;
-                const inputsNombre = document.querySelectorAll('#cuerpoDeudasQuincena .input-deuda-nombre, #cuerpoDeudasFinMes .input-deuda-nombre');
-                inputsNombre.forEach(inp => {
-                    if (inp.value !== valor && inp.closest('tbody').id === 'cuerpoDeudasFinMes') {
-                        const rowIdx = Array.from(inp.closest('tbody').rows).indexOf(inp.closest('tr'));
-                        if (rowIdx === idx) inp.value = valor;
-                    }
-                });
+                const inputsFin = document.querySelectorAll('#cuerpoDeudasFinMes .input-deuda-nombre');
+                if (inputsFin[idx]) inputsFin[idx].value = valor;
             } else if (campo === 'q') {
                 deudasMesActual[idx].q = parseFloat(valor) || 0;
             } else if (campo === 'f') {
