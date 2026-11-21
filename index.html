@@ -1015,4 +1015,567 @@
            ========================================================= */
         function generarPlanillaMes() {
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
-            const anio = parseInt(document.getElementById('selectorAnio').value,
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+
+            document.getElementById('etiquetaMesActual').innerText = NOMBRES_MESES[mesIdx];
+
+            const fechaInicio = new Date(anio, mesIdx - 1, 16);
+            const fechaFin = new Date(anio, mesIdx, 15);
+
+            document.getElementById('rolDesde').value = formatearISO(fechaInicio);
+            document.getElementById('rolHasta').value = formatearISO(fechaFin);
+
+            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
+            const datosGuardados = JSON.parse(localStorage.getItem(claveGuardado)) || {};
+
+            filasPlanillaData = [];
+            const tbody = document.getElementById('cuerpoPlanillaExcel');
+            tbody.innerHTML = "";
+
+            let cursor = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
+            let idx = 0;
+
+            while (cursor <= fechaFin) {
+                const iso = formatearISO(cursor);
+                const fechaTexto = formatearFechaCorta(cursor);
+                const diaNum = cursor.getDay();
+                const nombreDia = DIAS_SEMANA[diaNum];
+                const esFinDeSemana = (diaNum === 0 || diaNum === 6);
+
+                let tipoDiaDefault = esFinDeSemana ? "FIN_DE_SEMANA" : "NORMAL";
+                let entradaVal = "";
+                let salidaVal = "";
+
+                if (datosGuardados[iso]) {
+                    tipoDiaDefault = datosGuardados[iso].tipoDia || tipoDiaDefault;
+                    entradaVal = datosGuardados[iso].entrada || "";
+                    salidaVal = datosGuardados[iso].salida || "";
+                }
+
+                filasPlanillaData.push({
+                    index: idx,
+                    iso: iso,
+                    fechaTexto: fechaTexto,
+                    nombreDia: nombreDia,
+                    tipoDia: tipoDiaDefault,
+                    entrada: entradaVal,
+                    salida: salidaVal,
+                    h50: 0,
+                    h100: 0,
+                    pago50: 0,
+                    pago100: 0
+                });
+
+                const tr = document.createElement('tr');
+                tr.id = `filaPlanilla_${idx}`;
+                tr.innerHTML = `
+                    <td class="celda-fecha">${fechaTexto}</td>
+                    <td class="celda-dia">${nombreDia}</td>
+                    <td>
+                        <select class="select-tipo-excel" id="tipoFila_${idx}" onchange="actualizarTipoFila(${idx})">
+                            <option value="NORMAL" ${tipoDiaDefault === "NORMAL" ? "selected" : ""}>Día Normal</option>
+                            <option value="FIN_DE_SEMANA" ${tipoDiaDefault === "FIN_DE_SEMANA" ? "selected" : ""}>Fin de Semana</option>
+                            <option value="FERIADO" ${tipoDiaDefault === "FERIADO" ? "selected" : ""}>Feriado</option>
+                        </select>
+                    </td>
+                    <td><input type="time" step="60" class="input-hora-excel" id="entradaFila_${idx}" value="${entradaVal}" onchange="recalcularPlanillaCompleta()"></td>
+                    <td><input type="time" step="60" class="input-hora-excel" id="salidaFila_${idx}" value="${salidaVal}" onchange="recalcularPlanillaCompleta()"></td>
+                    <td id="h50Fila_${idx}"></td>
+                    <td id="h100Fila_${idx}"></td>
+                    <td><button type="button" class="btn-limpiar-fila" onclick="limpiarFila(${idx})" title="Limpiar horas">✕</button></td>
+                `;
+                tbody.appendChild(tr);
+                aplicarColorFila(idx);
+
+                cursor.setDate(cursor.getDate() + 1);
+                idx++;
+            }
+
+            recalcularPlanillaCompleta();
+        }
+
+        function aplicarColorFila(idx) {
+            const tr = document.getElementById(`filaPlanilla_${idx}`);
+            const tipo = filasPlanillaData[idx].tipoDia;
+            tr.classList.remove("fila-finde", "fila-feriado");
+            if (tipo === "FERIADO") tr.classList.add("fila-feriado");
+            else if (tipo === "FIN_DE_SEMANA") tr.classList.add("fila-finde");
+        }
+
+        function actualizarTipoFila(idx) {
+            filasPlanillaData[idx].tipoDia = document.getElementById(`tipoFila_${idx}`).value;
+            aplicarColorFila(idx);
+            recalcularPlanillaCompleta();
+        }
+
+        function limpiarFila(idx) {
+            document.getElementById(`entradaFila_${idx}`).value = "";
+            document.getElementById(`salidaFila_${idx}`).value = "";
+            recalcularPlanillaCompleta();
+        }
+
+        function recalcularPlanillaCompleta() {
+            const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
+            const valorHoraNormal = sueldoBase / 240;
+
+            let sumaH50 = 0, sumaH100 = 0, sumaPago50 = 0, sumaPago100 = 0;
+
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
+            const estadoParaGuardar = {};
+
+            filasPlanillaData.forEach((fila, idx) => {
+                const entrada = document.getElementById(`entradaFila_${idx}`).value;
+                const salida = document.getElementById(`salidaFila_${idx}`).value;
+                const tipoDia = document.getElementById(`tipoFila_${idx}`).value;
+
+                fila.entrada = entrada;
+                fila.salida = salida;
+                fila.tipoDia = tipoDia;
+                estadoParaGuardar[fila.iso] = { tipoDia, entrada, salida };
+
+                let h50 = 0, h100 = 0;
+                if (entrada && salida) {
+                    const inicio = new Date(`2026-01-01T${entrada}:00`);
+                    const fin = new Date(`2026-01-01T${salida}:00`);
+                    let diffHoras = (fin - inicio) / (1000 * 60 * 60);
+                    if (diffHoras < 0) diffHoras += 24;
+
+                    if (tipoDia === "NORMAL") {
+                        h50 = Math.max(0, diffHoras - 8);
+                        h100 = 0;
+                    } else {
+                        h50 = 0;
+                        h100 = diffHoras;
+                    }
+                    document.getElementById(`h50Fila_${idx}`).innerText = horasDecimalAHHMM(h50);
+                    document.getElementById(`h100Fila_${idx}`).innerText = horasDecimalAHHMM(h100);
+                } else {
+                    document.getElementById(`h50Fila_${idx}`).innerText = "";
+                    document.getElementById(`h100Fila_${idx}`).innerText = "";
+                }
+
+                const pago50 = h50 * valorHoraNormal * 1.5;
+                const pago100 = h100 * valorHoraNormal * 2;
+
+                fila.h50 = h50;
+                fila.h100 = h100;
+                fila.pago50 = pago50;
+                fila.pago100 = pago100;
+
+                sumaH50 += h50;
+                sumaH100 += h100;
+                sumaPago50 += pago50;
+                sumaPago100 += pago100;
+            });
+
+            if (usuarioActivo) {
+                localStorage.setItem(claveGuardado, JSON.stringify(estadoParaGuardar));
+            }
+
+            document.getElementById('piePlanillaExcel').innerHTML = `
+                <tr>
+                    <td colspan="3" style="border:none;"></td>
+                    <td colspan="2" class="celda-subtotal-label">SUBTOTAL</td>
+                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH50)}</td>
+                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH100)}</td>
+                    <td style="border:none;"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:none;"></td>
+                    <td colspan="2" class="celda-subtotal-label">TOTAL</td>
+                    <td colspan="2" class="celda-total-val">${horasDecimalAHHMM(sumaH50 + sumaH100)}</td>
+                    <td style="border:none;"></td>
+                </tr>
+            `;
+
+            const elPago50 = document.getElementById('resumenPago50');
+            const elPago100 = document.getElementById('resumenPago100');
+            const elPagoTotal = document.getElementById('resumenPagoTotal');
+
+            elPago50.innerText = `$${sumaPago50.toFixed(2)}`;
+            elPago100.innerText = `$${sumaPago100.toFixed(2)}`;
+            elPagoTotal.innerText = `$${(sumaPago50 + sumaPago100).toFixed(2)}`;
+
+            [elPago50, elPago100, elPagoTotal].forEach(el => {
+                el.classList.remove("animar-pulso");
+                void el.offsetWidth;
+                el.classList.add("animar-pulso");
+            });
+        }
+
+        function exportarReporteMensual() {
+            window.print();
+        }
+
+        /* =========================================================
+           ROL DE PAGOS
+           ========================================================= */
+        function sincronizarSueldoRol() {
+            const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
+            document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
+            recalcularRol();
+        }
+
+        function cargarHorasDesdePlanilla() {
+            recalcularPlanillaCompleta();
+            let sumaH50 = 0, sumaH100 = 0, sumaVal50 = 0, sumaVal100 = 0;
+
+            filasPlanillaData.forEach(f => {
+                sumaH50 += f.h50;
+                sumaH100 += f.h100;
+                sumaVal50 += f.pago50;
+                sumaVal100 += f.pago100;
+            });
+
+            document.getElementById('rolCantH50').value = horasDecimalAHHMM(sumaH50);
+            document.getElementById('rolCantH100').value = horasDecimalAHHMM(sumaH100);
+            document.getElementById('rolValH50').value = sumaVal50.toFixed(2);
+            document.getElementById('rolValH100').value = sumaVal100.toFixed(2);
+            recalcularRol();
+        }
+
+        function calcularIESSyFondoAuto() {
+            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
+            const h50 = parseFloat(document.getElementById('rolValH50').value) || 0;
+            const h100 = parseFloat(document.getElementById('rolValH100').value) || 0;
+            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
+            const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
+            const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
+
+            const base = sueldo + h50 + h100 + bonoResp + bonoLunch + bonoMov;
+            document.getElementById('rolIess').value = (base * 0.0945).toFixed(2);
+            document.getElementById('rolFondoReserva').value = (base * 0.0833).toFixed(2);
+            recalcularRol();
+        }
+
+        function recalcularRol() {
+            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
+            const valH50 = parseFloat(document.getElementById('rolValH50').value) || 0;
+            const valH100 = parseFloat(document.getElementById('rolValH100').value) || 0;
+            const fondoRes = parseFloat(document.getElementById('rolFondoReserva').value) || 0;
+            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
+            const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
+            const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
+
+            const totalIngreso = sueldo + valH50 + valH100 + fondoRes + bonoResp + bonoLunch + bonoMov;
+
+            const iess = parseFloat(document.getElementById('rolIess').value) || 0;
+            const anticipo = parseFloat(document.getElementById('rolAnticipo').value) || 0;
+            const descLunch = parseFloat(document.getElementById('rolDescLunch').value) || 0;
+            const otrosDesc = parseFloat(document.getElementById('rolOtrosDesc').value) || 0;
+
+            const totalEgreso = iess + anticipo + descLunch + otrosDesc;
+            const netoRecibir = totalIngreso - totalEgreso;
+
+            const elIng = document.getElementById('rolTotalIngreso');
+            const elEgr = document.getElementById('rolTotalEgreso');
+            const elNet = document.getElementById('rolNetoRecibir');
+
+            elIng.innerText = totalIngreso.toFixed(2);
+            elEgr.innerText = totalEgreso.toFixed(2);
+            elNet.innerText = netoRecibir.toFixed(2);
+
+            [elIng, elEgr, elNet].forEach(el => {
+                el.classList.remove("animar-pulso");
+                void el.offsetWidth;
+                el.classList.add("animar-pulso");
+            });
+        }
+
+        function guardarDatosRol() {
+            const configRol = {
+                desde: document.getElementById('rolDesde').value,
+                hasta: document.getElementById('rolHasta').value,
+                dias: document.getElementById('rolDias').value,
+                sueldo: document.getElementById('rolSueldo').value,
+                fondoRes: document.getElementById('rolFondoReserva').value,
+                bonoResp: document.getElementById('rolBonoResp').value,
+                bonoLunch: document.getElementById('rolBonoLunch').value,
+                bonoMov: document.getElementById('rolBonoMov').value,
+                iess: document.getElementById('rolIess').value,
+                anticipo: document.getElementById('rolAnticipo').value,
+                descLunch: document.getElementById('rolDescLunch').value,
+                otrosDesc: document.getElementById('rolOtrosDesc').value
+            };
+            localStorage.setItem(`configRol_${usuarioActivo}`, JSON.stringify(configRol));
+
+            // Actualiza automáticamente el ingreso del mes seleccionado en el historial de Décimo Tercero
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const ingresosAnuales = obtenerIngresosAnuales(anio);
+            ingresosAnuales[mesIdx] = parseFloat(document.getElementById('rolTotalIngreso').innerText) || 0;
+            localStorage.setItem(`ingresosAnuales_${usuarioActivo}_${anio}`, JSON.stringify(ingresosAnuales));
+
+            alert("✅ Configuración del Rol guardada y total de ingresos sincronizado con el mes.");
+        }
+
+        function cargarDatosRolGuardados() {
+            const guardado = JSON.parse(localStorage.getItem(`configRol_${usuarioActivo}`));
+            if (guardado) {
+                document.getElementById('rolDesde').value = guardado.desde || document.getElementById('rolDesde').value;
+                document.getElementById('rolHasta').value = guardado.hasta || document.getElementById('rolHasta').value;
+                document.getElementById('rolDias').value = guardado.dias || "30";
+                document.getElementById('rolSueldo').value = guardado.sueldo || "487.77";
+                document.getElementById('sueldo').value = guardado.sueldo || "487.77";
+                document.getElementById('rolFondoReserva').value = guardado.fondoRes || "79.06";
+                document.getElementById('rolBonoResp').value = guardado.bonoResp || "15.00";
+                document.getElementById('rolBonoLunch').value = guardado.bonoLunch || "24.00";
+                document.getElementById('rolBonoMov').value = guardado.bonoMov || "20.00";
+                document.getElementById('rolIess').value = guardado.iess || "89.69";
+                document.getElementById('rolAnticipo').value = guardado.anticipo || "0.00";
+                document.getElementById('rolDescLunch').value = guardado.descLunch || "0.00";
+                document.getElementById('rolOtrosDesc').value = guardado.otrosDesc || "0.00";
+            }
+            cargarHorasDesdePlanilla();
+        }
+
+        /* =========================================================
+           DEUDAS (QUINCENA / FIN DE MES) Y BENEFICIOS
+           ========================================================= */
+        function claveDeudasMes(anio, mesIdx) {
+            return `deudasQF_${usuarioActivo}_${anio}_${mesIdx}`;
+        }
+
+        function cargarDeudasMes() {
+            if (!usuarioActivo) return;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const guardado = JSON.parse(localStorage.getItem(claveDeudasMes(anio, mesIdx)));
+
+            if (guardado) {
+                document.getElementById('qPercibido').value = guardado.qPercibido ?? "273.39";
+                document.getElementById('fPercibido').value = guardado.fPercibido ?? "0.00";
+                deudasMesActual = guardado.filas || [];
+            } else {
+                document.getElementById('qPercibido').value = "273.39";
+                document.getElementById('fPercibido').value = "0.00";
+                deudasMesActual = [
+                    { nombre: "MOTO", q: 181.80, f: 0.00 },
+                    { nombre: "PYCCA", q: 91.59, f: 0.00 },
+                    { nombre: "DEUDA 3", q: 0.00, f: 0.00 },
+                    { nombre: "DEUDA 4", q: 0.00, f: 0.00 }
+                ];
+            }
+            renderizarDeudasQF();
+        }
+
+        function agregarFilaDeuda() {
+            deudasMesActual.push({ nombre: "NUEVA DEUDA", q: 0.00, f: 0.00 });
+            renderizarDeudasQF();
+        }
+
+        function quitarFilaDeuda(index) {
+            deudasMesActual.splice(index, 1);
+            renderizarDeudasQF();
+        }
+
+        function copiarDeudasMesAnterior() {
+            let mesIdx = parseInt(document.getElementById('selectorMes').value, 10) - 1;
+            let anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            if (mesIdx < 0) {
+                mesIdx = 11;
+                anio -= 1;
+            }
+            const anterior = JSON.parse(localStorage.getItem(claveDeudasMes(anio, mesIdx)));
+            if (!anterior || !anterior.filas) {
+                alert("No hay deudas guardadas en el mes anterior.");
+                return;
+            }
+            deudasMesActual = anterior.filas.map(item => ({
+                nombre: item.nombre,
+                q: parseFloat(item.q) || 0,
+                f: parseFloat(item.f) || 0
+            }));
+            renderizarDeudasQF();
+            alert("Deudas copiadas del mes anterior. Ajusta los montos variables que hayan cambiado.");
+        }
+
+        function enviarIngresoRolAlMesActual() {
+            const neto = parseFloat(document.getElementById('rolNetoRecibir').innerText) || 0;
+            const anticipo = parseFloat(document.getElementById('rolAnticipo').value) || 0;
+            if (anticipo > 0) {
+                document.getElementById('qPercibido').value = anticipo.toFixed(2);
+                document.getElementById('fPercibido').value = Math.max(0, neto - anticipo).toFixed(2);
+            } else {
+                document.getElementById('fPercibido').value = neto.toFixed(2);
+            }
+            recalcularDeudasQF();
+        }
+
+        function renderizarDeudasQF() {
+            const tbodyQ = document.getElementById('cuerpoDeudasQuincena');
+            const tbodyF = document.getElementById('cuerpoDeudasFinMes');
+            tbodyQ.innerHTML = "";
+            tbodyF.innerHTML = "";
+
+            deudasMesActual.forEach((item, idx) => {
+                tbodyQ.innerHTML += `
+                    <tr>
+                        <td><input type="text" class="input-deuda-nombre" value="${item.nombre}" oninput="actualizarDeudaCampo(${idx}, 'nombre', this.value)"></td>
+                        <td style="text-align:center;">$</td>
+                        <td style="text-align:right; white-space:nowrap;">
+                            <input type="number" step="0.01" class="input-deuda-monto" value="${(parseFloat(item.q) || 0).toFixed(2)}" oninput="actualizarDeudaCampo(${idx}, 'q', this.value)">
+                            <button type="button" class="btn-quitar-deuda" onclick="quitarFilaDeuda(${idx})" title="Quitar fila">✕</button>
+                        </td>
+                    </tr>
+                `;
+
+                tbodyF.innerHTML += `
+                    <tr>
+                        <td><input type="text" class="input-deuda-nombre" value="${item.nombre}" oninput="actualizarDeudaCampo(${idx}, 'nombre', this.value)"></td>
+                        <td style="text-align:center;">$</td>
+                        <td style="text-align:right; white-space:nowrap;">
+                            <input type="number" step="0.01" class="input-deuda-monto" value="${(parseFloat(item.f) || 0).toFixed(2)}" oninput="actualizarDeudaCampo(${idx}, 'f', this.value)">
+                        </td>
+                    </tr>
+                `;
+            });
+
+            recalcularDeudasQF();
+        }
+
+        function actualizarDeudaCampo(idx, campo, valor) {
+            if (!deudasMesActual[idx]) return;
+            if (campo === 'nombre') {
+                deudasMesActual[idx].nombre = valor;
+                const inputsNombre = document.querySelectorAll('#cuerpoDeudasQuincena .input-deuda-nombre, #cuerpoDeudasFinMes .input-deuda-nombre');
+                inputsNombre.forEach(inp => {
+                    if (inp.value !== valor && inp.closest('tbody').id === 'cuerpoDeudasFinMes') {
+                        const rowIdx = Array.from(inp.closest('tbody').rows).indexOf(inp.closest('tr'));
+                        if (rowIdx === idx) inp.value = valor;
+                    }
+                });
+            } else if (campo === 'q') {
+                deudasMesActual[idx].q = parseFloat(valor) || 0;
+            } else if (campo === 'f') {
+                deudasMesActual[idx].f = parseFloat(valor) || 0;
+            }
+            recalcularDeudasQF();
+        }
+
+        function recalcularDeudasQF() {
+            const qPercibido = parseFloat(document.getElementById('qPercibido').value) || 0;
+            const fPercibido = parseFloat(document.getElementById('fPercibido').value) || 0;
+
+            let qDeuda = 0;
+            let fDeuda = 0;
+
+            deudasMesActual.forEach(item => {
+                qDeuda += parseFloat(item.q) || 0;
+                fDeuda += parseFloat(item.f) || 0;
+            });
+
+            const qReal = qPercibido - qDeuda;
+            const fReal = fPercibido - fDeuda;
+
+            document.getElementById('qDeudaTotal').innerText = qDeuda.toFixed(2);
+            document.getElementById('fDeudaTotal').innerText = fDeuda.toFixed(2);
+
+            document.getElementById('qValorReal').innerText = Math.abs(qReal) < 0.005 ? "-" : qReal.toFixed(2);
+            document.getElementById('fValorReal').innerText = Math.abs(fReal) < 0.005 ? "-" : fReal.toFixed(2);
+        }
+
+        function obtenerIngresosAnuales(anio) {
+            const guardados = JSON.parse(localStorage.getItem(`ingresosAnuales_${usuarioActivo}_${anio}`));
+            if (Array.isArray(guardados) && guardados.length === 12) {
+                return guardados.map(v => parseFloat(v) || 0);
+            }
+            return new Array(12).fill(0);
+        }
+
+        function renderizarTablaDecimoTercero() {
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const ingresos = obtenerIngresosAnuales(anio);
+            const tbody = document.getElementById('cuerpoDecimoTercero');
+            const tfoot = document.getElementById('pieDecimoTercero');
+            tbody.innerHTML = "";
+            tfoot.innerHTML = "";
+
+            let totalIngresosAnio = 0;
+            let totalDecimoTercero = 0;
+
+            NOMBRES_MESES.forEach((nombreMes, idx) => {
+                const ingMes = ingresos[idx] || 0;
+                const dec13Mes = ingMes / 12;
+                totalIngresosAnio += ingMes;
+                totalDecimoTercero += dec13Mes;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>${nombreMes} ${anio}</b></td>
+                        <td>
+                            $ <input type="number" step="0.01" class="input-deuda-monto" value="${ingMes.toFixed(2)}" oninput="actualizarIngresoMes(${idx}, this.value)">
+                        </td>
+                        <td style="font-weight:700; color:#1e40af;">$ ${dec13Mes.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            tfoot.innerHTML = `
+                <tr style="background:#f1f5f9; font-weight:800;">
+                    <td style="text-align:right;">TOTAL ACUMULADO:</td>
+                    <td>$ ${totalIngresosAnio.toFixed(2)}</td>
+                    <td style="color:#065f46; font-size:14px;">$ ${totalDecimoTercero.toFixed(2)}</td>
+                </tr>
+            `;
+
+            document.getElementById('resumenDecimoTercero').innerText = `$${totalDecimoTercero.toFixed(2)}`;
+        }
+
+        function actualizarIngresoMes(mesIdx, valor) {
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const ingresos = obtenerIngresosAnuales(anio);
+            ingresos[mesIdx] = parseFloat(valor) || 0;
+            localStorage.setItem(`ingresosAnuales_${usuarioActivo}_${anio}`, JSON.stringify(ingresos));
+            renderizarTablaDecimoTercero();
+            recalcularBeneficiosExtra();
+        }
+
+        function recalcularBeneficiosExtra() {
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const ingresos = obtenerIngresosAnuales(anio);
+            const dec13 = ingresos.reduce((acc, v) => acc + (parseFloat(v) || 0), 0) / 12;
+            const dec14 = parseFloat(document.getElementById('decimoCuartoInput').value) || 0;
+            const util = parseFloat(document.getElementById('utilidadesInput').value) || 0;
+
+            document.getElementById('resumenDecimoTercero').innerText = `$${dec13.toFixed(2)}`;
+            document.getElementById('resumenDecimoCuarto').innerText = `$${dec14.toFixed(2)}`;
+            document.getElementById('resumenUtilidades').innerText = `$${util.toFixed(2)}`;
+            document.getElementById('resumenTotalBeneficios').innerText = `$${(dec13 + dec14 + util).toFixed(2)}`;
+        }
+
+        function guardarDeudasYBeneficios() {
+            if (!usuarioActivo) return;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+
+            localStorage.setItem(claveDeudasMes(anio, mesIdx), JSON.stringify({
+                qPercibido: document.getElementById('qPercibido').value,
+                fPercibido: document.getElementById('fPercibido').value,
+                filas: deudasMesActual
+            }));
+
+            localStorage.setItem(`beneficiosExtra_${usuarioActivo}_${anio}`, JSON.stringify({
+                decimoCuarto: document.getElementById('decimoCuartoInput').value,
+                utilidades: document.getElementById('utilidadesInput').value
+            }));
+
+            alert("✅ Deudas del mes y beneficios sociales guardados.");
+        }
+
+        function cargarBeneficiosAnuales() {
+            if (!usuarioActivo) return;
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const extra = JSON.parse(localStorage.getItem(`beneficiosExtra_${usuarioActivo}_${anio}`));
+            if (extra) {
+                document.getElementById('decimoCuartoInput').value = extra.decimoCuarto || "0.00";
+                document.getElementById('utilidadesInput').value = extra.utilidades || "0.00";
+            }
+            renderizarTablaDecimoTercero();
+            recalcularBeneficiosExtra();
+        }
+    </script>
+</body>
+</html>
