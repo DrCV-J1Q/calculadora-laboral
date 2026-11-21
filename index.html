@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr CV - Acceso Seguro</title>
+    <title>Dr CV - Cálculo de Horas Extras y Rol</title>
     <style>
         :root {
             --primary: #1e40af;
@@ -14,6 +14,9 @@
             --warning-hover: #d97706;
             --danger: #ef4444;
             --danger-hover: #dc2626;
+            --naranja-excel: #ed7d31;
+            --finde-excel: #f4b084;
+            --feriado-excel: #ffff00;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
@@ -39,7 +42,7 @@
 
         .contenedor {
             background: #ffffff;
-            padding: 25px;
+            padding: 22px;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             width: 100%;
@@ -50,22 +53,22 @@
         }
 
         .contenedor-ancho {
-            max-width: 880px;
+            max-width: 980px;
         }
 
         h2 { 
-            color: #1e3a8a; 
+            color: #0f172a; 
             text-align: center; 
-            margin-bottom: 20px; 
+            margin-bottom: 16px; 
             margin-top: 0; 
             font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
         }
 
         label { 
             display: block; 
-            margin-top: 14px; 
+            margin-top: 12px; 
             font-weight: 600; 
             color: #475569; 
             font-size: 12px;
@@ -75,7 +78,7 @@
 
         input, select, button {
             width: 100%;
-            padding: 12px;
+            padding: 11px;
             margin-top: 6px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
@@ -88,7 +91,7 @@
         input:focus, select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.15);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
             background-color: #ffffff;
         }
 
@@ -96,47 +99,42 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            margin-top: 15px;
+            margin-top: 12px;
             font-weight: 700;
             cursor: pointer;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
         }
 
         button:hover { 
             background-color: var(--primary-hover); 
             transform: translateY(-1px);
-            box-shadow: 0 6px 8px -1px rgba(30, 64, 175, 0.3);
         }
-
-        button:active { transform: translateY(0); }
 
         button:disabled {
             background-color: #94a3b8 !important;
             box-shadow: none !important;
             cursor: not-allowed;
         }
-        
+
         .oculto { display: none !important; }
 
-        /* MENÚ DE NAVEGACIÓN CORPORATIVO */
         .menu-navegacion {
             display: flex;
             justify-content: space-around;
             background: #1e293b;
             border-radius: 12px;
             padding: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             width: 100%;
-            max-width: 540px;
+            max-width: 560px;
             box-sizing: border-box;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
             gap: 4px;
         }
 
         .pestana {
             color: #94a3b8;
-            padding: 10px 10px;
+            padding: 10px 8px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 8px;
@@ -146,38 +144,23 @@
             font-size: 13px;
         }
 
-        .pestana:hover { 
-            color: #f8fafc;
-            background-color: rgba(255, 255, 255, 0.05); 
+        .pestana:hover { color: #f8fafc; background-color: rgba(255, 255, 255, 0.05); }
+        .pestana.activa { background-color: #ffffff; color: #0f172a; }
+
+        .saludo { 
+            text-align: center; 
+            color: #f8fafc; 
+            margin-bottom: 12px; 
+            font-size: 14px; 
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            padding: 9px 12px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 560px;
+            box-sizing: border-box;
         }
 
-        .pestana.activa {
-            background-color: #ffffff;
-            color: #0f172a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .cuadro-resultado {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f1f5f9;
-            border-left: 5px solid var(--primary);
-            border-radius: 8px;
-            border-top: 1px solid #e2e8f0;
-            border-right: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .cuadro-resultado p {
-            margin: 6px 0;
-            font-size: 14px;
-            color: #475569;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        span { font-weight: 700; color: #0f172a; font-size: 15px; }
-        
         .error { 
             color: var(--danger); 
             font-size: 13px; 
@@ -185,84 +168,204 @@
             margin-top: 12px; 
             font-weight: 600;
         }
-        
-        .saludo { 
-            text-align: center; 
-            color: #f8fafc; 
-            margin-bottom: 15px; 
-            font-size: 14px; 
-            font-weight: 500;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
+
+        /* BARRA SUPERIOR PLANILLA EXCEL */
+        .barra-controles-planilla {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             border-radius: 10px;
-            backdrop-filter: blur(5px);
-            width: 100%;
-            max-width: 540px;
-            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 14px;
         }
-        
-        /* TABLA DE REPORTES RESPONSIVA */
+
+        .grupo-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .grupo-control label {
+            margin: 0;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
+        .grupo-control select, .grupo-control input {
+            width: auto;
+            margin: 0;
+            padding: 7px 10px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #ffffff;
+        }
+
+        .badge-mes-excel {
+            background-color: var(--naranja-excel);
+            color: #000000;
+            font-weight: 800;
+            padding: 6px 14px;
+            border: 1px solid #1e293b;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .badge-mes-nombre {
+            background-color: var(--naranja-excel);
+            color: #000000;
+            font-weight: 800;
+            padding: 6px 18px;
+            border: 1px solid #1e293b;
+            border-left: none;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        /* TABLA ESTILO EXCEL */
         .tabla-contenedor {
-            border-radius: 12px;
+            border-radius: 8px;
             overflow-x: auto;
-            border: 1px solid #e2e8f0;
-            margin-top: 15px;
+            border: 1px solid #64748b;
             width: 100%;
         }
 
-        table {
+        .tabla-excel {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
-            background: white;
-            min-width: 600px;
+            background: #ffffff;
+            min-width: 780px;
         }
 
-        th, td {
-            padding: 12px 10px;
+        .tabla-excel th {
+            background-color: var(--naranja-excel);
+            color: #000000;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 12px;
+            border: 1px solid #334155;
+            padding: 8px 6px;
             text-align: center;
-            border-bottom: 1px solid #e2e8f0;
         }
 
-        th {
+        .tabla-excel td {
+            border: 1px solid #64748b;
+            padding: 4px 6px;
+            text-align: center;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .fila-finde td.celda-dia,
+        .fila-finde td.celda-fecha {
+            background-color: var(--finde-excel);
+            font-weight: 700;
+        }
+
+        .fila-feriado td.celda-dia,
+        .fila-feriado td.celda-fecha {
+            background-color: var(--feriado-excel);
+            font-weight: 700;
+        }
+
+        .input-hora-excel {
+            width: 108px;
+            padding: 4px 5px;
+            margin: 0;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .select-tipo-excel {
+            width: 135px;
+            padding: 4px 5px;
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .btn-limpiar-fila {
+            width: auto;
+            margin: 0;
+            padding: 3px 7px;
+            font-size: 11px;
+            background-color: #e2e8f0;
+            color: #334155;
+            box-shadow: none;
+        }
+
+        .btn-limpiar-fila:hover {
+            background-color: #cbd5e1;
+            transform: none;
+        }
+
+        .celda-subtotal-label {
+            background-color: var(--naranja-excel) !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            text-align: center !important;
+        }
+
+        .celda-subtotal-val {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+        }
+
+        .celda-total-val {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            font-weight: 900 !important;
+            font-size: 14px;
+        }
+
+        .resumen-dinero-barra {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* ESTILOS TABLA REPORTE */
+        .tabla-reporte {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: #ffffff;
+            min-width: 650px;
+        }
+        .tabla-reporte th {
             background-color: #0f172a;
             color: #f8fafc;
-            font-weight: 600;
-            text-transform: uppercase;
+            padding: 10px 8px;
+            border: 1px solid #334155;
             font-size: 11px;
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .tabla-reporte td {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
         }
 
-        tr:last-child td { border-bottom: none; }
-        tr:nth-child(even) { background-color: #f8fafc; }
-        
-        .fila-totales {
-            background-color: #ecfdf5 !important;
-            font-weight: 700;
-            font-size: 14px;
-            color: #065f46;
-            border-top: 2px solid #10b981;
-        }
-        
-        .btn-tabla {
-            color: white;
-            padding: 6px 10px;
-            font-size: 12px;
-            margin-top: 0;
-            width: auto;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin: 2px;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .btn-borrar { background-color: var(--danger); }
-        .btn-borrar:hover { background-color: var(--danger-hover); }
-        .btn-editar { background-color: #f59e0b; color: white; }
-        .btn-editar:hover { background-color: #d97706; }
-
-        /* ESTILOS ESPECÍFICOS ROL DE PAGOS */
+        /* ESTILOS ROL DE PAGOS */
         .rol-header-periodo {
             display: flex;
             flex-wrap: wrap;
@@ -282,7 +385,6 @@
             padding: 6px 14px;
             border-radius: 6px;
             font-size: 12px;
-            letter-spacing: 0.5px;
         }
         .rol-input-fecha {
             width: auto;
@@ -292,6 +394,8 @@
             background: white;
         }
         .tabla-rol {
+            width: 100%;
+            border-collapse: collapse;
             min-width: 720px;
             border: 1px solid #94a3b8;
         }
@@ -305,19 +409,11 @@
         .tabla-rol td {
             border: 1px solid #cbd5e1;
             padding: 6px 8px;
-            background-color: #ffffff !important;
+            background-color: #ffffff;
             font-size: 13px;
         }
-        .celda-concepto {
-            text-align: left !important;
-            font-weight: 600;
-            color: #1e293b;
-        }
-        .celda-monto {
-            text-align: right !important;
-            white-space: nowrap;
-            font-weight: 700;
-        }
+        .celda-concepto { text-align: left; font-weight: 600; color: #1e293b; }
+        .celda-monto { text-align: right; white-space: nowrap; font-weight: 700; }
         .input-rol {
             width: 85px;
             padding: 4px 6px;
@@ -328,24 +424,18 @@
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             background-color: #f8fafc;
-            color: #0f172a;
         }
-        .input-rol-centro {
-            width: 60px;
-            text-align: center;
-        }
+        .input-rol-centro { width: 65px; text-align: center; }
         .celda-gris-total {
             background-color: #808080 !important;
             color: #ffffff !important;
             font-weight: 700;
             text-align: center !important;
-            letter-spacing: 0.5px;
         }
         .celda-valor-total {
             background-color: #f1f5f9 !important;
             font-weight: 800;
             font-size: 14px;
-            color: #0f172a;
             text-align: right !important;
         }
         .celda-neto {
@@ -369,19 +459,10 @@
             font-size: 12px;
             background-color: #334155;
         }
-        .btn-mini:hover { background-color: #1e293b; }
-
-        @media (max-width: 480px) {
-            body { padding: 5px; }
-            .contenedor { padding: 18px; border-radius: 12px; }
-            input, select, button { padding: 10px; font-size: 13px; }
-            h2 { font-size: 19px; }
-            .pestana { padding: 8px 6px; font-size: 12px; }
-        }
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, #seccionApp, .columna-accion, button, .saludo, .menu-navegacion, .barra-herramientas-rol {
+            #seccionLogin, .saludo, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -392,16 +473,15 @@
                 width: 100% !important;
                 display: block !important;
             }
-            h2 { color: black !important; text-align: center; font-size: 22px; border-bottom: 2px solid #333; padding-bottom: 8px; }
-            .input-rol, .rol-input-fecha {
+            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
-                font-weight: 700;
-                color: black !important;
+                font-weight: 600;
+                color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .rol-badge-naranja, .tabla-rol th, .celda-gris-total {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -426,66 +506,95 @@
             <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
         </div>
 
-        <!-- APLICACIÓN PRINCIPAL -->
+        <!-- APLICACIÓN -->
         <div id="pantallaApp" class="oculto" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             
             <p id="saludoUsuario" class="saludo"></p>
 
             <div class="menu-navegacion">
-                <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Calculadora</div>
+                <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Planilla / Calculadora</div>
                 <div class="pestana" id="tabReporte" onclick="cambiarMenu('REPORTE')">📊 Reporte</div>
                 <div class="pestana" id="tabRol" onclick="cambiarMenu('ROL')">💵 Rol de Pagos</div>
             </div>
 
-            <!-- PESTAÑA 1: CALCULADORA -->
-            <div class="contenedor" id="seccionApp">
-                <h2 id="tituloCalculadora">Calculadora Laboral</h2>
-                
-                <label>Fecha del Turno:</label>
-                <input type="date" id="fechaTurno">
+            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL CON CORTE DE 15 DÍAS (16 AL 15) -->
+            <div class="contenedor contenedor-ancho" id="seccionApp">
+                <h2>CALCULO DE HORAS EXTRAS</h2>
 
-                <label>Sueldo Base ($):</label>
-                <input type="number" id="sueldo" value="487.77" step="0.01" onchange="sincronizarSueldoRol()">
+                <div class="barra-controles-planilla">
+                    <div class="grupo-control">
+                        <span class="badge-mes-excel">MES</span>
+                        <span class="badge-mes-nombre" id="etiquetaMesActual">NOVIEMBRE</span>
+                        <select id="selectorMes" onchange="generarPlanillaMes()">
+                            <option value="0">Enero (16 Dic - 15 Ene)</option>
+                            <option value="1">Febrero (16 Ene - 15 Feb)</option>
+                            <option value="2">Marzo (16 Feb - 15 Mar)</option>
+                            <option value="3">Abril (16 Mar - 15 Abr)</option>
+                            <option value="4">Mayo (16 Abr - 15 May)</option>
+                            <option value="5">Junio (16 May - 15 Jun)</option>
+                            <option value="6">Julio (16 Jun - 15 Jul)</option>
+                            <option value="7">Agosto (16 Jul - 15 Ago)</option>
+                            <option value="8">Septiembre (16 Ago - 15 Sep)</option>
+                            <option value="9">Octubre (16 Sep - 15 Oct)</option>
+                            <option value="10" selected>Noviembre (16 Oct - 15 Nov)</option>
+                            <option value="11">Diciembre (16 Nov - 15 Dic)</option>
+                        </select>
 
-                <label>Tipo de Jornada:</label>
-                <select id="tipoDia">
-                    <option value="NORMAL">Normal (50%)</option>
-                    <option value="FIN_DE_SEMANA">Fin de Semana (100%)</option>
-                    <option value="FERIADO">Feriado (100%)</option>
-                </select>
+                        <label for="selectorAnio">AÑO:</label>
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes()">
+                    </div>
 
-                <label>Hora de Entrada:</label>
-                <input type="time" id="entrada">
-
-                <label>Hora de Salida:</label>
-                <input type="time" id="salida">
-
-                <button onclick="calcularExtras()">Calcular Ahora</button>
-                <button onclick="guardarRegistro()" id="btnGuardar" style="background-color: var(--success);" disabled>Guardar Registro</button>
-                <button onclick="cerrarSesion()" style="background-color: #64748b;">Cerrar Sesión</button>
-
-                <div class="cuadro-resultado">
-                    <p>Horas al 50%: <span id="horas50">0.00</span></p>
-                    <p>Horas al 100%: <span id="horas100">0.00</span></p>
-                    <p>Valor a Pagar: <span id="pagoFinal" style="color: var(--primary); font-size: 16px;">$0.00</span></p>
+                    <div class="grupo-control">
+                        <label for="sueldo">SUELDO BASE ($):</label>
+                        <input type="number" id="sueldo" value="487.77" step="0.01" style="width: 95px;" onchange="recalcularPlanillaCompleta(); sincronizarSueldoRol();">
+                    </div>
                 </div>
+
+                <div class="tabla-contenedor">
+                    <table class="tabla-excel" id="tablaPlanillaExcel">
+                        <thead>
+                            <tr>
+                                <th>FECHA</th>
+                                <th>DIA</th>
+                                <th>TIPO DE DÍA</th>
+                                <th>HORA DE INGRESO</th>
+                                <th>HORA DE SALIDA</th>
+                                <th>HORAS EXTRAS AL 50%</th>
+                                <th>HORAS EXTRAS AL 100%</th>
+                                <th>LIMPIAR</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoPlanillaExcel"></tbody>
+                        <tfoot id="piePlanillaExcel"></tfoot>
+                    </table>
+                </div>
+
+                <div class="resumen-dinero-barra">
+                    <div>Pago Extras 50%: <strong id="resumenPago50">$0.00</strong></div>
+                    <div>Pago Extras 100%: <strong id="resumenPago100">$0.00</strong></div>
+                    <div>Total a Pagar Extras: <strong id="resumenPagoTotal" style="color: var(--primary); font-size: 16px;">$0.00</strong></div>
+                </div>
+
+                <button onclick="guardarPlanillaEnReporte()" style="background-color: var(--success); margin-top: 16px;">💾 Guardar Planilla en Reporte y Rol</button>
+                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
+                <button onclick="cerrarSesion()" style="background-color: #64748b; margin-top: 8px;">Cerrar Sesión</button>
             </div>
 
             <!-- PESTAÑA 2: REPORTE -->
             <div class="contenedor contenedor-ancho oculto" id="bloqueReporte">
-                <h2>Reporte de Horas Extras</h2>
+                <h2>Reporte de Horas Extras Guardadas</h2>
                 <div class="tabla-contenedor">
-                    <table id="tablaRegistros">
+                    <table class="tabla-reporte" id="tablaRegistros">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Jornada</th>
-                                <th>Entrada</th>
+                                <th>Día</th>
+                                <th>Tipo de Día</th>
+                                <th>Ingreso</th>
                                 <th>Salida</th>
-                                <th>H. 50%</th>
-                                <th>H. 100%</th>
+                                <th>Extras 50%</th>
+                                <th>Extras 100%</th>
                                 <th>Total Pagar</th>
-                                <th class="columna-accion">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listaRegistros"></tbody>
@@ -494,7 +603,7 @@
                 </div>
                 
                 <button onclick="exportarReporteMensual()" id="btnPDF" style="background-color: var(--warning); margin-top: 20px;">📄 Exportar / Imprimir PDF</button>
-                <button onclick="reiniciarMes()" id="btnReiniciar" style="background-color: var(--danger); margin-top: 10px;">⚠️ Cerrar y Reiniciar Mes</button>
+                <button onclick="reiniciarMes()" id="btnReiniciar" style="background-color: var(--danger); margin-top: 10px;">⚠️ Borrar Registros Guardados</button>
             </div>
 
             <!-- PESTAÑA 3: ROL DE PAGOS -->
@@ -502,24 +611,22 @@
                 <h2>ROL DE PAGOS</h2>
 
                 <div class="barra-herramientas-rol">
-                    <button class="btn-mini" onclick="cargarHorasDesdeReporte()">🔄 Sincronizar Horas del Reporte</button>
+                    <button class="btn-mini" onclick="cargarHorasDesdePlanilla()">🔄 Sincronizar Horas de la Planilla</button>
                     <button class="btn-mini" onclick="calcularIESSyFondoAuto()">⚡ Calcular IESS (9.45%) y F. Reserva (8.33%)</button>
                 </div>
 
-                <!-- ENCABEZADO PERIODO -->
                 <div class="rol-header-periodo">
                     <strong style="font-size: 14px; color: #0f172a;">PERIODO</strong>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span class="rol-badge-naranja">DESDE</span>
-                        <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-11-16">
+                        <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-10-16">
                     </div>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span class="rol-badge-naranja">HASTA</span>
-                        <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-12-15">
+                        <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-11-15">
                     </div>
                 </div>
 
-                <!-- TABLA ROL DE PAGOS -->
                 <div class="tabla-contenedor">
                     <table class="tabla-rol">
                         <thead>
@@ -531,7 +638,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- FILA 1: SUELDO / IESS -->
                             <tr>
                                 <td><input type="number" id="rolDias" class="input-rol input-rol-centro" value="30"></td>
                                 <td></td>
@@ -540,7 +646,6 @@
                                 <td class="celda-concepto">APORTE PERSONAL I.E.S.S</td>
                                 <td class="celda-monto">$ <input type="number" id="rolIess" class="input-rol" value="89.69" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
-                            <!-- FILA 2: HORAS 50% / ANTICIPO -->
                             <tr>
                                 <td></td>
                                 <td><input type="text" id="rolCantH50" class="input-rol input-rol-centro" value="00:00"></td>
@@ -549,7 +654,6 @@
                                 <td class="celda-concepto">ANTICIPO DE SUELDO</td>
                                 <td class="celda-monto">$ <input type="number" id="rolAnticipo" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
-                            <!-- FILA 3: HORAS 100% / LUNCH -->
                             <tr>
                                 <td></td>
                                 <td><input type="text" id="rolCantH100" class="input-rol input-rol-centro" value="00:00"></td>
@@ -558,7 +662,6 @@
                                 <td class="celda-concepto">LUNCH</td>
                                 <td class="celda-monto">$ <input type="number" id="rolDescLunch" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
-                            <!-- FILA 4: FONDO DE RESERVA -->
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -567,7 +670,6 @@
                                 <td class="celda-concepto" style="color:#94a3b8; font-weight:400;">OTROS DESCUENTOS</td>
                                 <td class="celda-monto">$ <input type="number" id="rolOtrosDesc" class="input-rol" value="0.00" step="0.01" oninput="recalcularRol()"></td>
                             </tr>
-                            <!-- FILA 5: BONO RESPONSABILIDAD -->
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -576,7 +678,6 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <!-- FILA 6: BONO LUNCH -->
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -585,7 +686,6 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <!-- FILA 7: BONO MOVILIZACION -->
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -594,7 +694,6 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <!-- FILA 8: TOTAL INGRESO / TOTAL EGRESO -->
                             <tr>
                                 <td colspan="2" style="border:none; background:transparent !important;"></td>
                                 <td class="celda-gris-total">TOTAL DE INGRESO</td>
@@ -602,11 +701,9 @@
                                 <td class="celda-gris-total">TOTAL DE EGRESO</td>
                                 <td class="celda-valor-total">$ <span id="rolTotalEgreso">0.00</span></td>
                             </tr>
-                            <!-- FILA SEPARADORA -->
                             <tr>
                                 <td colspan="6" style="height: 10px; border: none; background: transparent !important;"></td>
                             </tr>
-                            <!-- FILA 9: VALOR NETO A RECIBIR -->
                             <tr>
                                 <td colspan="2" style="border:none; background:transparent !important;"></td>
                                 <td class="celda-gris-total">VALOR NETO A RECIBIR</td>
@@ -633,17 +730,16 @@
             { user: "Alexandra", pass: "Tequiero", nombre: "HOlA MI AMOR" }
         ];
 
-        let calculoActual = null;
+        const NOMBRES_MESES = [
+            "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+            "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
+        ];
+
+        const DIAS_SEMANA = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+
         let usuarioActivo = "";
         let nombreActivo = "";
-        let idEdicionActual = null;
-
-        window.onload = function() {
-            const hoy = new Date().toISOString().split('T')[0];
-            if(document.getElementById('fechaTurno')) {
-                document.getElementById('fechaTurno').value = hoy;
-            }
-        }
+        let filasPlanillaData = [];
 
         function validarAcceso() {
             const userInput = document.getElementById('usuarioInput').value.trim().toLowerCase();
@@ -659,8 +755,9 @@
                 document.getElementById('pantallaApp').classList.remove('oculto');
                 document.getElementById('saludoUsuario').innerText = "👤 Conectado como: " + cliente.nombre;
                 errorMsg.classList.add('oculto');
-                
+
                 cambiarMenu('CALCULADORA');
+                generarPlanillaMes();
                 mostrarRegistros();
                 cargarDatosRolGuardados();
             } else {
@@ -669,210 +766,341 @@
         }
 
         function cambiarMenu(menu) {
-            const tabCalc = document.getElementById('tabCalculadora');
-            const tabRep = document.getElementById('tabReporte');
-            const tabRol = document.getElementById('tabRol');
-            const seccionCalc = document.getElementById('seccionApp');
-            const seccionRep = document.getElementById('bloqueReporte');
-            const seccionRol = document.getElementById('bloqueRol');
-
-            tabCalc.classList.remove('activa');
-            tabRep.classList.remove('activa');
-            tabRol.classList.remove('activa');
-            seccionCalc.classList.add('oculto');
-            seccionRep.classList.add('oculto');
-            seccionRol.classList.add('oculto');
+            ['CALCULADORA', 'REPORTE', 'ROL'].forEach(m => {
+                document.getElementById('tab' + m.charAt(0) + m.slice(1).toLowerCase()).classList.remove('activa');
+            });
+            document.getElementById('seccionApp').classList.add('oculto');
+            document.getElementById('bloqueReporte').classList.add('oculto');
+            document.getElementById('bloqueRol').classList.add('oculto');
 
             if (menu === 'CALCULADORA') {
-                tabCalc.classList.add('activa');
-                seccionCalc.classList.remove('oculto');
+                document.getElementById('tabCalculadora').classList.add('activa');
+                document.getElementById('seccionApp').classList.remove('oculto');
             } else if (menu === 'REPORTE') {
-                tabRep.classList.add('activa');
-                seccionRep.classList.remove('oculto');
+                document.getElementById('tabReporte').classList.add('activa');
+                document.getElementById('bloqueReporte').classList.remove('oculto');
+                mostrarRegistros();
             } else if (menu === 'ROL') {
-                tabRol.classList.add('activa');
-                seccionRol.classList.remove('oculto');
-                cargarHorasDesdeReporte();
+                document.getElementById('tabRol').classList.add('activa');
+                document.getElementById('bloqueRol').classList.remove('oculto');
+                cargarHorasDesdePlanilla();
             }
         }
 
         function cerrarSesion() {
-            location.reload(); 
+            location.reload();
         }
 
-        function calcularExtras() {
-            const fechaVal = document.getElementById('fechaTurno').value;
-            const sueldoBase = parseFloat(document.getElementById('sueldo').value);
-            const tipoDia = document.getElementById('tipoDia').value;
-            const entrada = document.getElementById('entrada').value;
-            const salida = document.getElementById('salida').value;
+        function formatearFechaCorta(dateObj) {
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const y = dateObj.getFullYear();
+            return `${d}/${m}/${y}`;
+        }
 
-            if (!fechaVal || !entrada || !salida) {
-                alert("Por favor, ingresa la fecha y las horas de entrada y salida");
-                return;
+        function formatearISO(dateObj) {
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const y = dateObj.getFullYear();
+            return `${y}-${m}-${d}`;
+        }
+
+        function horasDecimalAHHMM(decimalHoras) {
+            const totalMinutos = Math.round((parseFloat(decimalHoras) || 0) * 60);
+            const h = Math.floor(totalMinutos / 60);
+            const m = totalMinutos % 60;
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+
+        function generarPlanillaMes() {
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+
+            document.getElementById('etiquetaMesActual').innerText = NOMBRES_MESES[mesIdx];
+
+            // Corte de 15 días: del 16 del mes anterior al 15 del mes seleccionado
+            const fechaInicio = new Date(anio, mesIdx - 1, 16);
+            const fechaFin = new Date(anio, mesIdx, 15);
+
+            // Actualizar fechas por defecto del Rol de Pagos
+            document.getElementById('rolDesde').value = formatearISO(fechaInicio);
+            document.getElementById('rolHasta').value = formatearISO(fechaFin);
+
+            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
+            const datosGuardados = JSON.parse(localStorage.getItem(claveGuardado)) || {};
+
+            filasPlanillaData = [];
+            const tbody = document.getElementById('cuerpoPlanillaExcel');
+            tbody.innerHTML = "";
+
+            let cursor = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
+            let idx = 0;
+
+            while (cursor <= fechaFin) {
+                const iso = formatearISO(cursor);
+                const fechaTexto = formatearFechaCorta(cursor);
+                const diaNum = cursor.getDay(); // 0 = domingo, 6 = sábado
+                const nombreDia = DIAS_SEMANA[diaNum];
+                const esFinDeSemana = (diaNum === 0 || diaNum === 6);
+
+                let tipoDiaDefault = esFinDeSemana ? "FIN_DE_SEMANA" : "NORMAL";
+                let entradaVal = "";
+                let salidaVal = "";
+
+                if (datosGuardados[iso]) {
+                    tipoDiaDefault = datosGuardados[iso].tipoDia || tipoDiaDefault;
+                    entradaVal = datosGuardados[iso].entrada || "";
+                    salidaVal = datosGuardados[iso].salida || "";
+                }
+
+                const filaObj = {
+                    index: idx,
+                    iso: iso,
+                    fechaTexto: fechaTexto,
+                    nombreDia: nombreDia,
+                    tipoDia: tipoDiaDefault,
+                    entrada: entradaVal,
+                    salida: salidaVal,
+                    h50: 0,
+                    h100: 0,
+                    pago50: 0,
+                    pago100: 0
+                };
+                filasPlanillaData.push(filaObj);
+
+                const tr = document.createElement('tr');
+                tr.id = `filaPlanilla_${idx}`;
+                tr.innerHTML = `
+                    <td class="celda-fecha">${fechaTexto}</td>
+                    <td class="celda-dia">${nombreDia}</td>
+                    <td>
+                        <select class="select-tipo-excel" id="tipoFila_${idx}" onchange="actualizarTipoFila(${idx})">
+                            <option value="NORMAL" ${tipoDiaDefault === "NORMAL" ? "selected" : ""}>Día Normal</option>
+                            <option value="FIN_DE_SEMANA" ${tipoDiaDefault === "FIN_DE_SEMANA" ? "selected" : ""}>Fin de Semana</option>
+                            <option value="FERIADO" ${tipoDiaDefault === "FERIADO" ? "selected" : ""}>Feriado</option>
+                        </select>
+                    </td>
+                    <td><input type="time" step="60" class="input-hora-excel" id="entradaFila_${idx}" value="${entradaVal}" onchange="recalcularPlanillaCompleta()"></td>
+                    <td><input type="time" step="60" class="input-hora-excel" id="salidaFila_${idx}" value="${salidaVal}" onchange="recalcularPlanillaCompleta()"></td>
+                    <td id="h50Fila_${idx}"></td>
+                    <td id="h100Fila_${idx}"></td>
+                    <td><button type="button" class="btn-limpiar-fila" onclick="limpiarFila(${idx})" title="Limpiar horas">✕</button></td>
+                `;
+                tbody.appendChild(tr);
+                aplicarColorFila(idx);
+
+                cursor.setDate(cursor.getDate() + 1);
+                idx++;
             }
 
-            const partesFecha = fechaVal.split('-');
-            const fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
+            recalcularPlanillaCompleta();
+        }
 
-            const horaInicio = new Date(`2026-01-01T${entrada}:00`);
-            const horaFin = new Date(`2026-01-01T${salida}:00`);
-            let diferenciaHoras = (horaFin - horaInicio) / (1000 * 60 * 60);
+        function aplicarColorFila(idx) {
+            const tr = document.getElementById(`filaPlanilla_${idx}`);
+            const tipo = filasPlanillaData[idx].tipoDia;
+            tr.classList.remove("fila-finde", "fila-feriado");
+            if (tipo === "FERIADO") {
+                tr.classList.add("fila-feriado");
+            } else if (tipo === "FIN_DE_SEMANA") {
+                tr.classList.add("fila-finde");
+            }
+        }
 
-            if (diferenciaHoras < 0) diferenciaHoras += 24;
+        function actualizarTipoFila(idx) {
+            const nuevoTipo = document.getElementById(`tipoFila_${idx}`).value;
+            filasPlanillaData[idx].tipoDia = nuevoTipo;
+            aplicarColorFila(idx);
+            recalcularPlanillaCompleta();
+        }
 
-            let horas50 = 0, horas100 = 0, pagoTotal = 0;
+        function limpiarFila(idx) {
+            document.getElementById(`entradaFila_${idx}`).value = "";
+            document.getElementById(`salidaFila_${idx}`).value = "";
+            recalcularPlanillaCompleta();
+        }
+
+        function recalcularPlanillaCompleta() {
+            const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
             const valorHoraNormal = sueldoBase / 240;
 
-            if (tipoDia === "NORMAL") {
-                horas50 = Math.max(0, diferenciaHoras - 8);
-                pagoTotal = horas50 * valorHoraNormal * 1.5;
-            } else if (tipoDia === "FIN_DE_SEMANA" || tipoDia === "FERIADO") {
-                horas100 = diferenciaHoras;
-                pagoTotal = horas100 * valorHoraNormal * 2;
+            let sumaH50 = 0;
+            let sumaH100 = 0;
+            let sumaPago50 = 0;
+            let sumaPago100 = 0;
+
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
+            const estadoParaGuardar = {};
+
+            filasPlanillaData.forEach((fila, idx) => {
+                const entrada = document.getElementById(`entradaFila_${idx}`).value;
+                const salida = document.getElementById(`salidaFila_${idx}`).value;
+                const tipoDia = document.getElementById(`tipoFila_${idx}`).value;
+
+                fila.entrada = entrada;
+                fila.salida = salida;
+                fila.tipoDia = tipoDia;
+
+                estadoParaGuardar[fila.iso] = {
+                    tipoDia: tipoDia,
+                    entrada: entrada,
+                    salida: salida
+                };
+
+                let h50 = 0;
+                let h100 = 0;
+
+                if (entrada && salida) {
+                    const inicio = new Date(`2026-01-01T${entrada}:00`);
+                    const fin = new Date(`2026-01-01T${salida}:00`);
+                    let diffHoras = (fin - inicio) / (1000 * 60 * 60);
+                    if (diffHoras < 0) diffHoras += 24;
+
+                    if (tipoDia === "NORMAL") {
+                        h50 = Math.max(0, diffHoras - 8);
+                        h100 = 0;
+                    } else {
+                        // Fin de Semana o Feriado al 100%
+                        h50 = 0;
+                        h100 = diffHoras;
+                    }
+
+                    document.getElementById(`h50Fila_${idx}`).innerText = horasDecimalAHHMM(h50);
+                    document.getElementById(`h100Fila_${idx}`).innerText = horasDecimalAHHMM(h100);
+                } else {
+                    document.getElementById(`h50Fila_${idx}`).innerText = "";
+                    document.getElementById(`h100Fila_${idx}`).innerText = "";
+                }
+
+                const pago50 = h50 * valorHoraNormal * 1.5;
+                const pago100 = h100 * valorHoraNormal * 2;
+
+                fila.h50 = h50;
+                fila.h100 = h100;
+                fila.pago50 = pago50;
+                fila.pago100 = pago100;
+
+                sumaH50 += h50;
+                sumaH100 += h100;
+                sumaPago50 += pago50;
+                sumaPago100 += pago100;
+            });
+
+            if (usuarioActivo) {
+                localStorage.setItem(claveGuardado, JSON.stringify(estadoParaGuardar));
             }
 
-            document.getElementById('horas50').innerText = horas50.toFixed(2);
-            document.getElementById('horas100').innerText = horas100.toFixed(2);
-            document.getElementById('pagoFinal').innerText = `$${pagoTotal.toFixed(2)}`;
+            const totalHorasDecimal = sumaH50 + sumaH100;
+            const tfoot = document.getElementById('piePlanillaExcel');
+            tfoot.innerHTML = `
+                <tr>
+                    <td colspan="3" style="border:none;"></td>
+                    <td colspan="2" class="celda-subtotal-label">SUBTOTAL</td>
+                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH50)}</td>
+                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH100)}</td>
+                    <td style="border:none;"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:none;"></td>
+                    <td colspan="2" class="celda-subtotal-label">TOTAL</td>
+                    <td colspan="2" class="celda-total-val">${horasDecimalAHHMM(totalHorasDecimal)}</td>
+                    <td style="border:none;"></td>
+                </tr>
+            `;
 
-            let jornadaTexto = "Normal (50%)";
-            if(tipoDia === "FIN_DE_SEMANA") jornadaTexto = "Fin de Semana (100%)";
-            if(tipoDia === "FERIADO") jornadaTexto = "Feriado (100%)";
-
-            calculoActual = {
-                usuario: usuarioActivo,
-                fecha: fechaFormateada,
-                fechaRaw: fechaVal,
-                jornada: jornadaTexto,
-                jornadaRaw: tipoDia,
-                entrada: entrada,
-                salida: salida,
-                h50: horas50.toFixed(2),
-                h100: horas100.toFixed(2),
-                total: pagoTotal.toFixed(2)
-            };
-
-            document.getElementById('btnGuardar').disabled = false;
+            document.getElementById('resumenPago50').innerText = `$${sumaPago50.toFixed(2)}`;
+            document.getElementById('resumenPago100').innerText = `$${sumaPago100.toFixed(2)}`;
+            document.getElementById('resumenPagoTotal').innerText = `$${(sumaPago50 + sumaPago100).toFixed(2)}`;
         }
 
-        function guardarRegistro() {
-            if (!calculoActual) return;
-
+        function guardarPlanillaEnReporte() {
+            recalcularPlanillaCompleta();
             let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-            
-            if (idEdicionActual !== null) {
-                registros[idEdicionActual] = calculoActual;
-                idEdicionActual = null;
-                document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
-                document.getElementById('btnGuardar').innerText = "Guardar Registro";
-                document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
-            } else {
-                registros.push(calculoActual);
-            }
-            
+            registros = registros.filter(r => r.usuario !== usuarioActivo);
+
+            filasPlanillaData.forEach(fila => {
+                if (fila.entrada && fila.salida) {
+                    let etiquetaTipo = "Día Normal";
+                    if (fila.tipoDia === "FIN_DE_SEMANA") etiquetaTipo = "Fin de Semana";
+                    if (fila.tipoDia === "FERIADO") etiquetaTipo = "Feriado";
+
+                    registros.push({
+                        usuario: usuarioActivo,
+                        fecha: fila.fechaTexto,
+                        dia: fila.nombreDia,
+                        tipoDia: etiquetaTipo,
+                        entrada: fila.entrada,
+                        salida: fila.salida,
+                        h50: fila.h50.toFixed(2),
+                        h100: fila.h100.toFixed(2),
+                        h50HHMM: horasDecimalAHHMM(fila.h50),
+                        h100HHMM: horasDecimalAHHMM(fila.h100),
+                        total: (fila.pago50 + fila.pago100).toFixed(2)
+                    });
+                }
+            });
+
             localStorage.setItem('registrosHoras', JSON.stringify(registros));
             mostrarRegistros();
-            
-            calculoActual = null;
-            document.getElementById('btnGuardar').disabled = true;
-            alert("Registro guardado con éxito.");
+            cargarHorasDesdePlanilla();
+            alert("✅ Planilla guardada en Reporte y sincronizada con el Rol de Pagos.");
         }
 
         function mostrarRegistros() {
             const lista = document.getElementById('listaRegistros');
-            const pieTotales = document.getElementById('pieTotales');
-            const btnPDF = document.getElementById('btnPDF');
-            const btnReiniciar = document.getElementById('btnReiniciar');
+            const pie = document.getElementById('pieTotales');
             lista.innerHTML = "";
-            pieTotales.innerHTML = "";
+            pie.innerHTML = "";
 
-            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-            let registrosFiltrados = registros.filter(r => r.usuario === usuarioActivo);
+            const filtrados = (JSON.parse(localStorage.getItem('registrosHoras')) || []).filter(r => r.usuario === usuarioActivo);
 
-            if (registrosFiltrados.length === 0) {
-                lista.innerHTML = `<tr><td colspan="8" style="color: #94a3b8; padding: 20px;">No tienes horas extras registradas aún.</td></tr>`;
-                btnPDF.disabled = true;
-                btnReiniciar.disabled = true;
+            if (filtrados.length === 0) {
+                lista.innerHTML = `<tr><td colspan="8" style="color:#94a3b8; padding:18px;">Aún no has guardado registros desde la planilla.</td></tr>`;
                 return;
             }
 
-            btnPDF.disabled = false;
-            btnReiniciar.disabled = false;
+            let sum50 = 0, sum100 = 0, sumDinero = 0;
 
-            let sumaH50 = 0;
-            let sumaH100 = 0;
-            let sumaTotalPagar = 0;
+            filtrados.forEach(r => {
+                const h50 = parseFloat(r.h50) || 0;
+                const h100 = parseFloat(r.h100) || 0;
+                const tot = parseFloat(r.total) || 0;
+                sum50 += h50;
+                sum100 += h100;
+                sumDinero += tot;
 
-            registros.forEach((reg, indexReal) => {
-                if (reg.usuario === usuarioActivo) {
-                    sumaH50 += parseFloat(reg.h50);
-                    sumaH100 += parseFloat(reg.h100);
-                    sumaTotalPagar += parseFloat(reg.total);
-
-                    let fila = `<tr>
-                        <td><b>${reg.fecha}</b></td>
-                        <td>${reg.jornada}</td>
-                        <td>${reg.entrada}</td>
-                        <td>${reg.salida}</td>
-                        <td>${reg.h50}</td>
-                        <td>${reg.h100}</td>
-                        <td style="color: #059669; font-weight: bold;">$${reg.total}</td>
-                        <td class="columna-accion">
-                            <button class="btn-tabla btn-editar" onclick="cargarParaEditar(${indexReal})">✏️</button>
-                            <button class="btn-tabla btn-borrar" onclick="eliminarRegistro(${indexReal})">Borrar</button>
-                        </td>
-                    </tr>`;
-                    lista.innerHTML += fila;
-                }
+                lista.innerHTML += `
+                    <tr>
+                        <td><b>${r.fecha}</b></td>
+                        <td>${r.dia || ""}</td>
+                        <td>${r.tipoDia || ""}</td>
+                        <td>${r.entrada}</td>
+                        <td>${r.salida}</td>
+                        <td>${r.h50HHMM || horasDecimalAHHMM(h50)}</td>
+                        <td>${r.h100HHMM || horasDecimalAHHMM(h100)}</td>
+                        <td style="color:#059669; font-weight:700;">$${tot.toFixed(2)}</td>
+                    </tr>
+                `;
             });
 
-            let filaTotales = `<tr class="fila-totales">
-                <td colspan="4" style="text-align: right; padding-right: 15px;">TOTAL GENERAL:</td>
-                <td>${sumaH50.toFixed(2)}</td>
-                <td>${sumaH100.toFixed(2)}</td>
-                <td style="color: #1e3a8a;">$${sumaTotalPagar.toFixed(2)}</td>
-                <td class="columna-accion"></td>
-            </tr>`;
-            pieTotales.innerHTML = filaTotales;
+            pie.innerHTML = `
+                <tr style="background:#ecfdf5; font-weight:800;">
+                    <td colspan="5" style="text-align:right;">TOTAL GENERAL:</td>
+                    <td>${horasDecimalAHHMM(sum50)}</td>
+                    <td>${horasDecimalAHHMM(sum100)}</td>
+                    <td style="color:#1e3a8a;">$${sumDinero.toFixed(2)}</td>
+                </tr>
+            `;
         }
 
-        function cargarParaEditar(index) {
-            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-            let reg = registros[index];
-
-            idEdicionActual = index;
-
-            document.getElementById('fechaTurno').value = reg.fechaRaw || "";
-            document.getElementById('tipoDia').value = reg.jornadaRaw || "NORMAL";
-            document.getElementById('entrada').value = reg.entrada;
-            document.getElementById('salida').value = reg.salida;
-
-            document.getElementById('horas50').innerText = reg.h50;
-            document.getElementById('horas100').innerText = reg.h100;
-            document.getElementById('pagoFinal').innerText = `$${reg.total}`;
-
-            document.getElementById('tituloCalculadora').innerText = "✏️ Modificando Registro";
-            document.getElementById('btnGuardar').innerText = "Actualizar Cambios";
-            document.getElementById('btnGuardar').style.backgroundColor = "var(--warning)";
-            document.getElementById('btnGuardar').disabled = false;
-
-            cambiarMenu('CALCULADORA');
-        }
-
-        function eliminarRegistro(index) {
-            if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+        function reiniciarMes() {
+            if (confirm("¿Deseas borrar los registros guardados de este usuario en el Reporte?")) {
                 let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-                registros.splice(index, 1);
+                registros = registros.filter(r => r.usuario !== usuarioActivo);
                 localStorage.setItem('registrosHoras', JSON.stringify(registros));
                 mostrarRegistros();
-                
-                if(idEdicionActual === index){
-                    idEdicionActual = null;
-                    document.getElementById('tituloCalculadora').innerText = "Calculadora Laboral";
-                    document.getElementById('btnGuardar').innerText = "Guardar Registro";
-                    document.getElementById('btnGuardar').style.backgroundColor = "var(--success)";
-                }
             }
         }
 
@@ -880,59 +1108,30 @@
             window.print();
         }
 
-        function reiniciarMes() {
-            if (confirm("⚠️ ADVERTENCIA: Asegúrate de haber guardado tu PDF antes de continuar. Esta acción borrará toda la tabla actual de forma permanente para iniciar el nuevo mes limpio. ¿Deseas borrar la tabla?")) {
-                let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-                let registrosRestantes = registros.filter(r => r.usuario !== usuarioActivo);
-                localStorage.setItem('registrosHoras', JSON.stringify(registrosRestantes));
-
-                mostrarRegistros();
-                alert("Tabla reiniciada con éxito. Ya puedes empezar el nuevo mes.");
-            }
-        }
-
         /* =========================================================
-           FUNCIONES DE LA PESTAÑA: ROL DE PAGOS
+           FUNCIONES DEL ROL DE PAGOS
            ========================================================= */
-
-        function decimalAHorasMinutos(decimal) {
-            const horas = Math.floor(decimal);
-            const minutos = Math.round((decimal - horas) * 60);
-            return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
-        }
-
         function sincronizarSueldoRol() {
             const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
             document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
             recalcularRol();
         }
 
-        function cargarHorasDesdeReporte() {
-            let registros = JSON.parse(localStorage.getItem('registrosHoras')) || [];
-            let registrosUsuario = registros.filter(r => r.usuario === usuarioActivo);
+        function cargarHorasDesdePlanilla() {
+            recalcularPlanillaCompleta();
+            let sumaH50 = 0, sumaH100 = 0, sumaVal50 = 0, sumaVal100 = 0;
 
-            let sumaH50 = 0;
-            let sumaH100 = 0;
-            let sumaVal50 = 0;
-            let sumaVal100 = 0;
-
-            registrosUsuario.forEach(reg => {
-                const h50 = parseFloat(reg.h50) || 0;
-                const h100 = parseFloat(reg.h100) || 0;
-                const tot = parseFloat(reg.total) || 0;
-
-                sumaH50 += h50;
-                sumaH100 += h100;
-
-                if (h50 > 0) sumaVal50 += tot;
-                if (h100 > 0) sumaVal100 += tot;
+            filasPlanillaData.forEach(f => {
+                sumaH50 += f.h50;
+                sumaH100 += f.h100;
+                sumaVal50 += f.pago50;
+                sumaVal100 += f.pago100;
             });
 
-            document.getElementById('rolCantH50').value = decimalAHorasMinutos(sumaH50);
-            document.getElementById('rolCantH100').value = decimalAHorasMinutos(sumaH100);
+            document.getElementById('rolCantH50').value = horasDecimalAHHMM(sumaH50);
+            document.getElementById('rolCantH100').value = horasDecimalAHHMM(sumaH100);
             document.getElementById('rolValH50').value = sumaVal50.toFixed(2);
             document.getElementById('rolValH100').value = sumaVal100.toFixed(2);
-
             recalcularRol();
         }
 
@@ -942,18 +1141,13 @@
             const h100 = parseFloat(document.getElementById('rolValH100').value) || 0;
             const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
 
-            // Base aportable IESS (Sueldo + Horas Extras + Bonos imponibles)
-            const baseAportable = sueldo + h50 + h100 + bonoResp;
-            const aporteIess = baseAportable * 0.0945; // 9.45% Ecuador
-            const fondoReserva = baseAportable * 0.0833; // 8.33% Ecuador
-
-            document.getElementById('rolIess').value = aporteIess.toFixed(2);
-            document.getElementById('rolFondoReserva').value = fondoReserva.toFixed(2);
+            const base = sueldo + h50 + h100 + bonoResp;
+            document.getElementById('rolIess').value = (base * 0.0945).toFixed(2);
+            document.getElementById('rolFondoReserva').value = (base * 0.0833).toFixed(2);
             recalcularRol();
         }
 
         function recalcularRol() {
-            // INGRESOS
             const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
             const valH50 = parseFloat(document.getElementById('rolValH50').value) || 0;
             const valH100 = parseFloat(document.getElementById('rolValH100').value) || 0;
@@ -964,7 +1158,6 @@
 
             const totalIngreso = sueldo + valH50 + valH100 + fondoRes + bonoResp + bonoLunch + bonoMov;
 
-            // EGRESOS / DESCUENTOS
             const iess = parseFloat(document.getElementById('rolIess').value) || 0;
             const anticipo = parseFloat(document.getElementById('rolAnticipo').value) || 0;
             const descLunch = parseFloat(document.getElementById('rolDescLunch').value) || 0;
@@ -973,9 +1166,9 @@
             const totalEgreso = iess + anticipo + descLunch + otrosDesc;
             const netoRecibir = totalIngreso - totalEgreso;
 
-            document.getElementById('rolTotalIngreso').innerText = totalIngreso.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('rolTotalEgreso').innerText = totalEgreso.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('rolNetoRecibir').innerText = netoRecibir.toLocaleString('es-EC', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('rolTotalIngreso').innerText = totalIngreso.toFixed(2);
+            document.getElementById('rolTotalEgreso').innerText = totalEgreso.toFixed(2);
+            document.getElementById('rolNetoRecibir').innerText = netoRecibir.toFixed(2);
         }
 
         function guardarDatosRol() {
@@ -1000,8 +1193,8 @@
         function cargarDatosRolGuardados() {
             const guardado = JSON.parse(localStorage.getItem(`configRol_${usuarioActivo}`));
             if (guardado) {
-                document.getElementById('rolDesde').value = guardado.desde || "2026-11-16";
-                document.getElementById('rolHasta').value = guardado.hasta || "2026-12-15";
+                document.getElementById('rolDesde').value = guardado.desde || document.getElementById('rolDesde').value;
+                document.getElementById('rolHasta').value = guardado.hasta || document.getElementById('rolHasta').value;
                 document.getElementById('rolDias').value = guardado.dias || "30";
                 document.getElementById('rolSueldo').value = guardado.sueldo || "487.77";
                 document.getElementById('sueldo').value = guardado.sueldo || "487.77";
@@ -1014,7 +1207,7 @@
                 document.getElementById('rolDescLunch').value = guardado.descLunch || "0.00";
                 document.getElementById('rolOtrosDesc').value = guardado.otrosDesc || "0.00";
             }
-            cargarHorasDesdeReporte();
+            cargarHorasDesdePlanilla();
         }
     </script>
 </body>
