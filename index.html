@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr CV - Cálculo de Horas Extras y Rol</title>
+    <title>Dr CV - Cálculo de Horas Extras, Rol y Beneficios</title>
     <style>
         :root {
             --primary: #1e40af;
@@ -31,16 +31,9 @@
             min-height: 100vh;
         }
 
-        /* ANIMACIONES LIGERAS Y ELEGANTES */
         @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseValor {
@@ -49,13 +42,8 @@
             100% { transform: scale(1); }
         }
 
-        .animar-entrada {
-            animation: fadeSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .animar-pulso {
-            animation: pulseValor 0.25s ease;
-        }
+        .animar-entrada { animation: fadeSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animar-pulso { animation: pulseValor 0.25s ease; }
 
         .wrapper-principal {
             display: flex;
@@ -78,25 +66,32 @@
             box-sizing: border-box;
         }
 
-        .contenedor-ancho {
-            max-width: 980px;
-        }
+        .contenedor-ancho { max-width: 1020px; }
 
-        h2 { 
-            color: #0f172a; 
-            text-align: center; 
-            margin-bottom: 16px; 
-            margin-top: 0; 
+        h2 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 16px;
+            margin-top: 0;
             font-size: 22px;
             font-weight: 800;
             letter-spacing: -0.3px;
         }
 
-        label { 
-            display: block; 
-            margin-top: 12px; 
-            font-weight: 600; 
-            color: #475569; 
+        h3 {
+            color: #0f172a;
+            margin: 22px 0 10px;
+            font-size: 16px;
+            font-weight: 800;
+            border-left: 4px solid var(--naranja-excel);
+            padding-left: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+            color: #475569;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -132,18 +127,11 @@
             box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
         }
 
-        button:hover { 
-            background-color: var(--primary-hover); 
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0) scale(0.99);
-        }
+        button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        button:active { transform: translateY(0) scale(0.99); }
 
         .oculto { display: none !important; }
 
-        /* BARRA SUPERIOR USUARIO + FECHA Y HORA ACTUAL */
         .barra-estado-superior {
             display: flex;
             flex-wrap: wrap;
@@ -159,7 +147,7 @@
             padding: 10px 14px;
             border-radius: 12px;
             width: 100%;
-            max-width: 560px;
+            max-width: 680px;
             box-sizing: border-box;
             backdrop-filter: blur(6px);
         }
@@ -182,7 +170,7 @@
             padding: 5px;
             margin-bottom: 18px;
             width: 100%;
-            max-width: 560px;
+            max-width: 680px;
             box-sizing: border-box;
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -190,7 +178,7 @@
 
         .pestana {
             color: #94a3b8;
-            padding: 10px 12px;
+            padding: 10px 10px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 8px;
@@ -200,11 +188,7 @@
             font-size: 13px;
         }
 
-        .pestana:hover {
-            color: #f8fafc;
-            background-color: rgba(255, 255, 255, 0.06);
-        }
-
+        .pestana:hover { color: #f8fafc; background-color: rgba(255, 255, 255, 0.06); }
         .pestana.activa {
             background-color: #ffffff;
             color: #0f172a;
@@ -212,13 +196,7 @@
             transform: translateY(-1px);
         }
 
-        .error { 
-            color: var(--danger); 
-            font-size: 13px; 
-            text-align: center; 
-            margin-top: 12px; 
-            font-weight: 600;
-        }
+        .error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; font-weight: 600; }
 
         /* BARRA SUPERIOR PLANILLA EXCEL */
         .barra-controles-planilla {
@@ -234,19 +212,8 @@
             margin-bottom: 14px;
         }
 
-        .grupo-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .grupo-control label {
-            margin: 0;
-            font-size: 12px;
-            color: #0f172a;
-        }
-
+        .grupo-control { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .grupo-control label { margin: 0; font-size: 12px; color: #0f172a; }
         .grupo-control select, .grupo-control input {
             width: auto;
             margin: 0;
@@ -277,7 +244,6 @@
             text-transform: uppercase;
         }
 
-        /* TABLA ESTILO EXCEL */
         .tabla-contenedor {
             border-radius: 8px;
             overflow-x: auto;
@@ -310,24 +276,10 @@
             text-align: center;
             color: #000000;
             font-weight: 500;
-            transition: background-color 0.2s ease;
         }
 
-        .tabla-excel tbody tr:hover td:not(.celda-fecha):not(.celda-dia) {
-            background-color: #f8fafc;
-        }
-
-        .fila-finde td.celda-dia,
-        .fila-finde td.celda-fecha {
-            background-color: var(--finde-excel);
-            font-weight: 700;
-        }
-
-        .fila-feriado td.celda-dia,
-        .fila-feriado td.celda-fecha {
-            background-color: var(--feriado-excel);
-            font-weight: 700;
-        }
+        .fila-finde td.celda-dia, .fila-finde td.celda-fecha { background-color: var(--finde-excel); font-weight: 700; }
+        .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha { background-color: var(--feriado-excel); font-weight: 700; }
 
         .input-hora-excel {
             width: 108px;
@@ -361,10 +313,6 @@
             box-shadow: none;
         }
 
-        .btn-limpiar-fila:hover {
-            background-color: #cbd5e1;
-        }
-
         .celda-subtotal-label {
             background-color: var(--naranja-excel) !important;
             color: #000000 !important;
@@ -372,18 +320,8 @@
             text-align: center !important;
         }
 
-        .celda-subtotal-val {
-            background-color: #ffffff !important;
-            color: #000000 !important;
-            font-weight: 800 !important;
-        }
-
-        .celda-total-val {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-            font-weight: 900 !important;
-            font-size: 14px;
-        }
+        .celda-subtotal-val { background-color: #ffffff !important; color: #000000 !important; font-weight: 800 !important; }
+        .celda-total-val { background-color: #ffffff !important; color: #0f172a !important; font-weight: 900 !important; font-size: 14px; }
 
         .resumen-dinero-barra {
             display: flex;
@@ -398,7 +336,7 @@
             font-size: 14px;
         }
 
-        /* ESTILOS ROL DE PAGOS */
+        /* ROL DE PAGOS */
         .rol-header-periodo {
             display: flex;
             flex-wrap: wrap;
@@ -411,40 +349,11 @@
             border-radius: 10px;
             border: 1px solid #cbd5e1;
         }
-        .rol-badge-naranja {
-            background-color: #ea580c;
-            color: white;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-        .rol-input-fecha {
-            width: auto;
-            margin: 0;
-            padding: 6px 10px;
-            font-weight: 600;
-            background: white;
-        }
-        .tabla-rol {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 720px;
-            border: 1px solid #94a3b8;
-        }
-        .tabla-rol th {
-            background-color: #808080;
-            color: #ffffff;
-            border: 1px solid #64748b;
-            font-size: 12px;
-            padding: 10px 8px;
-        }
-        .tabla-rol td {
-            border: 1px solid #cbd5e1;
-            padding: 6px 8px;
-            background-color: #ffffff;
-            font-size: 13px;
-        }
+        .rol-badge-naranja { background-color: #ea580c; color: white; font-weight: 700; padding: 6px 14px; border-radius: 6px; font-size: 12px; }
+        .rol-input-fecha { width: auto; margin: 0; padding: 6px 10px; font-weight: 600; background: white; }
+        .tabla-rol { width: 100%; border-collapse: collapse; min-width: 720px; border: 1px solid #94a3b8; }
+        .tabla-rol th { background-color: #808080; color: #ffffff; border: 1px solid #64748b; font-size: 12px; padding: 10px 8px; }
+        .tabla-rol td { border: 1px solid #cbd5e1; padding: 6px 8px; background-color: #ffffff; font-size: 13px; }
         .celda-concepto { text-align: left; font-weight: 600; color: #1e293b; }
         .celda-monto { text-align: right; white-space: nowrap; font-weight: 700; }
         .input-rol {
@@ -459,18 +368,8 @@
             background-color: #f8fafc;
         }
         .input-rol-centro { width: 65px; text-align: center; }
-        .celda-gris-total {
-            background-color: #808080 !important;
-            color: #ffffff !important;
-            font-weight: 700;
-            text-align: center !important;
-        }
-        .celda-valor-total {
-            background-color: #f1f5f9 !important;
-            font-weight: 800;
-            font-size: 14px;
-            text-align: right !important;
-        }
+        .celda-gris-total { background-color: #808080 !important; color: #ffffff !important; font-weight: 700; text-align: center !important; }
+        .celda-valor-total { background-color: #f1f5f9 !important; font-weight: 800; font-size: 14px; text-align: right !important; }
         .celda-neto {
             background-color: #ecfdf5 !important;
             font-weight: 800;
@@ -479,23 +378,136 @@
             text-align: right !important;
             border: 2px solid #10b981 !important;
         }
-        .barra-herramientas-rol {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
+        .barra-herramientas-rol { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-mini { width: auto; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
+
+        /* DEUDAS QUINCENA Y FIN DE MES */
+        .grid-quincena-finmes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 16px;
+            margin-top: 10px;
         }
-        .btn-mini {
-            width: auto;
-            margin-top: 0;
-            padding: 8px 12px;
+
+        .tabla-qf {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border: 1px solid #94a3b8;
+            font-size: 13px;
+        }
+
+        .tabla-qf th {
+            background-color: var(--naranja-excel);
+            color: #000000;
+            font-weight: 800;
+            padding: 8px 10px;
+            border: 1px solid #475569;
+            font-size: 13px;
+            letter-spacing: 0.4px;
+        }
+
+        .tabla-qf td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            color: #0f172a;
+        }
+
+        .input-deuda-nombre {
+            width: 100%;
+            margin: 0;
+            padding: 4px 6px;
             font-size: 12px;
-            background-color: #334155;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            background: transparent;
+        }
+
+        .input-deuda-nombre:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+        }
+
+        .input-deuda-monto {
+            width: 92px;
+            margin: 0;
+            padding: 4px 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: right;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: #f8fafc;
+        }
+
+        .fila-percibido td {
+            font-weight: 800;
+            background-color: #fff7ed;
+        }
+
+        .fila-deuda-total td {
+            font-weight: 800;
+            background-color: #f8fafc;
+        }
+
+        .fila-real-percibir td {
+            font-weight: 900;
+            background-color: #ecfdf5;
+            color: #065f46;
+            border-top: 2px solid #0f172a;
+        }
+
+        .btn-quitar-deuda {
+            width: auto;
+            margin: 0;
+            padding: 2px 6px;
+            font-size: 11px;
+            background: #fee2e2;
+            color: #b91c1c;
+            box-shadow: none;
+        }
+
+        /* BENEFICIOS SOCIALES */
+        .tabla-beneficios {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: #ffffff;
+            min-width: 580px;
+        }
+
+        .tabla-beneficios th {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 8px;
+            border: 1px solid #334155;
+            font-size: 12px;
+        }
+
+        .tabla-beneficios td {
+            padding: 5px 8px;
+            border: 1px solid #cbd5e1;
+            text-align: center;
+        }
+
+        .grid-beneficios-extra {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .tarjeta-beneficio-editable {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px;
         }
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra {
+            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-quitar-deuda {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -507,7 +519,7 @@
                 display: block !important;
                 animation: none !important;
             }
-            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha {
+            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-deuda-nombre, .input-deuda-monto {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
@@ -515,7 +527,7 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tabla-qf th {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -551,9 +563,10 @@
             <div class="menu-navegacion animar-entrada">
                 <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Planilla / Calculadora</div>
                 <div class="pestana" id="tabRol" onclick="cambiarMenu('ROL')">💵 Rol de Pagos</div>
+                <div class="pestana" id="tabBeneficios" onclick="cambiarMenu('BENEFICIOS')">📅 Deudas y Beneficios</div>
             </div>
 
-            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL CON CORTE DE 15 DÍAS (16 AL 15) -->
+            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL -->
             <div class="contenedor contenedor-ancho animar-entrada" id="seccionApp">
                 <h2>CALCULO DE HORAS EXTRAS</h2>
 
@@ -561,7 +574,7 @@
                     <div class="grupo-control">
                         <span class="badge-mes-excel">MES</span>
                         <span class="badge-mes-nombre" id="etiquetaMesActual">NOVIEMBRE</span>
-                        <select id="selectorMes" onchange="generarPlanillaMes()">
+                        <select id="selectorMes" onchange="generarPlanillaMes(); cargarDeudasMes();">
                             <option value="0">Enero (16 Dic - 15 Ene)</option>
                             <option value="1">Febrero (16 Ene - 15 Feb)</option>
                             <option value="2">Marzo (16 Feb - 15 Mar)</option>
@@ -577,7 +590,7 @@
                         </select>
 
                         <label for="selectorAnio">AÑO:</label>
-                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes()">
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes(); cargarDeudasMes();">
                     </div>
 
                     <div class="grupo-control">
@@ -728,6 +741,136 @@
                 <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 10px;">📄 Exportar / Imprimir Rol en PDF</button>
             </div>
 
+            <!-- PESTAÑA 3: DEUDAS (QUINCENA / FIN DE MES) + BENEFICIOS SOCIALES -->
+            <div class="contenedor contenedor-ancho oculto" id="bloqueBeneficios">
+                <h2>DEUDAS POR MES Y BENEFICIOS SOCIALES</h2>
+
+                <div class="barra-herramientas-rol">
+                    <button class="btn-mini" onclick="agregarFilaDeuda()">➕ Agregar Fila de Deuda</button>
+                    <button class="btn-mini" onclick="copiarDeudasMesAnterior()">📋 Copiar Deudas del Mes Anterior</button>
+                    <button class="btn-mini" onclick="enviarIngresoRolAlMesActual()">⚡ Pasar Ingreso del Rol al Mes</button>
+                </div>
+
+                <!-- MATRIZ QUINCENA Y FIN DE MES (ESTILO IMAGEN) -->
+                <div class="grid-quincena-finmes">
+                    <!-- BLOQUE QUINCENA -->
+                    <table class="tabla-qf" id="tablaQuincena">
+                        <thead>
+                            <tr>
+                                <th colspan="3">QUINCENA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fila-percibido">
+                                <td style="font-weight:800;">PERCIBIDO</td>
+                                <td style="width:24px; text-align:center;">$</td>
+                                <td style="width:118px; text-align:right;">
+                                    <input type="number" step="0.01" class="input-deuda-monto" id="qPercibido" value="273.39" oninput="recalcularDeudasQF()">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody id="cuerpoDeudasQuincena"></tbody>
+                        <tbody>
+                            <tr class="fila-deuda-total">
+                                <td>DEUDA TOTAL</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qDeudaTotal">0.00</td>
+                            </tr>
+                            <tr class="fila-real-percibir">
+                                <td>VALOR REAL PERCIBIR</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qValorReal">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- BLOQUE FIN DE MES -->
+                    <table class="tabla-qf" id="tablaFinMes">
+                        <thead>
+                            <tr>
+                                <th colspan="3">FIN DE MES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fila-percibido">
+                                <td style="font-weight:800;">PERCIBIDO</td>
+                                <td style="width:24px; text-align:center;">$</td>
+                                <td style="width:118px; text-align:right;">
+                                    <input type="number" step="0.01" class="input-deuda-monto" id="fPercibido" value="0.00" oninput="recalcularDeudasQF()">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody id="cuerpoDeudasFinMes"></tbody>
+                        <tbody>
+                            <tr class="fila-deuda-total">
+                                <td>DEUDA TOTAL</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="fDeudaTotal">0.00</td>
+                            </tr>
+                            <tr class="fila-real-percibir">
+                                <td>VALOR REAL PERCIBIR</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="fValorReal">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- HISTORIAL DE INGRESOS MENSUALES PARA DÉCIMO TERCERO -->
+                <h3>HISTORIAL MENSUAL DE INGRESOS (CÁLCULO DÉCIMO TERCERO)</h3>
+                <div class="tabla-contenedor">
+                    <table class="tabla-beneficios" id="tablaDecimoTercero">
+                        <thead>
+                            <tr>
+                                <th>MES</th>
+                                <th>TOTAL INGRESOS DEL MES ($)</th>
+                                <th>DÉCIMO TERCERO DEL MES (÷ 12)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoDecimoTercero"></tbody>
+                        <tfoot id="pieDecimoTercero"></tfoot>
+                    </table>
+                </div>
+
+                <!-- VENTANAS EDITABLES: DÉCIMO CUARTO Y UTILIDADES -->
+                <div class="grid-beneficios-extra">
+                    <div class="tarjeta-beneficio-editable">
+                        <label for="decimoCuartoInput">DÉCIMO CUARTO ($ - EDITABLE):</label>
+                        <input type="number" step="0.01" id="decimoCuartoInput" value="0.00" oninput="recalcularBeneficiosExtra()">
+                        <small style="color:#64748b; display:block; margin-top:6px;">Ingresa el monto proporcional o acumulado del décimo cuarto.</small>
+                    </div>
+
+                    <div class="tarjeta-beneficio-editable">
+                        <label for="utilidadesInput">UTILIDADES ($ - EDITABLE):</label>
+                        <input type="number" step="0.01" id="utilidadesInput" value="0.00" oninput="recalcularBeneficiosExtra()">
+                        <small style="color:#64748b; display:block; margin-top:6px;">Ingresa el valor de utilidades asignado o proyectado.</small>
+                    </div>
+
+                    <div class="tarjeta-beneficio-editable" style="background:#ecfdf5; border-color:#86efac;">
+                        <label style="color:#065f46;">RESUMEN TOTAL BENEFICIOS:</label>
+                        <p style="margin:6px 0; display:flex; justify-content:space-between; font-size:13px;">
+                            <span>Décimo Tercero:</span>
+                            <strong id="resumenDecimoTercero">$0.00</strong>
+                        </p>
+                        <p style="margin:6px 0; display:flex; justify-content:space-between; font-size:13px;">
+                            <span>Décimo Cuarto:</span>
+                            <strong id="resumenDecimoCuarto">$0.00</strong>
+                        </p>
+                        <p style="margin:6px 0; display:flex; justify-content:space-between; font-size:13px;">
+                            <span>Utilidades:</span>
+                            <strong id="resumenUtilidades">$0.00</strong>
+                        </p>
+                        <p style="margin:8px 0 0; padding-top:6px; border-top:1px solid #a7f3d0; display:flex; justify-content:space-between; font-size:15px; color:#065f46;">
+                            <strong>TOTAL BENEFICIOS:</strong>
+                            <strong id="resumenTotalBeneficios">$0.00</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="guardarDeudasYBeneficios()" style="background-color: var(--success); margin-top: 18px;">💾 Guardar Deudas y Beneficios</button>
+                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
+            </div>
+
         </div>
 
     </div>
@@ -750,6 +893,7 @@
         let usuarioActivo = "";
         let nombreActivo = "";
         let filasPlanillaData = [];
+        let deudasMesActual = [];
 
         function actualizarFechaHoraActual() {
             const el = document.getElementById("fechaHoraActual");
@@ -800,6 +944,8 @@
                 cambiarMenu('CALCULADORA');
                 generarPlanillaMes();
                 cargarDatosRolGuardados();
+                cargarDeudasMes();
+                cargarBeneficiosAnuales();
             } else {
                 errorMsg.classList.remove('oculto');
             }
@@ -808,13 +954,13 @@
         function cambiarMenu(menu) {
             const tabCalc = document.getElementById('tabCalculadora');
             const tabRol = document.getElementById('tabRol');
+            const tabBen = document.getElementById('tabBeneficios');
             const seccionCalc = document.getElementById('seccionApp');
             const seccionRol = document.getElementById('bloqueRol');
+            const seccionBen = document.getElementById('bloqueBeneficios');
 
-            tabCalc.classList.remove('activa');
-            tabRol.classList.remove('activa');
-            seccionCalc.classList.add('oculto');
-            seccionRol.classList.add('oculto');
+            [tabCalc, tabRol, tabBen].forEach(t => t.classList.remove('activa'));
+            [seccionCalc, seccionRol, seccionBen].forEach(s => s.classList.add('oculto'));
 
             if (menu === 'CALCULADORA') {
                 tabCalc.classList.add('activa');
@@ -825,6 +971,12 @@
                 seccionRol.classList.remove('oculto');
                 activarAnimacionSeccion(seccionRol);
                 cargarHorasDesdePlanilla();
+            } else if (menu === 'BENEFICIOS') {
+                tabBen.classList.add('activa');
+                seccionBen.classList.remove('oculto');
+                activarAnimacionSeccion(seccionBen);
+                renderizarTablaDecimoTercero();
+                recalcularBeneficiosExtra();
             }
         }
 
@@ -858,335 +1010,9 @@
             return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
         }
 
+        /* =========================================================
+           PLANILLA ESTILO EXCEL (16 AL 15)
+           ========================================================= */
         function generarPlanillaMes() {
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
-            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
-
-            document.getElementById('etiquetaMesActual').innerText = NOMBRES_MESES[mesIdx];
-
-            // Corte de 15 días: del 16 del mes anterior al 15 del mes seleccionado
-            const fechaInicio = new Date(anio, mesIdx - 1, 16);
-            const fechaFin = new Date(anio, mesIdx, 15);
-
-            document.getElementById('rolDesde').value = formatearISO(fechaInicio);
-            document.getElementById('rolHasta').value = formatearISO(fechaFin);
-
-            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
-            const datosGuardados = JSON.parse(localStorage.getItem(claveGuardado)) || {};
-
-            filasPlanillaData = [];
-            const tbody = document.getElementById('cuerpoPlanillaExcel');
-            tbody.innerHTML = "";
-
-            let cursor = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
-            let idx = 0;
-
-            while (cursor <= fechaFin) {
-                const iso = formatearISO(cursor);
-                const fechaTexto = formatearFechaCorta(cursor);
-                const diaNum = cursor.getDay(); // 0 = domingo, 6 = sábado
-                const nombreDia = DIAS_SEMANA[diaNum];
-                const esFinDeSemana = (diaNum === 0 || diaNum === 6);
-
-                let tipoDiaDefault = esFinDeSemana ? "FIN_DE_SEMANA" : "NORMAL";
-                let entradaVal = "";
-                let salidaVal = "";
-
-                if (datosGuardados[iso]) {
-                    tipoDiaDefault = datosGuardados[iso].tipoDia || tipoDiaDefault;
-                    entradaVal = datosGuardados[iso].entrada || "";
-                    salidaVal = datosGuardados[iso].salida || "";
-                }
-
-                const filaObj = {
-                    index: idx,
-                    iso: iso,
-                    fechaTexto: fechaTexto,
-                    nombreDia: nombreDia,
-                    tipoDia: tipoDiaDefault,
-                    entrada: entradaVal,
-                    salida: salidaVal,
-                    h50: 0,
-                    h100: 0,
-                    pago50: 0,
-                    pago100: 0
-                };
-                filasPlanillaData.push(filaObj);
-
-                const tr = document.createElement('tr');
-                tr.id = `filaPlanilla_${idx}`;
-                tr.innerHTML = `
-                    <td class="celda-fecha">${fechaTexto}</td>
-                    <td class="celda-dia">${nombreDia}</td>
-                    <td>
-                        <select class="select-tipo-excel" id="tipoFila_${idx}" onchange="actualizarTipoFila(${idx})">
-                            <option value="NORMAL" ${tipoDiaDefault === "NORMAL" ? "selected" : ""}>Día Normal</option>
-                            <option value="FIN_DE_SEMANA" ${tipoDiaDefault === "FIN_DE_SEMANA" ? "selected" : ""}>Fin de Semana</option>
-                            <option value="FERIADO" ${tipoDiaDefault === "FERIADO" ? "selected" : ""}>Feriado</option>
-                        </select>
-                    </td>
-                    <td><input type="time" step="60" class="input-hora-excel" id="entradaFila_${idx}" value="${entradaVal}" onchange="recalcularPlanillaCompleta()"></td>
-                    <td><input type="time" step="60" class="input-hora-excel" id="salidaFila_${idx}" value="${salidaVal}" onchange="recalcularPlanillaCompleta()"></td>
-                    <td id="h50Fila_${idx}"></td>
-                    <td id="h100Fila_${idx}"></td>
-                    <td><button type="button" class="btn-limpiar-fila" onclick="limpiarFila(${idx})" title="Limpiar horas">✕</button></td>
-                `;
-                tbody.appendChild(tr);
-                aplicarColorFila(idx);
-
-                cursor.setDate(cursor.getDate() + 1);
-                idx++;
-            }
-
-            recalcularPlanillaCompleta();
-        }
-
-        function aplicarColorFila(idx) {
-            const tr = document.getElementById(`filaPlanilla_${idx}`);
-            const tipo = filasPlanillaData[idx].tipoDia;
-            tr.classList.remove("fila-finde", "fila-feriado");
-            if (tipo === "FERIADO") {
-                tr.classList.add("fila-feriado");
-            } else if (tipo === "FIN_DE_SEMANA") {
-                tr.classList.add("fila-finde");
-            }
-        }
-
-        function actualizarTipoFila(idx) {
-            const nuevoTipo = document.getElementById(`tipoFila_${idx}`).value;
-            filasPlanillaData[idx].tipoDia = nuevoTipo;
-            aplicarColorFila(idx);
-            recalcularPlanillaCompleta();
-        }
-
-        function limpiarFila(idx) {
-            document.getElementById(`entradaFila_${idx}`).value = "";
-            document.getElementById(`salidaFila_${idx}`).value = "";
-            recalcularPlanillaCompleta();
-        }
-
-        function recalcularPlanillaCompleta() {
-            const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
-            const valorHoraNormal = sueldoBase / 240;
-
-            let sumaH50 = 0;
-            let sumaH100 = 0;
-            let sumaPago50 = 0;
-            let sumaPago100 = 0;
-
-            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
-            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
-            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
-            const estadoParaGuardar = {};
-
-            filasPlanillaData.forEach((fila, idx) => {
-                const entrada = document.getElementById(`entradaFila_${idx}`).value;
-                const salida = document.getElementById(`salidaFila_${idx}`).value;
-                const tipoDia = document.getElementById(`tipoFila_${idx}`).value;
-
-                fila.entrada = entrada;
-                fila.salida = salida;
-                fila.tipoDia = tipoDia;
-
-                estadoParaGuardar[fila.iso] = {
-                    tipoDia: tipoDia,
-                    entrada: entrada,
-                    salida: salida
-                };
-
-                let h50 = 0;
-                let h100 = 0;
-
-                if (entrada && salida) {
-                    const inicio = new Date(`2026-01-01T${entrada}:00`);
-                    const fin = new Date(`2026-01-01T${salida}:00`);
-                    let diffHoras = (fin - inicio) / (1000 * 60 * 60);
-                    if (diffHoras < 0) diffHoras += 24;
-
-                    if (tipoDia === "NORMAL") {
-                        h50 = Math.max(0, diffHoras - 8);
-                        h100 = 0;
-                    } else {
-                        h50 = 0;
-                        h100 = diffHoras;
-                    }
-
-                    document.getElementById(`h50Fila_${idx}`).innerText = horasDecimalAHHMM(h50);
-                    document.getElementById(`h100Fila_${idx}`).innerText = horasDecimalAHHMM(h100);
-                } else {
-                    document.getElementById(`h50Fila_${idx}`).innerText = "";
-                    document.getElementById(`h100Fila_${idx}`).innerText = "";
-                }
-
-                const pago50 = h50 * valorHoraNormal * 1.5;
-                const pago100 = h100 * valorHoraNormal * 2;
-
-                fila.h50 = h50;
-                fila.h100 = h100;
-                fila.pago50 = pago50;
-                fila.pago100 = pago100;
-
-                sumaH50 += h50;
-                sumaH100 += h100;
-                sumaPago50 += pago50;
-                sumaPago100 += pago100;
-            });
-
-            if (usuarioActivo) {
-                localStorage.setItem(claveGuardado, JSON.stringify(estadoParaGuardar));
-            }
-
-            const totalHorasDecimal = sumaH50 + sumaH100;
-            const tfoot = document.getElementById('piePlanillaExcel');
-            tfoot.innerHTML = `
-                <tr>
-                    <td colspan="3" style="border:none;"></td>
-                    <td colspan="2" class="celda-subtotal-label">SUBTOTAL</td>
-                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH50)}</td>
-                    <td class="celda-subtotal-val">${horasDecimalAHHMM(sumaH100)}</td>
-                    <td style="border:none;"></td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="border:none;"></td>
-                    <td colspan="2" class="celda-subtotal-label">TOTAL</td>
-                    <td colspan="2" class="celda-total-val">${horasDecimalAHHMM(totalHorasDecimal)}</td>
-                    <td style="border:none;"></td>
-                </tr>
-            `;
-
-            const elPago50 = document.getElementById('resumenPago50');
-            const elPago100 = document.getElementById('resumenPago100');
-            const elPagoTotal = document.getElementById('resumenPagoTotal');
-
-            elPago50.innerText = `$${sumaPago50.toFixed(2)}`;
-            elPago100.innerText = `$${sumaPago100.toFixed(2)}`;
-            elPagoTotal.innerText = `$${(sumaPago50 + sumaPago100).toFixed(2)}`;
-
-            [elPago50, elPago100, elPagoTotal].forEach(el => {
-                el.classList.remove("animar-pulso");
-                void el.offsetWidth;
-                el.classList.add("animar-pulso");
-            });
-        }
-
-        function exportarReporteMensual() {
-            window.print();
-        }
-
-        /* =========================================================
-           FUNCIONES DEL ROL DE PAGOS
-           ========================================================= */
-        function sincronizarSueldoRol() {
-            const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
-            document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
-            recalcularRol();
-        }
-
-        function cargarHorasDesdePlanilla() {
-            recalcularPlanillaCompleta();
-            let sumaH50 = 0, sumaH100 = 0, sumaVal50 = 0, sumaVal100 = 0;
-
-            filasPlanillaData.forEach(f => {
-                sumaH50 += f.h50;
-                sumaH100 += f.h100;
-                sumaVal50 += f.pago50;
-                sumaVal100 += f.pago100;
-            });
-
-            document.getElementById('rolCantH50').value = horasDecimalAHHMM(sumaH50);
-            document.getElementById('rolCantH100').value = horasDecimalAHHMM(sumaH100);
-            document.getElementById('rolValH50').value = sumaVal50.toFixed(2);
-            document.getElementById('rolValH100').value = sumaVal100.toFixed(2);
-            recalcularRol();
-        }
-
-        function calcularIESSyFondoAuto() {
-            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
-            const h50 = parseFloat(document.getElementById('rolValH50').value) || 0;
-            const h100 = parseFloat(document.getElementById('rolValH100').value) || 0;
-            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
-            const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
-            const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
-
-            // Base: Sueldo + Horas Extras 50% y 100% + Bonos
-            const base = sueldo + h50 + h100 + bonoResp + bonoLunch + bonoMov;
-            document.getElementById('rolIess').value = (base * 0.0945).toFixed(2);
-            document.getElementById('rolFondoReserva').value = (base * 0.0833).toFixed(2);
-            recalcularRol();
-        }
-
-        function recalcularRol() {
-            const sueldo = parseFloat(document.getElementById('rolSueldo').value) || 0;
-            const valH50 = parseFloat(document.getElementById('rolValH50').value) || 0;
-            const valH100 = parseFloat(document.getElementById('rolValH100').value) || 0;
-            const fondoRes = parseFloat(document.getElementById('rolFondoReserva').value) || 0;
-            const bonoResp = parseFloat(document.getElementById('rolBonoResp').value) || 0;
-            const bonoLunch = parseFloat(document.getElementById('rolBonoLunch').value) || 0;
-            const bonoMov = parseFloat(document.getElementById('rolBonoMov').value) || 0;
-
-            const totalIngreso = sueldo + valH50 + valH100 + fondoRes + bonoResp + bonoLunch + bonoMov;
-
-            const iess = parseFloat(document.getElementById('rolIess').value) || 0;
-            const anticipo = parseFloat(document.getElementById('rolAnticipo').value) || 0;
-            const descLunch = parseFloat(document.getElementById('rolDescLunch').value) || 0;
-            const otrosDesc = parseFloat(document.getElementById('rolOtrosDesc').value) || 0;
-
-            const totalEgreso = iess + anticipo + descLunch + otrosDesc;
-            const netoRecibir = totalIngreso - totalEgreso;
-
-            const elIng = document.getElementById('rolTotalIngreso');
-            const elEgr = document.getElementById('rolTotalEgreso');
-            const elNet = document.getElementById('rolNetoRecibir');
-
-            elIng.innerText = totalIngreso.toFixed(2);
-            elEgr.innerText = totalEgreso.toFixed(2);
-            elNet.innerText = netoRecibir.toFixed(2);
-
-            [elIng, elEgr, elNet].forEach(el => {
-                el.classList.remove("animar-pulso");
-                void el.offsetWidth;
-                el.classList.add("animar-pulso");
-            });
-        }
-
-        function guardarDatosRol() {
-            const configRol = {
-                desde: document.getElementById('rolDesde').value,
-                hasta: document.getElementById('rolHasta').value,
-                dias: document.getElementById('rolDias').value,
-                sueldo: document.getElementById('rolSueldo').value,
-                fondoRes: document.getElementById('rolFondoReserva').value,
-                bonoResp: document.getElementById('rolBonoResp').value,
-                bonoLunch: document.getElementById('rolBonoLunch').value,
-                bonoMov: document.getElementById('rolBonoMov').value,
-                iess: document.getElementById('rolIess').value,
-                anticipo: document.getElementById('rolAnticipo').value,
-                descLunch: document.getElementById('rolDescLunch').value,
-                otrosDesc: document.getElementById('rolOtrosDesc').value
-            };
-            localStorage.setItem(`configRol_${usuarioActivo}`, JSON.stringify(configRol));
-            alert("✅ Configuración del Rol de Pagos guardada para " + nombreActivo);
-        }
-
-        function cargarDatosRolGuardados() {
-            const guardado = JSON.parse(localStorage.getItem(`configRol_${usuarioActivo}`));
-            if (guardado) {
-                document.getElementById('rolDesde').value = guardado.desde || document.getElementById('rolDesde').value;
-                document.getElementById('rolHasta').value = guardado.hasta || document.getElementById('rolHasta').value;
-                document.getElementById('rolDias').value = guardado.dias || "30";
-                document.getElementById('rolSueldo').value = guardado.sueldo || "487.77";
-                document.getElementById('sueldo').value = guardado.sueldo || "487.77";
-                document.getElementById('rolFondoReserva').value = guardado.fondoRes || "79.06";
-                document.getElementById('rolBonoResp').value = guardado.bonoResp || "15.00";
-                document.getElementById('rolBonoLunch').value = guardado.bonoLunch || "24.00";
-                document.getElementById('rolBonoMov').value = guardado.bonoMov || "20.00";
-                document.getElementById('rolIess').value = guardado.iess || "89.69";
-                document.getElementById('rolAnticipo').value = guardado.anticipo || "0.00";
-                document.getElementById('rolDescLunch').value = guardado.descLunch || "0.00";
-                document.getElementById('rolOtrosDesc').value = guardado.otrosDesc || "0.00";
-            }
-            cargarHorasDesdePlanilla();
-        }
-    </script>
-</body>
-</html>
+            const anio = parseInt(document.getElementById('selectorAnio').value,
