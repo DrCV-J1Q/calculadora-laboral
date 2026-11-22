@@ -66,7 +66,7 @@
             box-sizing: border-box;
         }
 
-        .contenedor-ancho { max-width: 1020px; }
+        .contenedor-ancho { max-width: 1040px; }
 
         h2 {
             color: #0f172a;
@@ -80,7 +80,7 @@
 
         h3 {
             color: #0f172a;
-            margin: 20px 0 10px;
+            margin: 22px 0 10px;
             font-size: 16px;
             font-weight: 800;
             border-left: 4px solid var(--naranja-excel);
@@ -409,6 +409,136 @@
         .barra-herramientas-rol { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
         .btn-mini { width: auto; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
 
+        /* TABLA QUINCENA Y FIN DE MES ESTILO IMAGEN */
+        .tabla-qfm-contenedor {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #94a3b8;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .tabla-qfm {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .tabla-qfm th.cab-quincena,
+        .tabla-qfm th.cab-finmes {
+            background-color: var(--naranja-excel);
+            color: #000000;
+            font-weight: 800;
+            text-align: center;
+            padding: 8px 10px;
+            border: 1px solid #475569;
+            font-size: 13px;
+            letter-spacing: 0.4px;
+        }
+
+        .tabla-qfm th.cab-separador {
+            width: 26px;
+            background-color: #ffffff;
+            border-top: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+            border-left: 1px solid #94a3b8;
+            border-right: 1px solid #94a3b8;
+        }
+
+        .tabla-qfm td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            background-color: #f8fafc;
+        }
+
+        .tabla-qfm td.sep-celda {
+            background-color: #ffffff;
+            border-top: none;
+            border-bottom: none;
+            border-left: 1px solid #94a3b8;
+            border-right: 1px solid #94a3b8;
+        }
+
+        .tabla-qfm tr.fila-percibido td:not(.sep-celda) {
+            background-color: #ffffff;
+            font-weight: 800;
+        }
+
+        .tabla-qfm tr.fila-deuda-total td:not(.sep-celda) {
+            background-color: #e2e8f0;
+            font-weight: 800;
+        }
+
+        .tabla-qfm tr.fila-valor-real td:not(.sep-celda) {
+            background-color: #e2e8f0;
+            font-weight: 800;
+        }
+
+        .tabla-qfm tr.fila-total-percibir td {
+            background-color: #ffffff;
+            border: none;
+            padding-top: 10px;
+            padding-bottom: 6px;
+            font-weight: 900;
+        }
+
+        .tabla-qfm td.celda-total-percibir-label {
+            text-align: right;
+            font-size: 13px;
+            padding-right: 12px;
+        }
+
+        .tabla-qfm td.celda-total-percibir-caja {
+            border: 2px solid #0f172a !important;
+            background-color: #ffffff !important;
+            font-size: 14px;
+        }
+
+        .input-qfm-concepto {
+            width: 100%;
+            margin: 0;
+            padding: 4px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: transparent;
+            color: #0f172a;
+        }
+
+        .input-qfm-concepto:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            text-align: left;
+        }
+
+        .input-qfm-monto {
+            width: 88px;
+            margin: 0;
+            padding: 4px 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: right;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: #ffffff;
+            color: #0f172a;
+        }
+
+        .btn-qfm-quitar {
+            width: auto;
+            margin: 0 0 0 4px;
+            padding: 2px 6px;
+            font-size: 11px;
+            background: #fee2e2;
+            color: #b91c1c;
+            box-shadow: none;
+        }
+
         /* BENEFICIOS SOCIALES */
         .tabla-beneficios {
             width: 100%;
@@ -622,7 +752,7 @@
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-eliminar-banco, .btn-ojo-saldo, .acciones-circulo-ahorro {
+            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-eliminar-banco, .btn-ojo-saldo, .acciones-circulo-ahorro, .btn-qfm-quitar {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -634,7 +764,7 @@
                 display: block !important;
                 animation: none !important;
             }
-            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-banco-nombre, .input-cuenta-detalle {
+            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-banco-nombre, .input-cuenta-detalle, .input-qfm-concepto, .input-qfm-monto {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
@@ -642,11 +772,11 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tarjeta-total-ahorro {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tarjeta-total-ahorro, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .tabla-contenedor { border: none; overflow: visible; }
+            .tabla-contenedor, .tabla-qfm-contenedor { border: none; overflow: visible; }
         }
     </style>
 </head>
@@ -690,7 +820,7 @@
                     <div class="grupo-control">
                         <span class="badge-mes-excel">MES</span>
                         <span class="badge-mes-nombre" id="etiquetaMesActual">NOVIEMBRE</span>
-                        <select id="selectorMes" onchange="generarPlanillaMes()">
+                        <select id="selectorMes" onchange="generarPlanillaMes(); cargarControlQFM();">
                             <option value="0">Enero (16 Dic - 15 Ene)</option>
                             <option value="1">Febrero (16 Ene - 15 Feb)</option>
                             <option value="2">Marzo (16 Feb - 15 Mar)</option>
@@ -706,7 +836,7 @@
                         </select>
 
                         <label for="selectorAnio">AÑO:</label>
-                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes()">
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes(); cargarControlQFM();">
                     </div>
 
                     <div class="grupo-control">
@@ -860,15 +990,79 @@
                 <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 10px;">📄 Exportar / Imprimir Rol en PDF</button>
             </div>
 
-            <!-- PESTAÑA 3: BENEFICIOS SOCIALES -->
+            <!-- PESTAÑA 3: BENEFICIOS SOCIALES + CONTROL QUINCENA / FIN DE MES -->
             <div class="contenedor contenedor-ancho oculto" id="bloqueBeneficios">
-                <h2>BENEFICIOS SOCIALES</h2>
+                <h2>CONTROL QUINCENA / FIN DE MES Y BENEFICIOS SOCIALES</h2>
 
                 <div class="resumen-dinero-barra" style="margin-top:0; margin-bottom:14px;">
                     <div>Último Neto Extraído del Rol: <strong id="ultimoNetoExtraido" style="color:#065f46;">$0.00</strong></div>
-                    <div>Año Consultado: <strong id="anioBeneficiosEtiqueta">2026</strong></div>
+                    <div>Mes / Año: <strong id="mesAnioBeneficiosEtiqueta">NOVIEMBRE 2026</strong></div>
                 </div>
 
+                <!-- CONTROL DE GASTOS EN QUINCENA Y FIN DE MES (ESTILO IMAGEN) -->
+                <h3>CONTROL DE GASTOS - QUINCENA Y FIN DE MES</h3>
+                <div class="barra-herramientas-rol">
+                    <button type="button" class="btn-mini" onclick="agregarFilaQFM()">➕ Agregar Fila de Gasto</button>
+                    <button type="button" class="btn-mini" onclick="aplicarNetoAFinMesQFM()">⚡ Colocar Neto del Rol en Fin de Mes</button>
+                    <button type="button" class="btn-mini" onclick="guardarControlQFM()">💾 Guardar Quincena / Fin de Mes</button>
+                </div>
+
+                <div class="tabla-qfm-contenedor">
+                    <table class="tabla-qfm" id="tablaControlQFM">
+                        <thead>
+                            <tr>
+                                <th class="cab-quincena" colspan="3">QUINCENA</th>
+                                <th class="cab-separador"></th>
+                                <th class="cab-finmes" colspan="3">FIN DE MES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fila-percibido">
+                                <td style="font-weight:800;">PERCIBIDO</td>
+                                <td style="width:24px; text-align:center;">$</td>
+                                <td style="width:128px; text-align:right; white-space:nowrap;">
+                                    <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoQ" value="273.39" oninput="recalcularControlQFM()">
+                                </td>
+                                <td class="sep-celda"></td>
+                                <td style="font-weight:800;">PERCIBIDO</td>
+                                <td style="width:24px; text-align:center;">$</td>
+                                <td style="width:128px; text-align:right; white-space:nowrap;">
+                                    <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoF" value="682.75" oninput="recalcularControlQFM()">
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody id="cuerpoControlQFM"></tbody>
+                        <tbody>
+                            <tr class="fila-deuda-total">
+                                <td>DEUDA TOTAL</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qfmDeudaTotalQ">0.00</td>
+                                <td class="sep-celda"></td>
+                                <td>DEUDA TOTAL</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qfmDeudaTotalF">0.00</td>
+                            </tr>
+                            <tr class="fila-valor-real">
+                                <td>VALOR REAL PERCIBIR</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qfmValorRealQ">0.00</td>
+                                <td class="sep-celda"></td>
+                                <td>VALOR REAL PERCIBIR</td>
+                                <td style="text-align:center;">$</td>
+                                <td style="text-align:right;" id="qfmValorRealF">0.00</td>
+                            </tr>
+                            <tr class="fila-total-percibir">
+                                <td colspan="3" style="border:none; background:#ffffff !important;"></td>
+                                <td class="sep-celda" style="border:none; background:#ffffff !important;"></td>
+                                <td class="celda-total-percibir-label" style="border:none; background:#ffffff !important;">TOTAL A PERCIBIR</td>
+                                <td class="celda-total-percibir-caja" style="text-align:center;">$</td>
+                                <td class="celda-total-percibir-caja" style="text-align:right;" id="qfmTotalAPercibir">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- HISTORIAL DE INGRESOS MENSUALES PARA DÉCIMO TERCERO -->
                 <h3>HISTORIAL MENSUAL DE INGRESOS (CÁLCULO DÉCIMO TERCERO)</h3>
                 <div class="tabla-contenedor">
                     <table class="tabla-beneficios" id="tablaDecimoTercero">
@@ -884,6 +1078,7 @@
                     </table>
                 </div>
 
+                <!-- VENTANAS EDITABLES: DÉCIMO CUARTO Y UTILIDADES -->
                 <div class="grid-beneficios-extra">
                     <div class="tarjeta-beneficio-editable">
                         <label for="decimoCuartoInput">DÉCIMO CUARTO ($ - EDITABLE):</label>
@@ -918,7 +1113,7 @@
                     </div>
                 </div>
 
-                <button onclick="guardarBeneficiosAnuales()" style="background-color: var(--success); margin-top: 18px;">💾 Guardar Beneficios Sociales</button>
+                <button onclick="guardarBeneficiosAnuales()" style="background-color: var(--success); margin-top: 18px;">💾 Guardar Beneficios Sociales y Control</button>
                 <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
             </div>
 
@@ -1002,6 +1197,7 @@
         let nombreActivo = "";
         let titularTarjetaActivo = "JIMMY Q";
         let filasPlanillaData = [];
+        let filasQFMData = [];
         let cuentasAhorroData = [];
         let saldoOculto = false;
 
@@ -1057,6 +1253,7 @@
                 cambiarMenu('CALCULADORA');
                 generarPlanillaMes();
                 cargarDatosRolGuardados();
+                cargarControlQFM();
                 cargarBeneficiosAnuales();
                 cargarCuentasAhorro();
             } else {
@@ -1092,6 +1289,8 @@
                 tabBen.classList.add('activa');
                 seccionBen.classList.remove('oculto');
                 activarAnimacionSeccion(seccionBen);
+                actualizarEtiquetaMesAnioBeneficios();
+                renderizarControlQFM();
                 renderizarTablaDecimoTercero();
                 recalcularBeneficiosExtra();
             } else if (menu === 'AHORRO') {
@@ -1142,6 +1341,12 @@
             document.getElementById('rolHasta').value = formatearISO(fechaFin);
         }
 
+        function actualizarEtiquetaMesAnioBeneficios() {
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            document.getElementById('mesAnioBeneficiosEtiqueta').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
+        }
+
         /* =========================================================
            PLANILLA ESTILO EXCEL (16 AL 15)
            ========================================================= */
@@ -1150,6 +1355,7 @@
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
 
             document.getElementById('etiquetaMesActual').innerText = NOMBRES_MESES[mesIdx];
+            actualizarEtiquetaMesAnioBeneficios();
 
             const fechaInicio = new Date(anio, mesIdx - 1, 16);
             const fechaFin = new Date(anio, mesIdx, 15);
@@ -1429,7 +1635,9 @@
             }
 
             document.getElementById('ultimoNetoExtraido').innerText = `$${neto.toFixed(2)}`;
+            document.getElementById('qfmPercibidoF').value = neto.toFixed(2);
             cambiarMenu('BENEFICIOS');
+            recalcularControlQFM();
         }
 
         function guardarDatosRol() {
@@ -1478,6 +1686,139 @@
         }
 
         /* =========================================================
+           CONTROL QUINCENA Y FIN DE MES (ESTILO IMAGEN)
+           ========================================================= */
+        function claveControlQFM(anio, mesIdx) {
+            return `controlQFM_${usuarioActivo}_${anio}_${mesIdx}`;
+        }
+
+        function filasQFMBase() {
+            return [
+                { conceptoQ: "", montoQ: 0.00, conceptoF: "CASA", montoF: 365.08 },
+                { conceptoQ: "PYCCA", montoQ: 84.75, conceptoF: "BASICOS", montoF: 100.00 },
+                { conceptoQ: "", montoQ: 0.00, conceptoF: "ABG", montoF: 100.00 },
+                { conceptoQ: "", montoQ: 0.00, conceptoF: "JOSSY", montoF: 100.00 },
+                { conceptoQ: "", montoQ: 0.00, conceptoF: "TARJETA", montoF: 0.00 }
+            ];
+        }
+
+        function cargarControlQFM() {
+            if (!usuarioActivo) return;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const guardado = JSON.parse(localStorage.getItem(claveControlQFM(anio, mesIdx)));
+
+            if (guardado) {
+                document.getElementById('qfmPercibidoQ').value = guardado.percibidoQ ?? "273.39";
+                document.getElementById('qfmPercibidoF').value = guardado.percibidoF ?? "682.75";
+                filasQFMData = Array.isArray(guardado.filas) ? guardado.filas : filasQFMBase();
+            } else {
+                document.getElementById('qfmPercibidoQ').value = "273.39";
+                document.getElementById('qfmPercibidoF').value = "682.75";
+                filasQFMData = filasQFMBase();
+            }
+            renderizarControlQFM();
+        }
+
+        function agregarFilaQFM() {
+            filasQFMData.push({ conceptoQ: "", montoQ: 0.00, conceptoF: "", montoF: 0.00 });
+            renderizarControlQFM();
+        }
+
+        function quitarFilaQFM(idx) {
+            filasQFMData.splice(idx, 1);
+            renderizarControlQFM();
+        }
+
+        function aplicarNetoAFinMesQFM() {
+            const neto = parseFloat(document.getElementById('rolNetoRecibir').innerText) || 0;
+            document.getElementById('qfmPercibidoF').value = neto.toFixed(2);
+            recalcularControlQFM();
+        }
+
+        function renderizarControlQFM() {
+            const tbody = document.getElementById('cuerpoControlQFM');
+            tbody.innerHTML = "";
+
+            filasQFMData.forEach((fila, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <input type="text" class="input-qfm-concepto" value="${fila.conceptoQ || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoQ', this.value)">
+                        </td>
+                        <td style="text-align:center;">$</td>
+                        <td style="text-align:right; white-space:nowrap;">
+                            <input type="number" step="0.01" class="input-qfm-monto" value="${(parseFloat(fila.montoQ) || 0).toFixed(2)}" oninput="actualizarQFM(${idx}, 'montoQ', this.value)">
+                            <button type="button" class="btn-qfm-quitar" onclick="quitarFilaQFM(${idx})" title="Quitar fila">✕</button>
+                        </td>
+                        <td class="sep-celda"></td>
+                        <td>
+                            <input type="text" class="input-qfm-concepto" value="${fila.conceptoF || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoF', this.value)">
+                        </td>
+                        <td style="text-align:center;">$</td>
+                        <td style="text-align:right; white-space:nowrap;">
+                            <input type="number" step="0.01" class="input-qfm-monto" value="${(parseFloat(fila.montoF) || 0).toFixed(2)}" oninput="actualizarQFM(${idx}, 'montoF', this.value)">
+                        </td>
+                    </tr>
+                `;
+            });
+
+            recalcularControlQFM();
+        }
+
+        function actualizarQFM(idx, campo, valor) {
+            if (!filasQFMData[idx]) return;
+            if (campo === 'conceptoQ' || campo === 'conceptoF') {
+                filasQFMData[idx][campo] = valor;
+            } else if (campo === 'montoQ' || campo === 'montoF') {
+                filasQFMData[idx][campo] = parseFloat(valor) || 0;
+            }
+            recalcularControlQFM();
+        }
+
+        function recalcularControlQFM() {
+            const percibidoQ = parseFloat(document.getElementById('qfmPercibidoQ').value) || 0;
+            const percibidoF = parseFloat(document.getElementById('qfmPercibidoF').value) || 0;
+
+            let deudaQ = 0;
+            let deudaF = 0;
+
+            filasQFMData.forEach(fila => {
+                deudaQ += parseFloat(fila.montoQ) || 0;
+                deudaF += parseFloat(fila.montoF) || 0;
+            });
+
+            const valorRealQ = percibidoQ - deudaQ;
+            const valorRealF = percibidoF - deudaF;
+            const totalAPercibir = valorRealQ + valorRealF;
+
+            document.getElementById('qfmDeudaTotalQ').innerText = deudaQ.toFixed(2);
+            document.getElementById('qfmDeudaTotalF').innerText = deudaF.toFixed(2);
+            document.getElementById('qfmValorRealQ').innerText = valorRealQ.toFixed(2);
+            document.getElementById('qfmValorRealF').innerText = valorRealF.toFixed(2);
+
+            const elTotal = document.getElementById('qfmTotalAPercibir');
+            elTotal.innerText = totalAPercibir.toFixed(2);
+            elTotal.classList.remove("animar-pulso");
+            void elTotal.offsetWidth;
+            elTotal.classList.add("animar-pulso");
+        }
+
+        function guardarControlQFM() {
+            if (!usuarioActivo) return;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+
+            localStorage.setItem(claveControlQFM(anio, mesIdx), JSON.stringify({
+                percibidoQ: document.getElementById('qfmPercibidoQ').value,
+                percibidoF: document.getElementById('qfmPercibidoF').value,
+                filas: filasQFMData
+            }));
+
+            alert("✅ Control de Quincena y Fin de Mes guardado.");
+        }
+
+        /* =========================================================
            BENEFICIOS SOCIALES
            ========================================================= */
         function obtenerIngresosAnuales(anio) {
@@ -1490,7 +1831,7 @@
 
         function renderizarTablaDecimoTercero() {
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
-            document.getElementById('anioBeneficiosEtiqueta').innerText = anio;
+            actualizarEtiquetaMesAnioBeneficios();
             const ingresos = obtenerIngresosAnuales(anio);
             const tbody = document.getElementById('cuerpoDecimoTercero');
             const tfoot = document.getElementById('pieDecimoTercero');
@@ -1553,11 +1894,20 @@
         function guardarBeneficiosAnuales() {
             if (!usuarioActivo) return;
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+
             localStorage.setItem(`beneficiosExtra_${usuarioActivo}_${anio}`, JSON.stringify({
                 decimoCuarto: document.getElementById('decimoCuartoInput').value,
                 utilidades: document.getElementById('utilidadesInput').value
             }));
-            alert("✅ Beneficios sociales guardados.");
+
+            localStorage.setItem(claveControlQFM(anio, mesIdx), JSON.stringify({
+                percibidoQ: document.getElementById('qfmPercibidoQ').value,
+                percibidoF: document.getElementById('qfmPercibidoF').value,
+                filas: filasQFMData
+            }));
+
+            alert("✅ Beneficios sociales y control Quincena / Fin de Mes guardados.");
         }
 
         function cargarBeneficiosAnuales() {
