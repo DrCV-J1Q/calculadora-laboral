@@ -8,10 +8,10 @@
         :root {
             --primary: #1e40af;
             --primary-hover: #1e3a8a;
-            --success: #10b981;
-            --success-hover: #059669;
-            --warning: #f59e0b;
-            --warning-hover: #d97706;
+            --success: #059669;
+            --success-hover: #047857;
+            --warning: #d97706;
+            --warning-hover: #b45309;
             --danger: #ef4444;
             --danger-hover: #dc2626;
             --naranja-excel: #ed7d31;
@@ -191,6 +191,16 @@
         .btn-login-pro {
             position: relative;
             overflow: hidden;
+            width: 100%;
+            min-height: 44px;
+            margin-top: 16px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: none;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
             background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
             box-shadow: 0 10px 18px -4px rgba(30, 64, 175, 0.42);
             transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
@@ -266,7 +276,7 @@
             letter-spacing: 0.5px;
         }
 
-        input, select, button {
+        input, select {
             width: 100%;
             padding: 11px 12px;
             margin-top: 6px;
@@ -284,20 +294,85 @@
             background-color: #ffffff;
         }
 
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            margin-top: 12px;
-            font-weight: 700;
+        /* BOTONES PROFESIONALES Y COMPACTOS */
+        .btn-accion {
+            width: auto;
+            min-height: 38px;
+            margin: 0;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
             cursor: pointer;
-            letter-spacing: 0.4px;
-            box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
-            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+            transition: transform 0.16s ease, box-shadow 0.2s ease, background-color 0.2s ease, filter 0.2s ease;
         }
 
-        button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
-        button:active { transform: translateY(0) scale(0.99); }
+        .btn-accion:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.16);
+            filter: brightness(1.03);
+        }
+
+        .btn-accion:active {
+            transform: translateY(0) scale(0.985);
+        }
+
+        .btn-primario { background-color: var(--primary); }
+        .btn-primario:hover { background-color: var(--primary-hover); }
+
+        .btn-exito { background-color: var(--success); }
+        .btn-exito:hover { background-color: var(--success-hover); }
+
+        .btn-advertencia { background-color: var(--warning); color: #ffffff; }
+        .btn-advertencia:hover { background-color: var(--warning-hover); }
+
+        .btn-secundario {
+            background-color: #f1f5f9;
+            color: #334155;
+            border-color: #cbd5e1;
+            box-shadow: none;
+        }
+        .btn-secundario:hover { background-color: #e2e8f0; }
+
+        .barra-acciones-inferior {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .barra-sincronizacion {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .barra-sincronizacion-botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
         .oculto { display: none !important; }
 
@@ -504,13 +579,16 @@
 
         .btn-limpiar-fila {
             width: auto;
-            min-height: 32px;
+            min-height: 30px;
             margin: 0;
-            padding: 4px 9px;
+            padding: 3px 8px;
             font-size: 12px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
             background-color: #e2e8f0;
             color: #334155;
-            box-shadow: none;
         }
 
         .celda-subtotal-label {
@@ -589,17 +667,38 @@
         }
         .btn-extraer-neto {
             width: 100%;
-            min-height: 38px;
+            min-height: 36px;
             margin: 0;
-            padding: 8px 10px;
+            padding: 7px 10px;
             font-size: 12px;
+            font-weight: 700;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            color: #ffffff;
             background-color: var(--success);
             box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
         }
         .btn-extraer-neto:hover { background-color: var(--success-hover); }
 
         .barra-herramientas-rol { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-        .btn-mini { width: auto; min-height: 36px; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
+        .btn-mini {
+            width: auto;
+            min-height: 34px;
+            margin: 0;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            color: #ffffff;
+            background-color: #334155;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-mini:hover { background-color: #1e293b; }
 
         /* TABLA QUINCENA Y FIN DE MES ESTILO IMAGEN */
         .tabla-qfm-contenedor {
@@ -725,9 +824,12 @@
             margin: 0 0 0 4px;
             padding: 3px 7px;
             font-size: 11px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
             background: #fee2e2;
             color: #b91c1c;
-            box-shadow: none;
         }
 
         /* BENEFICIOS SOCIALES */
@@ -802,11 +904,17 @@
             .grupo-control select {
                 flex: 1 1 160px;
             }
+            .barra-acciones-inferior {
+                justify-content: stretch;
+            }
+            .barra-acciones-inferior .btn-accion {
+                flex: 1 1 140px;
+            }
         }
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
+            #seccionLogin, .barra-estado-superior, .menu-navegacion, .barra-acciones-inferior, .barra-sincronizacion, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -934,9 +1042,20 @@
                     <div>Total a Pagar Extras: <strong id="resumenPagoTotal" style="color: var(--primary); font-size: 16px;">$0.00</strong></div>
                 </div>
 
-                <button onclick="irARolConHoras()" style="background-color: var(--success); margin-top: 16px;">💵 Pasar Horas al Rol de Pagos</button>
-                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
-                <button onclick="cerrarSesion()" style="background-color: #64748b; margin-top: 8px;">Cerrar Sesión</button>
+                <div class="barra-sincronizacion">
+                    <span>📱 <strong>Datos entre PC y Celular:</strong> Exporta tu respaldo del usuario para abrirlo en otro dispositivo.</span>
+                    <div class="barra-sincronizacion-botones">
+                        <button type="button" class="btn-mini" onclick="exportarRespaldoUsuario()">⬇️ Exportar Datos</button>
+                        <button type="button" class="btn-mini" onclick="document.getElementById('inputImportarRespaldo').click()">⬆️ Cargar Datos</button>
+                        <input type="file" id="inputImportarRespaldo" accept=".json" class="oculto" onchange="importarRespaldoUsuario(event)">
+                    </div>
+                </div>
+
+                <div class="barra-acciones-inferior">
+                    <button type="button" class="btn-accion btn-exito" onclick="irARolConHoras()">💵 Pasar Horas al Rol</button>
+                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
+                    <button type="button" class="btn-accion btn-secundario" onclick="cerrarSesion()">Cerrar Sesión</button>
+                </div>
             </div>
 
             <!-- PESTAÑA 2: ROL DE PAGOS -->
@@ -944,7 +1063,7 @@
                 <h2>ROL DE PAGOS</h2>
 
                 <div class="barra-herramientas-rol">
-                    <button class="btn-mini" onclick="cargarHorasDesdePlanilla()">🔄 Sincronizar Horas de la Planilla</button>
+                    <button type="button" class="btn-mini" onclick="cargarHorasDesdePlanilla()">🔄 Sincronizar Horas de la Planilla</button>
                 </div>
 
                 <div class="rol-header-periodo">
@@ -1048,8 +1167,10 @@
                     </table>
                 </div>
 
-                <button onclick="guardarDatosRol()" style="background-color: var(--success); margin-top: 20px;">💾 Guardar Configuración del Rol</button>
-                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 10px;">📄 Exportar / Imprimir Rol en PDF</button>
+                <div class="barra-acciones-inferior">
+                    <button type="button" class="btn-accion btn-exito" onclick="guardarDatosRol()">💾 Guardar Configuración</button>
+                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
+                </div>
             </div>
 
             <!-- PESTAÑA 3: BENEFICIOS SOCIALES + CONTROL QUINCENA / FIN DE MES -->
@@ -1172,8 +1293,10 @@
                     </div>
                 </div>
 
-                <button onclick="guardarBeneficiosAnuales()" style="background-color: var(--success); margin-top: 18px;">💾 Guardar Beneficios Sociales y Control</button>
-                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
+                <div class="barra-acciones-inferior">
+                    <button type="button" class="btn-accion btn-exito" onclick="guardarBeneficiosAnuales()">💾 Guardar Beneficios y Control</button>
+                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
+                </div>
             </div>
 
         </div>
@@ -1259,6 +1382,69 @@
                 void loginCard.offsetWidth;
                 loginCard.classList.add('animar-shake');
             }
+        }
+
+        /* RESPALDO / TRANSFERENCIA DE DATOS POR USUARIO */
+        function exportarRespaldoUsuario() {
+            if (!usuarioActivo) return;
+            const prefijo = `_${usuarioActivo}`;
+            const datosUsuario = {};
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const clave = localStorage.key(i);
+                if (clave && clave.includes(prefijo)) {
+                    datosUsuario[clave] = localStorage.getItem(clave);
+                }
+            }
+
+            const payload = {
+                usuario: usuarioActivo,
+                exportadoEn: new Date().toISOString(),
+                datos: datosUsuario
+            };
+
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const enlace = document.createElement("a");
+            enlace.href = url;
+            enlace.download = `respaldo_${usuarioActivo}.json`;
+            enlace.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importarRespaldoUsuario(event) {
+            const archivo = event.target.files && event.target.files[0];
+            if (!archivo || !usuarioActivo) return;
+
+            const lector = new FileReader();
+            lector.onload = (e) => {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (!parsed || !parsed.datos || typeof parsed.datos !== "object") {
+                        alert("❌ El archivo de respaldo no tiene un formato válido.");
+                        return;
+                    }
+                    if (parsed.usuario && parsed.usuario.toLowerCase() !== usuarioActivo) {
+                        const confirmar = confirm(`Este respaldo pertenece al usuario "${parsed.usuario}". ¿Deseas cargarlo en "${usuarioActivo}"?`);
+                        if (!confirmar) return;
+                    }
+
+                    Object.entries(parsed.datos).forEach(([clave, valor]) => {
+                        const claveNormalizada = clave.replace(/_[a-z0-9_]+$/i, `_${usuarioActivo}`);
+                        localStorage.setItem(claveNormalizada, valor);
+                    });
+
+                    generarPlanillaMes();
+                    cargarDatosRolGuardados();
+                    cargarControlQFM();
+                    cargarBeneficiosAnuales();
+                    alert("✅ Datos del usuario cargados correctamente.");
+                } catch (err) {
+                    alert("❌ No se pudo leer el archivo JSON.");
+                }
+                event.target.value = "";
+            };
+            lector.readAsText(archivo);
         }
 
         function cambiarMenu(menu) {
