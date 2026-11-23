@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Dr CV - Cálculo de Horas Extras, Rol, Beneficios y Ahorro</title>
+    <title>Dr CV - Cálculo de Horas Extras, Rol y Beneficios</title>
     <style>
         :root {
             --primary: #1e40af;
@@ -39,9 +39,40 @@
             overflow-x: hidden;
         }
 
+        /* ANIMACIONES */
         @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes loginCardEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(22px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes loginFieldEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-7px); }
+            40% { transform: translateX(7px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
         }
 
         @keyframes pulseValor {
@@ -50,8 +81,14 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.45; }
+            50% { transform: translate(8px, -8px) scale(1.08); opacity: 0.7; }
+        }
+
         .animar-entrada { animation: fadeSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .animar-pulso { animation: pulseValor 0.25s ease; }
+        .animar-shake { animation: shakeError 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
 
         .wrapper-principal {
             display: flex;
@@ -60,15 +97,138 @@
             align-items: center;
             min-height: calc(100dvh - 24px);
             width: 100%;
+            position: relative;
         }
 
+        /* LOGIN PROFESIONAL ANIMADO */
+        .login-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(14px);
+            padding: 28px 24px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.65);
+            width: 100%;
+            max-width: 430px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            animation: loginCardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            top: -55px;
+            right: -55px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(30, 64, 175, 0.18) 0%, rgba(30, 64, 175, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatGlow 5s ease-in-out infinite;
+        }
+
+        .login-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af, #3b82f6, #10b981);
+        }
+
+        .login-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            margin: 0 auto 10px;
+        }
+
+        .login-cabecera {
+            text-align: center;
+            margin-bottom: 18px;
+            animation: loginFieldEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+        }
+
+        .login-subtitulo {
+            margin: -10px 0 0;
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .login-campo {
+            animation: loginFieldEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .login-campo-1 { animation-delay: 0.16s; }
+        .login-campo-2 { animation-delay: 0.24s; }
+        .login-accion { animation: loginFieldEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both; }
+
+        .login-card input {
+            background-color: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease, background-color 0.2s ease;
+        }
+
+        .login-card input:focus {
+            transform: translateY(-1px);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.14);
+            background-color: #ffffff;
+        }
+
+        .btn-login-pro {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 10px 18px -4px rgba(30, 64, 175, 0.42);
+            transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+        }
+
+        .btn-login-pro::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.55s ease;
+        }
+
+        .btn-login-pro:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 22px -4px rgba(30, 64, 175, 0.5);
+            filter: brightness(1.04);
+        }
+
+        .btn-login-pro:hover::after {
+            left: 140%;
+        }
+
+        .btn-login-pro:active {
+            transform: translateY(0) scale(0.985);
+        }
+
+        /* CONTENEDORES APP */
         .contenedor {
             background: #ffffff;
             padding: 20px;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             width: 100%;
-            max-width: 440px;
             margin-bottom: 14px;
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
@@ -81,7 +241,7 @@
             color: #0f172a;
             text-align: center;
             margin: 0 0 16px;
-            font-size: clamp(18px, 3.2vw, 23px);
+            font-size: clamp(18px, 3vw, 23px);
             font-weight: 800;
             letter-spacing: -0.3px;
             line-height: 1.25;
@@ -112,7 +272,7 @@
             margin-top: 6px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
-            font-size: 15px; /* Evita zoom automático en iOS */
+            font-size: 15px;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.18s ease;
             background-color: #f8fafc;
         }
@@ -171,10 +331,10 @@
             max-width: 100%;
         }
 
-        /* MENÚ RESPONSIVO */
+        /* MENÚ DE 3 PESTAÑAS SIN COLAPSAR */
         .menu-navegacion {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             background: rgba(15, 23, 42, 0.88);
             border-radius: 14px;
             padding: 6px;
@@ -619,212 +779,34 @@
             padding: 12px;
         }
 
-        /* PESTAÑA AHORRO - TARJETA ESTILO IMAGEN */
-        .layout-ahorro {
-            display: grid;
-            grid-template-columns: minmax(280px, 400px) 1fr;
-            gap: 20px;
-            align-items: start;
-        }
-
-        .tarjeta-total-ahorro {
-            background: linear-gradient(145deg, #242158 0%, #302b6e 55%, #221f52 100%);
-            color: #ffffff;
-            border-radius: 22px;
-            padding: 20px 22px;
-            box-shadow: 0 18px 32px rgba(30, 27, 75, 0.35);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-        }
-
-        .tarjeta-encabezado-ahorro {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .tarjeta-titular {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            color: #e0e7ff;
-        }
-
-        .tarjeta-subtitulo {
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #c7d2fe;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
-        .badge-alcancia {
-            background: rgba(244, 114, 182, 0.22);
-            border: 1px solid rgba(244, 114, 182, 0.45);
-            color: #fbcfe8;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-
-        .disponible-fila {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 22px;
-        }
-
-        .disponible-texto {
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #e0e7ff;
-            text-transform: uppercase;
-        }
-
-        .btn-ojo-saldo {
-            width: 34px;
-            height: 34px;
-            min-height: 34px;
-            padding: 0;
-            margin: 0;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.14);
-            color: #ffffff;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: none;
-        }
-
-        .btn-ojo-saldo:hover { background: rgba(255, 255, 255, 0.24); transform: none; }
-
-        .pie-tarjeta-ahorro {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 10px;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .monto-grande-ahorro {
-            font-size: clamp(28px, 5vw, 38px);
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-            line-height: 1.05;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .acciones-circulo-ahorro {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-circulo-ahorro {
-            width: 42px;
-            height: 42px;
-            min-height: 42px;
-            padding: 0;
-            margin: 0;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            color: #ffffff;
-            font-size: 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: none;
-        }
-
-        .btn-circulo-ahorro:hover { background: rgba(255, 255, 255, 0.22); }
-
-        .input-banco-nombre {
-            width: 100%;
-            min-width: 135px;
-            margin: 0;
-            padding: 6px 8px;
-            font-size: 13px;
-            font-weight: 700;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            background: #f8fafc;
-        }
-
-        .input-cuenta-detalle {
-            width: 100%;
-            min-width: 110px;
-            margin: 0;
-            padding: 6px 8px;
-            font-size: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            background: #f8fafc;
-        }
-
-        .btn-eliminar-banco {
-            width: auto;
-            min-height: 32px;
-            margin: 0;
-            padding: 4px 9px;
-            font-size: 12px;
-            background: #fee2e2;
-            color: #b91c1c;
-            box-shadow: none;
-        }
-
-        /* AJUSTES ESPECÍFICOS PARA CELULARES */
         @media (max-width: 768px) {
             body { padding: 8px; }
             .contenedor { padding: 14px; border-radius: 14px; }
+            .login-card { padding: 22px 16px; border-radius: 16px; }
             .menu-navegacion {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 padding: 5px;
-                gap: 5px;
+                gap: 4px;
                 border-radius: 12px;
             }
             .pestana {
-                font-size: 12px;
-                padding: 9px 8px;
+                font-size: 11.5px;
+                padding: 9px 6px;
                 min-height: 42px;
+                gap: 4px;
             }
             .barra-estado-superior {
                 padding: 8px 12px;
                 font-size: 12px;
             }
-            .grupo-control {
-                width: 100%;
-            }
             .grupo-control select {
-                flex: 1 1 170px;
-            }
-            .layout-ahorro {
-                grid-template-columns: 1fr;
-                gap: 14px;
-            }
-            .btn-mini {
-                flex: 1 1 auto;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .menu-navegacion {
-                grid-template-columns: 1fr;
+                flex: 1 1 160px;
             }
         }
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-eliminar-banco, .btn-ojo-saldo, .acciones-circulo-ahorro, .btn-qfm-quitar {
+            #seccionLogin, .barra-estado-superior, .menu-navegacion, button, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
                 display: none !important;
             }
             .contenedor-ancho:not(.oculto) {
@@ -836,7 +818,7 @@
                 display: block !important;
                 animation: none !important;
             }
-            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-banco-nombre, .input-cuenta-detalle, .input-qfm-concepto, .input-qfm-monto {
+            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-qfm-concepto, .input-qfm-monto {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
@@ -844,7 +826,7 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tarjeta-total-ahorro, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -856,17 +838,28 @@
 
     <div class="wrapper-principal">
 
-        <!-- LOGIN -->
-        <div class="contenedor animar-entrada" id="seccionLogin">
-            <h2>Dr CV - Login</h2>
-            <label>Usuario:</label>
-            <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario" autocomplete="username">
+        <!-- LOGIN PROFESIONAL CON ANIMACIONES -->
+        <div class="login-card" id="seccionLogin">
+            <div class="login-cabecera">
+                <div class="login-badge">✦ Acceso Seguro</div>
+                <h2>Dr CV - Login</h2>
+                <p class="login-subtitulo">Ingresa tus credenciales para continuar</p>
+            </div>
+
+            <div class="login-campo login-campo-1">
+                <label for="usuarioInput">Usuario:</label>
+                <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario" autocomplete="username">
+            </div>
             
-            <label>Contraseña:</label>
-            <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
+            <div class="login-campo login-campo-2">
+                <label for="passInput">Contraseña:</label>
+                <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
+            </div>
             
-            <button onclick="validarAcceso()">Entrar al Sistema</button>
-            <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
+            <div class="login-accion">
+                <button type="button" class="btn-login-pro" onclick="validarAcceso()">Entrar al Sistema</button>
+                <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
+            </div>
         </div>
 
         <!-- APLICACIÓN -->
@@ -881,7 +874,6 @@
                 <div class="pestana activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">🧮 Planilla / Calculadora</div>
                 <div class="pestana" id="tabRol" onclick="cambiarMenu('ROL')">💵 Rol de Pagos</div>
                 <div class="pestana" id="tabBeneficios" onclick="cambiarMenu('BENEFICIOS')">📅 Beneficios Sociales</div>
-                <div class="pestana" id="tabAhorro" onclick="cambiarMenu('AHORRO')">🏦 Ahorro</div>
             </div>
 
             <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL -->
@@ -1184,71 +1176,16 @@
                 <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
             </div>
 
-            <!-- PESTAÑA 4: AHORRO -->
-            <div class="contenedor contenedor-ancho oculto" id="bloqueAhorro">
-                <h2>AHORRO EN INSTITUCIONES BANCARIAS</h2>
-
-                <div class="layout-ahorro">
-                    <div class="tarjeta-total-ahorro" id="tarjetaTotalAhorro">
-                        <div class="tarjeta-encabezado-ahorro">
-                            <div>
-                                <div class="tarjeta-titular" id="ahorroTitularTarjeta">JIMMY Q</div>
-                                <div class="tarjeta-subtitulo" id="ahorroCantidadCuentas">000000002</div>
-                            </div>
-                            <span class="badge-alcancia">🐷 AHORRO TOTAL</span>
-                        </div>
-
-                        <div class="disponible-fila">
-                            <span class="disponible-texto">DISPONIBLE</span>
-                            <button type="button" class="btn-ojo-saldo" onclick="alternarVisibilidadSaldo()" title="Mostrar u ocultar total">👁</button>
-                        </div>
-
-                        <div class="pie-tarjeta-ahorro">
-                            <div class="monto-grande-ahorro" id="totalAhorroTarjeta">$0.00</div>
-                            <div class="acciones-circulo-ahorro">
-                                <button type="button" class="btn-circulo-ahorro" onclick="agregarCuentaBancaria()" title="Agregar institución bancaria">➕</button>
-                                <button type="button" class="btn-circulo-ahorro" onclick="guardarCuentasAhorro()" title="Guardar ahorros">💾</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="barra-herramientas-rol">
-                            <button type="button" class="btn-mini" onclick="agregarCuentaBancaria()">➕ Agregar Banco / Cuenta</button>
-                            <button type="button" class="btn-mini" onclick="guardarCuentasAhorro()">💾 Guardar Ahorros</button>
-                        </div>
-
-                        <div class="tabla-contenedor">
-                            <table class="tabla-beneficios" id="tablaAhorroBancos">
-                                <thead>
-                                    <tr>
-                                        <th>INSTITUCIÓN BANCARIA</th>
-                                        <th>CUENTA / DETALLE</th>
-                                        <th>MONTO ($)</th>
-                                        <th>QUITAR</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cuerpoAhorroBancos"></tbody>
-                                <tfoot id="pieAhorroBancos"></tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="guardarCuentasAhorro()" style="background-color: var(--success); margin-top: 20px;">💾 Guardar Cuentas de Ahorro</button>
-                <button onclick="exportarReporteMensual()" style="background-color: var(--warning); margin-top: 8px;">📄 Exportar / Imprimir PDF</button>
-            </div>
-
         </div>
 
     </div>
 
     <script>
         const CLIENTES_REGISTRADOS = [
-            { user: "jimmy", pass: "12345", nombre: "Jimmy Quituisaca", tarjetaTitular: "JIMMY Q" },
-            { user: "jhon", pass: "andressq", nombre: "Jhon Quituisaca", tarjetaTitular: "JHON Q" },
-            { user: "ALEXANDRA", pass: "tequiero", nombre: "HOlA MI AMOR", tarjetaTitular: "ALEXANDRA" },
-            { user: "Alexandra", pass: "Tequiero", nombre: "HOlA MI AMOR", tarjetaTitular: "ALEXANDRA" }
+            { user: "jimmy", pass: "12345", nombre: "Jimmy Quituisaca" },
+            { user: "jhon", pass: "andressq", nombre: "Jhon Quituisaca" },
+            { user: "ALEXANDRA", pass: "tequiero", nombre: "HOlA MI AMOR" },
+            { user: "Alexandra", pass: "Tequiero", nombre: "HOlA MI AMOR" }
         ];
 
         const NOMBRES_MESES = [
@@ -1260,11 +1197,8 @@
 
         let usuarioActivo = "";
         let nombreActivo = "";
-        let titularTarjetaActivo = "JIMMY Q";
         let filasPlanillaData = [];
         let filasQFMData = [];
-        let cuentasAhorroData = [];
-        let saldoOculto = false;
 
         function actualizarFechaHoraActual() {
             const el = document.getElementById("fechaHoraActual");
@@ -1300,16 +1234,15 @@
             const userInput = document.getElementById('usuarioInput').value.trim().toLowerCase();
             const passInput = document.getElementById('passInput').value.trim();
             const errorMsg = document.getElementById('mensajeError');
+            const loginCard = document.getElementById('seccionLogin');
 
             const cliente = CLIENTES_REGISTRADOS.find(c => c.user.toLowerCase() === userInput && c.pass === passInput);
 
             if (cliente) {
                 usuarioActivo = cliente.user.toLowerCase();
                 nombreActivo = cliente.nombre;
-                titularTarjetaActivo = cliente.tarjetaTitular || cliente.nombre.toUpperCase();
-                document.getElementById('ahorroTitularTarjeta').innerText = titularTarjetaActivo;
 
-                document.getElementById('seccionLogin').classList.add('oculto');
+                loginCard.classList.add('oculto');
                 document.getElementById('pantallaApp').classList.remove('oculto');
                 document.getElementById('saludoUsuario').innerText = "👤 Conectado como: " + cliente.nombre;
                 errorMsg.classList.add('oculto');
@@ -1320,9 +1253,11 @@
                 cargarDatosRolGuardados();
                 cargarControlQFM();
                 cargarBeneficiosAnuales();
-                cargarCuentasAhorro();
             } else {
                 errorMsg.classList.remove('oculto');
+                loginCard.classList.remove('animar-shake');
+                void loginCard.offsetWidth;
+                loginCard.classList.add('animar-shake');
             }
         }
 
@@ -1330,15 +1265,13 @@
             const tabCalc = document.getElementById('tabCalculadora');
             const tabRol = document.getElementById('tabRol');
             const tabBen = document.getElementById('tabBeneficios');
-            const tabAho = document.getElementById('tabAhorro');
 
             const seccionCalc = document.getElementById('seccionApp');
             const seccionRol = document.getElementById('bloqueRol');
             const seccionBen = document.getElementById('bloqueBeneficios');
-            const seccionAho = document.getElementById('bloqueAhorro');
 
-            [tabCalc, tabRol, tabBen, tabAho].forEach(t => t.classList.remove('activa'));
-            [seccionCalc, seccionRol, seccionBen, seccionAho].forEach(s => s.classList.add('oculto'));
+            [tabCalc, tabRol, tabBen].forEach(t => t.classList.remove('activa'));
+            [seccionCalc, seccionRol, seccionBen].forEach(s => s.classList.add('oculto'));
 
             if (menu === 'CALCULADORA') {
                 tabCalc.classList.add('activa');
@@ -1358,11 +1291,6 @@
                 renderizarControlQFM();
                 renderizarTablaDecimoTercero();
                 recalcularBeneficiosExtra();
-            } else if (menu === 'AHORRO') {
-                tabAho.classList.add('activa');
-                seccionAho.classList.remove('oculto');
-                activarAnimacionSeccion(seccionAho);
-                renderizarAhorroBancos();
             }
         }
 
@@ -1979,102 +1907,6 @@
             document.getElementById('ultimoNetoExtraido').innerText = `$${ultimoNeto.toFixed(2)}`;
             renderizarTablaDecimoTercero();
             recalcularBeneficiosExtra();
-        }
-
-        /* AHORRO POR INSTITUCIÓN BANCARIA */
-        function cargarCuentasAhorro() {
-            if (!usuarioActivo) return;
-            const guardadas = JSON.parse(localStorage.getItem(`ahorroBancos_${usuarioActivo}`));
-            if (Array.isArray(guardadas) && guardadas.length > 0) {
-                cuentasAhorroData = guardadas;
-            } else {
-                cuentasAhorroData = [
-                    { banco: "BANCO PICHINCHA", cuenta: "Ahorros", monto: 0.00 },
-                    { banco: "BANCO DEL PACÍFICO", cuenta: "Ahorros", monto: 0.00 }
-                ];
-            }
-            renderizarAhorroBancos();
-        }
-
-        function agregarCuentaBancaria() {
-            cuentasAhorroData.push({ banco: "NUEVO BANCO", cuenta: "Ahorros", monto: 0.00 });
-            renderizarAhorroBancos();
-        }
-
-        function eliminarCuentaBancaria(idx) {
-            cuentasAhorroData.splice(idx, 1);
-            renderizarAhorroBancos();
-        }
-
-        function actualizarCampoAhorro(idx, campo, valor) {
-            if (!cuentasAhorroData[idx]) return;
-            if (campo === 'banco' || campo === 'cuenta') {
-                cuentasAhorroData[idx][campo] = valor;
-            } else if (campo === 'monto') {
-                cuentasAhorroData[idx].monto = parseFloat(valor) || 0;
-            }
-            recalcularTotalAhorro();
-        }
-
-        function alternarVisibilidadSaldo() {
-            saldoOculto = !saldoOculto;
-            recalcularTotalAhorro();
-        }
-
-        function renderizarAhorroBancos() {
-            const tbody = document.getElementById('cuerpoAhorroBancos');
-            tbody.innerHTML = "";
-
-            cuentasAhorroData.forEach((item, idx) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>
-                            <input type="text" class="input-banco-nombre" value="${item.banco}" oninput="actualizarCampoAhorro(${idx}, 'banco', this.value)">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cuenta-detalle" value="${item.cuenta || ''}" placeholder="Ej. Ahorros" oninput="actualizarCampoAhorro(${idx}, 'cuenta', this.value)">
-                        </td>
-                        <td style="white-space:nowrap;">
-                            $ <input type="number" step="0.01" class="input-monto-tabla" value="${(parseFloat(item.monto) || 0).toFixed(2)}" oninput="actualizarCampoAhorro(${idx}, 'monto', this.value)">
-                        </td>
-                        <td>
-                            <button type="button" class="btn-eliminar-banco" onclick="eliminarCuentaBancaria(${idx})" title="Eliminar banco">✕</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            recalcularTotalAhorro();
-        }
-
-        function recalcularTotalAhorro() {
-            let total = 0;
-            cuentasAhorroData.forEach(item => {
-                total += parseFloat(item.monto) || 0;
-            });
-
-            const elTotalPie = document.getElementById('pieAhorroBancos');
-            elTotalPie.innerHTML = `
-                <tr style="background:#f1f5f9; font-weight:800;">
-                    <td colspan="2" style="text-align:right;">TOTAL AHORRADO:</td>
-                    <td style="color:#065f46; font-size:14px;">${saldoOculto ? "$ •••••" : `$ ${total.toFixed(2)}`}</td>
-                    <td></td>
-                </tr>
-            `;
-
-            const elTarjetaMonto = document.getElementById('totalAhorroTarjeta');
-            elTarjetaMonto.innerText = saldoOculto ? "$ •••••" : `$${total.toFixed(2)}`;
-            elTarjetaMonto.classList.remove("animar-pulso");
-            void elTarjetaMonto.offsetWidth;
-            elTarjetaMonto.classList.add("animar-pulso");
-
-            document.getElementById('ahorroCantidadCuentas').innerText = String(cuentasAhorroData.length).padStart(9, '0');
-        }
-
-        function guardarCuentasAhorro() {
-            if (!usuarioActivo) return;
-            localStorage.setItem(`ahorroBancos_${usuarioActivo}`, JSON.stringify(cuentasAhorroData));
-            alert("✅ Cuentas bancarias y total de ahorro guardados.");
         }
     </script>
 </body>
