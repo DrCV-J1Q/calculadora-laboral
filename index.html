@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Dr CV - Cálculo de Horas Extras, Rol, Beneficios y Ahorro</title>
     <style>
         :root {
@@ -21,14 +21,22 @@
             --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg-gradient);
             margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
+            padding: 12px;
             color: #334155;
-            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
         }
 
         @keyframes fadeSlideIn {
@@ -50,38 +58,39 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 20px);
+            min-height: calc(100dvh - 24px);
             width: 100%;
         }
 
         .contenedor {
             background: #ffffff;
-            padding: 22px;
+            padding: 20px;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             width: 100%;
             max-width: 440px;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             border: 1px solid rgba(255, 255, 255, 0.8);
-            box-sizing: border-box;
         }
 
-        .contenedor-ancho { max-width: 1040px; }
+        .contenedor-ancho {
+            max-width: 1040px;
+        }
 
         h2 {
             color: #0f172a;
             text-align: center;
-            margin-bottom: 16px;
-            margin-top: 0;
-            font-size: 22px;
+            margin: 0 0 16px;
+            font-size: clamp(18px, 3.2vw, 23px);
             font-weight: 800;
             letter-spacing: -0.3px;
+            line-height: 1.25;
         }
 
         h3 {
             color: #0f172a;
-            margin: 22px 0 10px;
-            font-size: 16px;
+            margin: 20px 0 10px;
+            font-size: clamp(14px, 2.2vw, 16px);
             font-weight: 800;
             border-left: 4px solid var(--naranja-excel);
             padding-left: 10px;
@@ -99,12 +108,11 @@
 
         input, select, button {
             width: 100%;
-            padding: 11px;
+            padding: 11px 12px;
             margin-top: 6px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
-            box-sizing: border-box;
-            font-size: 14px;
+            font-size: 15px; /* Evita zoom automático en iOS */
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.18s ease;
             background-color: #f8fafc;
         }
@@ -125,6 +133,7 @@
             cursor: pointer;
             letter-spacing: 0.4px;
             box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
+            min-height: 42px;
         }
 
         button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
@@ -137,55 +146,50 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px 12px;
             color: #f8fafc;
             margin-bottom: 12px;
             font-size: 13px;
             font-weight: 500;
-            background: rgba(15, 23, 42, 0.72);
+            background: rgba(15, 23, 42, 0.78);
             border: 1px solid rgba(148, 163, 184, 0.22);
-            padding: 10px 16px;
+            padding: 10px 14px;
             border-radius: 12px;
             width: 100%;
-            max-width: 820px;
-            box-sizing: border-box;
+            max-width: 1040px;
             backdrop-filter: blur(8px);
         }
 
         .reloj-actual {
             font-variant-numeric: tabular-nums;
-            background: rgba(30, 41, 59, 0.9);
-            padding: 5px 11px;
+            background: rgba(30, 41, 59, 0.92);
+            padding: 5px 10px;
             border-radius: 8px;
             color: #e2e8f0;
             font-size: 12px;
             border: 1px solid rgba(148, 163, 184, 0.18);
+            max-width: 100%;
         }
 
-        /* MENÚ PROFESIONAL */
+        /* MENÚ RESPONSIVO */
         .menu-navegacion {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             border-radius: 14px;
             padding: 6px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             width: 100%;
-            max-width: 820px;
-            box-sizing: border-box;
+            max-width: 1040px;
             gap: 6px;
             border: 1px solid rgba(148, 163, 184, 0.22);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(10px);
         }
 
-        @media (max-width: 640px) {
-            .menu-navegacion { grid-template-columns: repeat(2, 1fr); }
-        }
-
         .pestana {
             color: #cbd5e1;
-            padding: 11px 12px;
+            padding: 11px 10px;
             font-weight: 700;
             cursor: pointer;
             border-radius: 10px;
@@ -199,6 +203,7 @@
             gap: 6px;
             border: 1px solid transparent;
             user-select: none;
+            min-height: 44px;
         }
 
         .pestana:hover {
@@ -230,12 +235,24 @@
             margin-bottom: 14px;
         }
 
-        .grupo-control { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .grupo-control label { margin: 0; font-size: 12px; color: #0f172a; }
+        .grupo-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .grupo-control label {
+            margin: 0;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
         .grupo-control select, .grupo-control input {
             width: auto;
+            min-width: 84px;
             margin: 0;
-            padding: 7px 10px;
+            padding: 8px 10px;
             font-size: 13px;
             font-weight: 600;
             background: #ffffff;
@@ -245,28 +262,32 @@
             background-color: var(--naranja-excel);
             color: #000000;
             font-weight: 800;
-            padding: 6px 14px;
+            padding: 7px 12px;
             border: 1px solid #1e293b;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
+            border-radius: 6px 0 0 6px;
         }
 
         .badge-mes-nombre {
             background-color: var(--naranja-excel);
             color: #000000;
             font-weight: 800;
-            padding: 6px 18px;
+            padding: 7px 14px;
             border: 1px solid #1e293b;
             border-left: none;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
+            border-radius: 0 6px 6px 0;
         }
 
         .tabla-contenedor {
             border-radius: 8px;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid #64748b;
             width: 100%;
+            background: #ffffff;
         }
 
         .tabla-excel {
@@ -274,7 +295,7 @@
             border-collapse: collapse;
             font-size: 13px;
             background: #ffffff;
-            min-width: 780px;
+            min-width: 720px;
         }
 
         .tabla-excel th {
@@ -282,7 +303,7 @@
             color: #000000;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             border: 1px solid #334155;
             padding: 8px 6px;
             text-align: center;
@@ -290,7 +311,7 @@
 
         .tabla-excel td {
             border: 1px solid #64748b;
-            padding: 4px 6px;
+            padding: 5px 6px;
             text-align: center;
             color: #000000;
             font-weight: 500;
@@ -300,32 +321,33 @@
         .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha { background-color: var(--feriado-excel); font-weight: 700; }
 
         .input-hora-excel {
-            width: 108px;
-            padding: 4px 5px;
+            width: 106px;
+            padding: 5px;
             margin: 0;
-            font-size: 12px;
+            font-size: 13px;
             text-align: center;
             border: 1px solid #cbd5e1;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .select-tipo-excel {
-            width: 135px;
-            padding: 4px 5px;
+            width: 130px;
+            padding: 5px;
             margin: 0;
             font-size: 12px;
             font-weight: 600;
             border: 1px solid #cbd5e1;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .btn-limpiar-fila {
             width: auto;
+            min-height: 32px;
             margin: 0;
-            padding: 3px 7px;
-            font-size: 11px;
+            padding: 4px 9px;
+            font-size: 12px;
             background-color: #e2e8f0;
             color: #334155;
             box-shadow: none;
@@ -345,9 +367,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            gap: 12px;
+            align-items: center;
+            gap: 10px 16px;
             margin-top: 14px;
-            padding: 12px 16px;
+            padding: 12px 14px;
             background: #f1f5f9;
             border-left: 5px solid var(--primary);
             border-radius: 8px;
@@ -363,20 +386,28 @@
             gap: 10px;
             margin-bottom: 15px;
             background: #f8fafc;
-            padding: 10px 15px;
+            padding: 10px 14px;
             border-radius: 10px;
             border: 1px solid #cbd5e1;
         }
-        .rol-badge-naranja { background-color: #ea580c; color: white; font-weight: 700; padding: 6px 14px; border-radius: 6px; font-size: 12px; }
-        .rol-input-fecha { width: auto; margin: 0; padding: 6px 10px; font-weight: 600; background: white; }
-        .tabla-rol { width: 100%; border-collapse: collapse; min-width: 720px; border: 1px solid #94a3b8; }
+
+        .rol-fechas-grupo {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rol-badge-naranja { background-color: #ea580c; color: white; font-weight: 700; padding: 6px 12px; border-radius: 6px; font-size: 12px; }
+        .rol-input-fecha { width: auto; min-height: 36px; margin: 0; padding: 6px 10px; font-size: 13px; font-weight: 600; background: white; }
+        .tabla-rol { width: 100%; border-collapse: collapse; min-width: 680px; border: 1px solid #94a3b8; }
         .tabla-rol th { background-color: #808080; color: #ffffff; border: 1px solid #64748b; font-size: 12px; padding: 10px 8px; }
         .tabla-rol td { border: 1px solid #cbd5e1; padding: 6px 8px; background-color: #ffffff; font-size: 13px; }
         .celda-concepto { text-align: left; font-weight: 600; color: #1e293b; }
         .celda-monto { text-align: right; white-space: nowrap; font-weight: 700; }
         .input-rol {
-            width: 85px;
-            padding: 4px 6px;
+            width: 88px;
+            padding: 5px 6px;
             margin: 0;
             text-align: right;
             font-weight: 700;
@@ -385,7 +416,7 @@
             border-radius: 4px;
             background-color: #f8fafc;
         }
-        .input-rol-centro { width: 65px; text-align: center; }
+        .input-rol-centro { width: 68px; text-align: center; }
         .celda-gris-total { background-color: #808080 !important; color: #ffffff !important; font-weight: 700; text-align: center !important; }
         .celda-valor-total { background-color: #f1f5f9 !important; font-weight: 800; font-size: 14px; text-align: right !important; }
         .celda-neto {
@@ -398,6 +429,7 @@
         }
         .btn-extraer-neto {
             width: 100%;
+            min-height: 38px;
             margin: 0;
             padding: 8px 10px;
             font-size: 12px;
@@ -406,13 +438,14 @@
         }
         .btn-extraer-neto:hover { background-color: var(--success-hover); }
 
-        .barra-herramientas-rol { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-        .btn-mini { width: auto; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
+        .barra-herramientas-rol { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-mini { width: auto; min-height: 36px; margin-top: 0; padding: 8px 12px; font-size: 12px; background-color: #334155; }
 
         /* TABLA QUINCENA Y FIN DE MES ESTILO IMAGEN */
         .tabla-qfm-contenedor {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid #94a3b8;
             border-radius: 8px;
             background: #ffffff;
@@ -420,7 +453,7 @@
 
         .tabla-qfm {
             width: 100%;
-            min-width: 720px;
+            min-width: 680px;
             border-collapse: collapse;
             font-size: 13px;
             color: #0f172a;
@@ -439,7 +472,7 @@
         }
 
         .tabla-qfm th.cab-separador {
-            width: 26px;
+            width: 24px;
             background-color: #ffffff;
             border-top: 1px solid #ffffff;
             border-bottom: 1px solid #ffffff;
@@ -466,11 +499,7 @@
             font-weight: 800;
         }
 
-        .tabla-qfm tr.fila-deuda-total td:not(.sep-celda) {
-            background-color: #e2e8f0;
-            font-weight: 800;
-        }
-
+        .tabla-qfm tr.fila-deuda-total td:not(.sep-celda),
         .tabla-qfm tr.fila-valor-real td:not(.sep-celda) {
             background-color: #e2e8f0;
             font-weight: 800;
@@ -498,6 +527,7 @@
 
         .input-qfm-concepto {
             width: 100%;
+            min-width: 90px;
             margin: 0;
             padding: 4px 6px;
             font-size: 12px;
@@ -518,8 +548,8 @@
 
         .input-qfm-monto {
             width: 88px;
-            margin: 0;
             padding: 4px 6px;
+            margin: 0;
             font-size: 13px;
             font-weight: 700;
             text-align: right;
@@ -531,8 +561,9 @@
 
         .btn-qfm-quitar {
             width: auto;
+            min-height: 28px;
             margin: 0 0 0 4px;
-            padding: 2px 6px;
+            padding: 3px 7px;
             font-size: 11px;
             background: #fee2e2;
             color: #b91c1c;
@@ -545,7 +576,7 @@
             border-collapse: collapse;
             font-size: 13px;
             background: #ffffff;
-            min-width: 580px;
+            min-width: 520px;
         }
 
         .tabla-beneficios th {
@@ -557,15 +588,15 @@
         }
 
         .tabla-beneficios td {
-            padding: 5px 8px;
+            padding: 6px 8px;
             border: 1px solid #cbd5e1;
             text-align: center;
         }
 
         .input-monto-tabla {
-            width: 105px;
+            width: 102px;
+            padding: 5px 6px;
             margin: 0;
-            padding: 4px 6px;
             font-size: 13px;
             font-weight: 700;
             text-align: right;
@@ -576,7 +607,7 @@
 
         .grid-beneficios-extra {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 14px;
             margin-top: 16px;
         }
@@ -591,20 +622,16 @@
         /* PESTAÑA AHORRO - TARJETA ESTILO IMAGEN */
         .layout-ahorro {
             display: grid;
-            grid-template-columns: minmax(300px, 420px) 1fr;
+            grid-template-columns: minmax(280px, 400px) 1fr;
             gap: 20px;
             align-items: start;
-        }
-
-        @media (max-width: 820px) {
-            .layout-ahorro { grid-template-columns: 1fr; }
         }
 
         .tarjeta-total-ahorro {
             background: linear-gradient(145deg, #242158 0%, #302b6e 55%, #221f52 100%);
             color: #ffffff;
             border-radius: 22px;
-            padding: 22px 24px;
+            padding: 20px 22px;
             box-shadow: 0 18px 32px rgba(30, 27, 75, 0.35);
             position: relative;
             overflow: hidden;
@@ -615,7 +642,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
         }
 
         .tarjeta-titular {
@@ -628,9 +655,9 @@
 
         .tarjeta-subtitulo {
             font-size: 12px;
-            letter-spacing: 2.2px;
+            letter-spacing: 2px;
             color: #c7d2fe;
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 600;
         }
 
@@ -649,7 +676,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 26px;
+            margin-top: 22px;
         }
 
         .disponible-texto {
@@ -661,8 +688,9 @@
         }
 
         .btn-ojo-saldo {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
+            min-height: 34px;
             padding: 0;
             margin: 0;
             border-radius: 999px;
@@ -683,10 +711,11 @@
             align-items: flex-end;
             margin-top: 10px;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .monto-grande-ahorro {
-            font-size: 38px;
+            font-size: clamp(28px, 5vw, 38px);
             font-weight: 800;
             letter-spacing: -0.5px;
             color: #ffffff;
@@ -700,15 +729,16 @@
         }
 
         .btn-circulo-ahorro {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
+            min-height: 42px;
             padding: 0;
             margin: 0;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.24);
             color: #ffffff;
-            font-size: 17px;
+            font-size: 16px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -719,7 +749,7 @@
 
         .input-banco-nombre {
             width: 100%;
-            min-width: 150px;
+            min-width: 135px;
             margin: 0;
             padding: 6px 8px;
             font-size: 13px;
@@ -731,7 +761,7 @@
 
         .input-cuenta-detalle {
             width: 100%;
-            min-width: 125px;
+            min-width: 110px;
             margin: 0;
             padding: 6px 8px;
             font-size: 12px;
@@ -742,12 +772,54 @@
 
         .btn-eliminar-banco {
             width: auto;
+            min-height: 32px;
             margin: 0;
-            padding: 5px 9px;
+            padding: 4px 9px;
             font-size: 12px;
             background: #fee2e2;
             color: #b91c1c;
             box-shadow: none;
+        }
+
+        /* AJUSTES ESPECÍFICOS PARA CELULARES */
+        @media (max-width: 768px) {
+            body { padding: 8px; }
+            .contenedor { padding: 14px; border-radius: 14px; }
+            .menu-navegacion {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 5px;
+                gap: 5px;
+                border-radius: 12px;
+            }
+            .pestana {
+                font-size: 12px;
+                padding: 9px 8px;
+                min-height: 42px;
+            }
+            .barra-estado-superior {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .grupo-control {
+                width: 100%;
+            }
+            .grupo-control select {
+                flex: 1 1 170px;
+            }
+            .layout-ahorro {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .btn-mini {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .menu-navegacion {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media print {
@@ -788,10 +860,10 @@
         <div class="contenedor animar-entrada" id="seccionLogin">
             <h2>Dr CV - Login</h2>
             <label>Usuario:</label>
-            <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario">
+            <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario" autocomplete="username">
             
             <label>Contraseña:</label>
-            <input type="password" id="passInput" placeholder="••••••••">
+            <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
             
             <button onclick="validarAcceso()">Entrar al Sistema</button>
             <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
@@ -836,12 +908,12 @@
                         </select>
 
                         <label for="selectorAnio">AÑO:</label>
-                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 82px;" onchange="generarPlanillaMes(); cargarControlQFM();">
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 84px;" onchange="generarPlanillaMes(); cargarControlQFM();">
                     </div>
 
                     <div class="grupo-control">
                         <label for="sueldo">SUELDO BASE ($):</label>
-                        <input type="number" id="sueldo" value="487.77" step="0.01" style="width: 95px;" onchange="recalcularPlanillaCompleta(); sincronizarSueldoRol();">
+                        <input type="number" id="sueldo" value="487.77" step="0.01" style="width: 98px;" onchange="recalcularPlanillaCompleta(); sincronizarSueldoRol();">
                     </div>
                 </div>
 
@@ -884,12 +956,10 @@
                 </div>
 
                 <div class="rol-header-periodo">
-                    <strong style="font-size: 14px; color: #0f172a;">PERIODO (AUTOMÁTICO 16 - 15)</strong>
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                    <strong style="font-size: 13px; color: #0f172a;">PERIODO (AUTOMÁTICO 16 - 15)</strong>
+                    <div class="rol-fechas-grupo">
                         <span class="rol-badge-naranja">DESDE</span>
                         <input type="date" id="rolDesde" class="rol-input-fecha" value="2026-10-16" onchange="recalcularRol()">
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
                         <span class="rol-badge-naranja">HASTA</span>
                         <input type="date" id="rolHasta" class="rol-input-fecha" value="2026-11-15" onchange="recalcularRol()">
                     </div>
@@ -999,7 +1069,6 @@
                     <div>Mes / Año: <strong id="mesAnioBeneficiosEtiqueta">NOVIEMBRE 2026</strong></div>
                 </div>
 
-                <!-- CONTROL DE GASTOS EN QUINCENA Y FIN DE MES (ESTILO IMAGEN) -->
                 <h3>CONTROL DE GASTOS - QUINCENA Y FIN DE MES</h3>
                 <div class="barra-herramientas-rol">
                     <button type="button" class="btn-mini" onclick="agregarFilaQFM()">➕ Agregar Fila de Gasto</button>
@@ -1062,7 +1131,6 @@
                     </table>
                 </div>
 
-                <!-- HISTORIAL DE INGRESOS MENSUALES PARA DÉCIMO TERCERO -->
                 <h3>HISTORIAL MENSUAL DE INGRESOS (CÁLCULO DÉCIMO TERCERO)</h3>
                 <div class="tabla-contenedor">
                     <table class="tabla-beneficios" id="tablaDecimoTercero">
@@ -1078,7 +1146,6 @@
                     </table>
                 </div>
 
-                <!-- VENTANAS EDITABLES: DÉCIMO CUARTO Y UTILIDADES -->
                 <div class="grid-beneficios-extra">
                     <div class="tarjeta-beneficio-editable">
                         <label for="decimoCuartoInput">DÉCIMO CUARTO ($ - EDITABLE):</label>
@@ -1122,7 +1189,6 @@
                 <h2>AHORRO EN INSTITUCIONES BANCARIAS</h2>
 
                 <div class="layout-ahorro">
-                    <!-- TARJETA DE TOTAL DE AHORRO ESTILO IMAGEN -->
                     <div class="tarjeta-total-ahorro" id="tarjetaTotalAhorro">
                         <div class="tarjeta-encabezado-ahorro">
                             <div>
@@ -1146,7 +1212,6 @@
                         </div>
                     </div>
 
-                    <!-- TABLA DE BANCOS Y MONTOS -->
                     <div>
                         <div class="barra-herramientas-rol">
                             <button type="button" class="btn-mini" onclick="agregarCuentaBancaria()">➕ Agregar Banco / Cuenta</button>
@@ -1347,9 +1412,7 @@
             document.getElementById('mesAnioBeneficiosEtiqueta').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
         }
 
-        /* =========================================================
-           PLANILLA ESTILO EXCEL (16 AL 15)
-           ========================================================= */
+        /* PLANILLA ESTILO EXCEL (16 AL 15) */
         function generarPlanillaMes() {
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
@@ -1546,9 +1609,7 @@
             window.print();
         }
 
-        /* =========================================================
-           ROL DE PAGOS
-           ========================================================= */
+        /* ROL DE PAGOS */
         function sincronizarSueldoRol() {
             const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
             document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
@@ -1685,9 +1746,7 @@
             cargarHorasDesdePlanilla();
         }
 
-        /* =========================================================
-           CONTROL QUINCENA Y FIN DE MES (ESTILO IMAGEN)
-           ========================================================= */
+        /* CONTROL QUINCENA Y FIN DE MES */
         function claveControlQFM(anio, mesIdx) {
             return `controlQFM_${usuarioActivo}_${anio}_${mesIdx}`;
         }
@@ -1818,9 +1877,7 @@
             alert("✅ Control de Quincena y Fin de Mes guardado.");
         }
 
-        /* =========================================================
-           BENEFICIOS SOCIALES
-           ========================================================= */
+        /* BENEFICIOS SOCIALES */
         function obtenerIngresosAnuales(anio) {
             const guardados = JSON.parse(localStorage.getItem(`ingresosAnuales_${usuarioActivo}_${anio}`));
             if (Array.isArray(guardados) && guardados.length === 12) {
@@ -1924,9 +1981,7 @@
             recalcularBeneficiosExtra();
         }
 
-        /* =========================================================
-           AHORRO POR INSTITUCIÓN BANCARIA
-           ========================================================= */
+        /* AHORRO POR INSTITUCIÓN BANCARIA */
         function cargarCuentasAhorro() {
             if (!usuarioActivo) return;
             const guardadas = JSON.parse(localStorage.getItem(`ahorroBancos_${usuarioActivo}`));
