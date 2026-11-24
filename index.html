@@ -138,20 +138,22 @@
             background: linear-gradient(90deg, #1e40af, #3b82f6, #10b981);
         }
 
-        .login-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #eff6ff;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
+        .login-logo-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-drcv-svg {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
             border-radius: 999px;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            margin: 0 auto 10px;
+            transition: transform 0.25s ease;
+        }
+
+        .logo-drcv-svg:hover {
+            transform: scale(1.06) rotate(-2deg);
         }
 
         .login-cabecera {
@@ -161,7 +163,7 @@
         }
 
         .login-subtitulo {
-            margin: -10px 0 0;
+            margin: -8px 0 0;
             font-size: 13px;
             color: #64748b;
             font-weight: 500;
@@ -299,7 +301,7 @@
         .yt-marca-texto {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: #ffffff;
             font-weight: 800;
             font-size: 15px;
@@ -307,7 +309,7 @@
             white-space: nowrap;
             overflow: hidden;
             transition: opacity 0.2s ease, max-width 0.25s ease;
-            max-width: 170px;
+            max-width: 175px;
         }
 
         .columna-youtube.plegada .yt-marca-texto,
@@ -316,16 +318,6 @@
             opacity: 0;
             max-width: 0;
             pointer-events: none;
-        }
-
-        .yt-logo-badge {
-            background: #ff0033;
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 2px 6px;
-            border-radius: 6px;
-            letter-spacing: 0.4px;
         }
 
         .yt-seccion-titulo {
@@ -367,7 +359,7 @@
             background-color: rgba(255, 255, 255, 0.15);
             color: #ffffff;
             font-weight: 700;
-            box-shadow: inset 3px 0 0 #3b82f6;
+            box-shadow: inset 3px 0 0 #b4d32c;
         }
 
         .yt-item-icono {
@@ -1068,7 +1060,7 @@
             .columna-youtube.plegada .yt-item-texto,
             .columna-youtube.plegada .yt-seccion-titulo {
                 opacity: 1;
-                max-width: 170px;
+                max-width: 175px;
                 pointer-events: auto;
             }
             .area-contenido-yt {
@@ -1127,8 +1119,17 @@
     <div class="wrapper-login" id="seccionLogin">
         <div class="login-card">
             <div class="login-cabecera">
-                <div class="login-badge">✦ Acceso Seguro</div>
-                <h2>Dr CV - Login</h2>
+                <div class="login-logo-box">
+                    <svg class="logo-drcv-svg" viewBox="0 0 100 100" aria-label="Logo Dr. CV">
+                        <circle cx="50" cy="50" r="48" fill="#181818"/>
+                        <rect x="62" y="14" width="24" height="9" fill="#b4d32c"/>
+                        <path d="M22 35 H45 C57 35 64 41 64 50 C64 59 57 65 45 65 H22 Z M34 44 V56 H44 C49 56 52 54 52 50 C52 46 49 44 44 44 Z" fill="#b4d32c"/>
+                        <path d="M62 35 H76 C83 35 87 39 87 45 C87 50 84 53 79 54 L88 65 H75 L68 55 H62 Z M69 43 V48 H75 C77 48 78 47 78 45.5 C78 44 77 43 75 43 Z" fill="#b4d32c"/>
+                        <rect x="69" y="57" width="9" height="8" fill="#b4d32c"/>
+                        <text x="50" y="79" text-anchor="middle" fill="#b4d32c" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">CV</text>
+                    </svg>
+                </div>
+                <h2>Dr. CV - Login</h2>
                 <p class="login-subtitulo">Ingresa tus credenciales para continuar</p>
             </div>
 
@@ -1159,8 +1160,15 @@
             <div class="yt-cabecera-marca">
                 <button type="button" class="btn-hamburguesa-yt" onclick="alternarColumnaYoutube()" title="Alternar menú">☰</button>
                 <div class="yt-marca-texto">
-                    <span class="yt-logo-badge">DR CV</span>
-                    <span>Panel</span>
+                    <svg class="logo-drcv-svg" style="width:30px; height:30px;" viewBox="0 0 100 100" aria-label="Logo Dr. CV">
+                        <circle cx="50" cy="50" r="48" fill="#181818" stroke="#b4d32c" stroke-width="3"/>
+                        <rect x="62" y="14" width="24" height="9" fill="#b4d32c"/>
+                        <path d="M22 35 H45 C57 35 64 41 64 50 C64 59 57 65 45 65 H22 Z M34 44 V56 H44 C49 56 52 54 52 50 C52 46 49 44 44 44 Z" fill="#b4d32c"/>
+                        <path d="M62 35 H76 C83 35 87 39 87 45 C87 50 84 53 79 54 L88 65 H75 L68 55 H62 Z M69 43 V48 H75 C77 48 78 47 78 45.5 C78 44 77 43 75 43 Z" fill="#b4d32c"/>
+                        <rect x="69" y="57" width="9" height="8" fill="#b4d32c"/>
+                        <text x="50" y="79" text-anchor="middle" fill="#b4d32c" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">CV</text>
+                    </svg>
+                    <span>Dr. CV</span>
                 </div>
             </div>
 
@@ -1275,8 +1283,6 @@
 
                 <div class="barra-acciones-inferior">
                     <button type="button" class="btn-accion btn-exito" onclick="irARolConHoras()">💵 Pasar Horas al Rol</button>
-                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
-                    <button type="button" class="btn-accion btn-secundario" onclick="cerrarSesion()">Cerrar Sesión</button>
                 </div>
             </div>
 
@@ -1391,7 +1397,6 @@
 
                 <div class="barra-acciones-inferior">
                     <button type="button" class="btn-accion btn-exito" onclick="guardarDatosRol()">💾 Guardar Configuración</button>
-                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
                 </div>
             </div>
 
@@ -1517,7 +1522,6 @@
 
                 <div class="barra-acciones-inferior">
                     <button type="button" class="btn-accion btn-exito" onclick="guardarBeneficiosAnuales()">💾 Guardar Beneficios y Control</button>
-                    <button type="button" class="btn-accion btn-advertencia" onclick="exportarReporteMensual()">📄 Exportar PDF</button>
                 </div>
             </div>
 
