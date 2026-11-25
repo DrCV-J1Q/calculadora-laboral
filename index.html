@@ -506,7 +506,7 @@
 
         h3 {
             color: #0f172a;
-            margin: 20px 0 10px;
+            margin: 22px 0 12px;
             font-size: clamp(14px, 2.2vw, 16px);
             font-weight: 800;
             border-left: 4px solid var(--naranja-excel);
@@ -697,7 +697,7 @@
 
         .error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; font-weight: 600; }
 
-        /* CABECERA PROFESIONAL DE LA PLANILLA (REEMPLAZA EL CUADRO ANTERIOR) */
+        /* CABECERA PROFESIONAL DE LA PLANILLA */
         .cabecera-ejecutiva-planilla {
             display: flex;
             flex-wrap: wrap;
@@ -819,7 +819,64 @@
             color: var(--success);
         }
 
-        /* PESTAÑA RESUMEN EJECUTIVO KPI */
+        /* PESTAÑA RESUMEN EJECUTIVO KPI + SELECTOR DE MES DIRECTO */
+        .kpi-selector-periodo-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+
+        .kpi-selector-titulo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #334155;
+        }
+
+        .kpi-selector-controles {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .kpi-select-mes {
+            width: auto;
+            min-width: 225px;
+            margin: 0;
+            padding: 8px 12px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+            background-color: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+        }
+
+        .kpi-input-anio {
+            width: 96px;
+            margin: 0;
+            padding: 8px 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+            background-color: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            text-align: center;
+        }
+
         .kpi-ficha-usuario {
             display: flex;
             flex-wrap: wrap;
@@ -1238,139 +1295,259 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            transition: background-color 0.18s ease, transform 0.15s ease;
         }
-        .btn-mini:hover { background-color: #1e293b; }
+        .btn-mini:hover { background-color: #1e293b; transform: translateY(-1px); }
 
-        /* TABLA QUINCENA Y FIN DE MES ESTILO IMAGEN */
-        .tabla-qfm-contenedor {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border: 1px solid #94a3b8;
-            border-radius: 8px;
+        /* CUADRO PROFESIONAL QUINCENA Y FIN DE MES */
+        .qfm-grid-tarjetas {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        .qfm-tarjeta {
             background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 22px -10px rgba(15, 23, 42, 0.12);
+            display: flex;
+            flex-direction: column;
         }
 
-        .tabla-qfm {
-            width: 100%;
-            min-width: 680px;
-            border-collapse: collapse;
-            font-size: 13px;
-            color: #0f172a;
-        }
-
-        .tabla-qfm th.cab-quincena,
-        .tabla-qfm th.cab-finmes {
-            background-color: var(--naranja-excel);
-            color: #000000;
+        .qfm-tarjeta-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            color: #ffffff;
             font-weight: 800;
-            text-align: center;
-            padding: 8px 10px;
-            border: 1px solid #475569;
             font-size: 13px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .qfm-head-quincena {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            border-bottom: 3px solid #38bdf8;
+        }
+
+        .qfm-head-finmes {
+            background: linear-gradient(135deg, #0f172a 0%, #9a3412 100%);
+            border-bottom: 3px solid var(--naranja-excel);
+        }
+
+        .qfm-badge-sub {
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            color: #f8fafc;
+            letter-spacing: 0.3px;
+            text-transform: none;
+        }
+
+        .qfm-fila-percibido {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .qfm-fila-percibido label {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 800;
+            color: #0f172a;
             letter-spacing: 0.4px;
         }
 
-        .tabla-qfm th.cab-separador {
-            width: 24px;
-            background-color: #ffffff;
-            border-top: 1px solid #ffffff;
-            border-bottom: 1px solid #ffffff;
-            border-left: 1px solid #94a3b8;
-            border-right: 1px solid #94a3b8;
+        .qfm-lista-gastos {
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            flex: 1;
         }
 
-        .tabla-qfm td {
-            border: 1px solid #cbd5e1;
-            padding: 5px 8px;
-            background-color: #f8fafc;
+        .qfm-item-gasto {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.18s ease, background-color 0.18s ease;
         }
 
-        .tabla-qfm td.sep-celda {
-            background-color: #ffffff;
-            border-top: none;
-            border-bottom: none;
-            border-left: 1px solid #94a3b8;
-            border-right: 1px solid #94a3b8;
+        .qfm-item-gasto:hover {
+            border-color: #cbd5e1;
+            background: #ffffff;
         }
 
-        .tabla-qfm tr.fila-percibido td:not(.sep-celda) {
-            background-color: #ffffff;
-            font-weight: 800;
-        }
-
-        .tabla-qfm tr.fila-deuda-total td:not(.sep-celda),
-        .tabla-qfm tr.fila-valor-real td:not(.sep-celda) {
-            background-color: #e2e8f0;
-            font-weight: 800;
-        }
-
-        .tabla-qfm tr.fila-total-percibir td {
-            background-color: #ffffff;
-            border: none;
-            padding-top: 10px;
-            padding-bottom: 6px;
-            font-weight: 900;
-        }
-
-        .tabla-qfm td.celda-total-percibir-label {
-            text-align: right;
-            font-size: 13px;
-            padding-right: 12px;
-        }
-
-        .tabla-qfm td.celda-total-percibir-caja {
-            border: 2px solid #0f172a !important;
-            background-color: #ffffff !important;
-            font-size: 14px;
+        .qfm-item-derecha {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
         }
 
         .input-qfm-concepto {
             width: 100%;
-            min-width: 90px;
+            min-width: 80px;
             margin: 0;
-            padding: 4px 6px;
+            padding: 5px 8px;
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            text-align: center;
+            text-align: left;
             border: 1px solid transparent;
-            border-radius: 4px;
+            border-radius: 6px;
             background: transparent;
             color: #0f172a;
+        }
+
+        .input-qfm-concepto::placeholder {
+            color: #94a3b8;
+            font-weight: 600;
         }
 
         .input-qfm-concepto:focus {
             border-color: var(--primary);
             background: #ffffff;
-            text-align: left;
+        }
+
+        .qfm-moneda {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #64748b;
         }
 
         .input-qfm-monto {
-            width: 88px;
-            padding: 4px 6px;
+            width: 92px;
+            padding: 5px 8px;
             margin: 0;
             font-size: 13px;
             font-weight: 700;
             text-align: right;
             border: 1px solid #cbd5e1;
-            border-radius: 4px;
+            border-radius: 6px;
             background: #ffffff;
             color: #0f172a;
+            font-variant-numeric: tabular-nums;
         }
 
         .btn-qfm-quitar {
-            width: auto;
-            min-height: 28px;
-            margin: 0 0 0 4px;
-            padding: 3px 7px;
-            font-size: 11px;
-            font-weight: 700;
+            width: 26px;
+            height: 26px;
+            min-height: 26px;
+            margin: 0 0 0 2px;
+            padding: 0;
+            font-size: 12px;
+            font-weight: 800;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             background: #fee2e2;
             color: #b91c1c;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s ease, transform 0.15s ease;
+        }
+
+        .btn-qfm-quitar:hover {
+            background: #fecaca;
+            transform: scale(1.05);
+        }
+
+        .qfm-resumen-bloque {
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .qfm-linea-resumen {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 800;
+        }
+
+        .qfm-linea-deuda {
+            color: #b91c1c;
+        }
+
+        .qfm-linea-real {
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            font-size: 13px;
+        }
+
+        .qfm-linea-real.negativo {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .qfm-banner-total {
+            margin-top: 16px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            border-radius: 14px;
+            padding: 16px 22px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid rgba(180, 211, 44, 0.35);
+            box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.35);
+        }
+
+        .qfm-banner-etiqueta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .qfm-banner-etiqueta strong {
+            font-size: 13.5px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #f8fafc;
+        }
+
+        .qfm-banner-etiqueta span {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .qfm-banner-monto {
+            background: rgba(180, 211, 44, 0.14);
+            border: 1.5px solid var(--lime-brand);
+            color: #ecfccb;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 21px;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.3px;
         }
 
         /* BENEFICIOS SOCIALES */
@@ -1456,7 +1633,8 @@
                 padding: 14px;
                 border-radius: 14px;
             }
-            .panel-filtros-pro {
+            .panel-filtros-pro,
+            .qfm-grid-tarjetas {
                 grid-template-columns: 1fr;
             }
             .login-card {
@@ -1473,7 +1651,7 @@
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .panel-filtros-pro, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
+            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .panel-filtros-pro, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar, .kpi-selector-periodo-bar {
                 display: none !important;
             }
             .area-contenido-yt { padding: 0; display: block; }
@@ -1494,11 +1672,11 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .pill-mes-activo, .tabla-rol th, .celda-gris-total, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .pill-mes-activo, .tabla-rol th, .celda-gris-total, .qfm-tarjeta-head, .qfm-banner-total {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .tabla-contenedor, .tabla-qfm-contenedor { border: none; overflow: visible; }
+            .tabla-contenedor { border: none; overflow: visible; }
         }
     </style>
 </head>
@@ -1641,9 +1819,33 @@
                 <span id="fechaHoraActual" class="reloj-actual"></span>
             </div>
 
-            <!-- NUEVA PESTAÑA: RESUMEN EJECUTIVO KPI + DATOS DE USUARIO -->
+            <!-- PESTAÑA INICIO: RESUMEN EJECUTIVO KPI + SELECTOR DE MES + DATOS DE USUARIO -->
             <div class="contenedor contenedor-ancho oculto" id="bloqueKpi">
                 <h2>PANEL GENERAL KPI — HORAS EXTRAS Y RECARGOS</h2>
+
+                <!-- SELECTOR DIRECTO DE MES Y AÑO DESDE EL INICIO -->
+                <div class="kpi-selector-periodo-bar">
+                    <div class="kpi-selector-titulo">
+                        <span>📅 Seleccionar Periodo de Consulta</span>
+                    </div>
+                    <div class="kpi-selector-controles">
+                        <select id="kpiSelectorMes" class="kpi-select-mes" onchange="cambiarPeriodoDesdeKPI()">
+                            <option value="0">Enero (16 Dic - 15 Ene)</option>
+                            <option value="1">Febrero (16 Ene - 15 Feb)</option>
+                            <option value="2">Marzo (16 Feb - 15 Mar)</option>
+                            <option value="3">Abril (16 Mar - 15 Abr)</option>
+                            <option value="4">Mayo (16 Abr - 15 May)</option>
+                            <option value="5">Junio (16 May - 15 Jun)</option>
+                            <option value="6">Julio (16 Jun - 15 Jul)</option>
+                            <option value="7">Agosto (16 Jul - 15 Ago)</option>
+                            <option value="8">Septiembre (16 Ago - 15 Sep)</option>
+                            <option value="9">Octubre (16 Sep - 15 Oct)</option>
+                            <option value="10" selected>Noviembre (16 Oct - 15 Nov)</option>
+                            <option value="11">Diciembre (16 Nov - 15 Dic)</option>
+                        </select>
+                        <input type="number" id="kpiSelectorAnio" class="kpi-input-anio" value="2026" min="2020" max="2035" onchange="cambiarPeriodoDesdeKPI()">
+                    </div>
+                </div>
 
                 <!-- FICHA DE DATOS DEL USUARIO -->
                 <div class="kpi-ficha-usuario">
@@ -1760,7 +1962,7 @@
                 <div class="panel-filtros-pro">
                     <div class="campo-filtro-card">
                         <label class="campo-filtro-label" for="selectorMes">📅 Periodo de Corte (16 al 15)</label>
-                        <select id="selectorMes" onchange="generarPlanillaMes(); cargarControlQFM();">
+                        <select id="selectorMes" onchange="sincronizarSelectoresPeriodo('planilla'); generarPlanillaMes(); cargarControlQFM();">
                             <option value="0">Enero (16 Dic - 15 Ene)</option>
                             <option value="1">Febrero (16 Ene - 15 Feb)</option>
                             <option value="2">Marzo (16 Feb - 15 Mar)</option>
@@ -1778,7 +1980,7 @@
 
                     <div class="campo-filtro-card">
                         <label class="campo-filtro-label" for="selectorAnio">🗓️ Año Fiscal</label>
-                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" onchange="generarPlanillaMes(); cargarControlQFM();">
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" onchange="sincronizarSelectoresPeriodo('planilla'); generarPlanillaMes(); cargarControlQFM();">
                     </div>
 
                     <div class="campo-filtro-card">
@@ -1960,59 +2162,68 @@
                     <button type="button" class="btn-mini" onclick="guardarControlQFM()">💾 Guardar Quincena / Fin de Mes</button>
                 </div>
 
-                <div class="tabla-qfm-contenedor">
-                    <table class="tabla-qfm" id="tablaControlQFM">
-                        <thead>
-                            <tr>
-                                <th class="cab-quincena" colspan="3">QUINCENA</th>
-                                <th class="cab-separador"></th>
-                                <th class="cab-finmes" colspan="3">FIN DE MES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="fila-percibido">
-                                <td style="font-weight:800;">PERCIBIDO</td>
-                                <td style="width:24px; text-align:center;">$</td>
-                                <td style="width:128px; text-align:right; white-space:nowrap;">
-                                    <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoQ" value="273.39" oninput="recalcularControlQFM()">
-                                </td>
-                                <td class="sep-celda"></td>
-                                <td style="font-weight:800;">PERCIBIDO</td>
-                                <td style="width:24px; text-align:center;">$</td>
-                                <td style="width:128px; text-align:right; white-space:nowrap;">
-                                    <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoF" value="682.75" oninput="recalcularControlQFM()">
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody id="cuerpoControlQFM"></tbody>
-                        <tbody>
-                            <tr class="fila-deuda-total">
-                                <td>DEUDA TOTAL</td>
-                                <td style="text-align:center;">$</td>
-                                <td style="text-align:right;" id="qfmDeudaTotalQ">0.00</td>
-                                <td class="sep-celda"></td>
-                                <td>DEUDA TOTAL</td>
-                                <td style="text-align:center;">$</td>
-                                <td style="text-align:right;" id="qfmDeudaTotalF">0.00</td>
-                            </tr>
-                            <tr class="fila-valor-real">
-                                <td>VALOR REAL PERCIBIR</td>
-                                <td style="text-align:center;">$</td>
-                                <td style="text-align:right;" id="qfmValorRealQ">0.00</td>
-                                <td class="sep-celda"></td>
-                                <td>VALOR REAL PERCIBIR</td>
-                                <td style="text-align:center;">$</td>
-                                <td style="text-align:right;" id="qfmValorRealF">0.00</td>
-                            </tr>
-                            <tr class="fila-total-percibir">
-                                <td colspan="3" style="border:none; background:#ffffff !important;"></td>
-                                <td class="sep-celda" style="border:none; background:#ffffff !important;"></td>
-                                <td class="celda-total-percibir-label" style="border:none; background:#ffffff !important;">TOTAL A PERCIBIR</td>
-                                <td class="celda-total-percibir-caja" style="text-align:center;">$</td>
-                                <td class="celda-total-percibir-caja" style="text-align:right;" id="qfmTotalAPercibir">0.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- CUADRO PROFESIONAL DE QUINCENA Y FIN DE MES -->
+                <div class="qfm-grid-tarjetas">
+                    <!-- TARJETA QUINCENA -->
+                    <div class="qfm-tarjeta">
+                        <div class="qfm-tarjeta-head qfm-head-quincena">
+                            <span>QUINCENA</span>
+                            <span class="qfm-badge-sub">1ª Parte del Mes</span>
+                        </div>
+                        <div class="qfm-fila-percibido">
+                            <label for="qfmPercibidoQ">PERCIBIDO</label>
+                            <div class="qfm-item-derecha">
+                                <span class="qfm-moneda">$</span>
+                                <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoQ" value="273.39" oninput="recalcularControlQFM()">
+                            </div>
+                        </div>
+                        <div class="qfm-lista-gastos" id="listaQfmQuincena"></div>
+                        <div class="qfm-resumen-bloque">
+                            <div class="qfm-linea-resumen qfm-linea-deuda">
+                                <span>DEUDA TOTAL</span>
+                                <span id="qfmDeudaTotalQ">$ 0.00</span>
+                            </div>
+                            <div class="qfm-linea-resumen qfm-linea-real" id="cajaRealQ">
+                                <span>VALOR REAL A PERCIBIR</span>
+                                <span id="qfmValorRealQ">$ 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA FIN DE MES -->
+                    <div class="qfm-tarjeta">
+                        <div class="qfm-tarjeta-head qfm-head-finmes">
+                            <span>FIN DE MES</span>
+                            <span class="qfm-badge-sub">Cierre Mensual</span>
+                        </div>
+                        <div class="qfm-fila-percibido">
+                            <label for="qfmPercibidoF">PERCIBIDO</label>
+                            <div class="qfm-item-derecha">
+                                <span class="qfm-moneda">$</span>
+                                <input type="number" step="0.01" class="input-qfm-monto" id="qfmPercibidoF" value="682.75" oninput="recalcularControlQFM()">
+                            </div>
+                        </div>
+                        <div class="qfm-lista-gastos" id="listaQfmFinMes"></div>
+                        <div class="qfm-resumen-bloque">
+                            <div class="qfm-linea-resumen qfm-linea-deuda">
+                                <span>DEUDA TOTAL</span>
+                                <span id="qfmDeudaTotalF">$ 0.00</span>
+                            </div>
+                            <div class="qfm-linea-resumen qfm-linea-real" id="cajaRealF">
+                                <span>VALOR REAL A PERCIBIR</span>
+                                <span id="qfmValorRealF">$ 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BANNER EJECUTIVO TOTAL A PERCIBIR -->
+                <div class="qfm-banner-total">
+                    <div class="qfm-banner-etiqueta">
+                        <strong>TOTAL A PERCIBIR (QUINCENA + FIN DE MES)</strong>
+                        <span>Balance neto disponible tras descuentos registrados</span>
+                    </div>
+                    <div class="qfm-banner-monto" id="qfmTotalAPercibir">$ 0.00</div>
                 </div>
 
                 <h3>HISTORIAL MENSUAL DE INGRESOS (CÁLCULO DÉCIMO TERCERO)</h3>
@@ -2148,6 +2359,32 @@
                 .join("") || "DR";
         }
 
+        /* SINCRONIZACIÓN DE PERIODO (MES Y AÑO) ENTRE KPI Y PLANILLA */
+        function sincronizarSelectoresPeriodo(origen) {
+            const kpiMes = document.getElementById("kpiSelectorMes");
+            const kpiAnio = document.getElementById("kpiSelectorAnio");
+            const planMes = document.getElementById("selectorMes");
+            const planAnio = document.getElementById("selectorAnio");
+
+            if (origen === "kpi") {
+                planMes.value = kpiMes.value;
+                planAnio.value = kpiAnio.value;
+            } else {
+                kpiMes.value = planMes.value;
+                kpiAnio.value = planAnio.value;
+            }
+        }
+
+        function cambiarPeriodoDesdeKPI() {
+            sincronizarSelectoresPeriodo("kpi");
+            generarPlanillaMes();
+            cargarControlQFM();
+            actualizarVistaKPI();
+            actualizarEtiquetaMesAnioBeneficios();
+            renderizarTablaDecimoTercero();
+            recalcularBeneficiosExtra();
+        }
+
         function validarAcceso() {
             const userInput = document.getElementById('usuarioInput').value.trim().toLowerCase();
             const passInput = document.getElementById('passInput').value.trim();
@@ -2263,6 +2500,7 @@
                 tabKpi.classList.add('activa');
                 seccionKpi.classList.remove('oculto');
                 activarAnimacionSeccion(seccionKpi);
+                sincronizarSelectoresPeriodo("planilla");
                 actualizarVistaKPI();
             } else if (menu === 'CALCULADORA') {
                 tabCalc.classList.add('activa');
@@ -2337,8 +2575,8 @@
 
         /* ACTUALIZACIÓN DE LA PESTAÑA KPI */
         function actualizarVistaKPI() {
-            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
-            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const mesIdx = parseInt(document.getElementById('kpiSelectorMes').value, 10);
+            const anio = parseInt(document.getElementById('kpiSelectorAnio').value, 10) || 2026;
             const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
             const valorHoraNormal = sueldoBase / 240;
 
@@ -2363,6 +2601,8 @@
                 const guardadoNoct = localStorage.getItem(claveNoct);
                 if (guardadoNoct !== null) {
                     inputNoct.value = guardadoNoct;
+                } else {
+                    inputNoct.value = "0";
                 }
             }
 
@@ -2371,7 +2611,6 @@
                 localStorage.setItem(claveNoct, horasNocturnas.toString());
             }
 
-            // Recargo nocturno: +25% sobre el valor de la hora normal (valorHoraNormal * 1.25)
             const pagoNocturno = horasNocturnas * valorHoraNormal * 1.25;
             const totalDinero = sumaPago50 + sumaPago100 + pagoNocturno;
             const totalHoras = sumaH50 + sumaH100 + horasNocturnas;
@@ -2387,7 +2626,6 @@
             document.getElementById('kpiDineroTotalGeneral').innerText = `$${totalDinero.toFixed(2)}`;
             document.getElementById('kpiHorasTotalesGeneral').innerText = `${horasDecimalAHHMM(totalHoras)} hrs`;
 
-            // Distribución porcentual
             let pct50 = 0, pct100 = 0, pctNoct = 0;
             if (totalDinero > 0) {
                 pct50 = Math.round((sumaPago50 / totalDinero) * 100);
@@ -2743,7 +2981,7 @@
             cargarHorasDesdePlanilla();
         }
 
-        /* CONTROL QUINCENA Y FIN DE MES */
+        /* CONTROL QUINCENA Y FIN DE MES (REDISEÑO PROFESIONAL) */
         function claveControlQFM(anio, mesIdx) {
             return `controlQFM_${usuarioActivo}_${anio}_${mesIdx}`;
         }
@@ -2793,29 +3031,33 @@
         }
 
         function renderizarControlQFM() {
-            const tbody = document.getElementById('cuerpoControlQFM');
-            tbody.innerHTML = "";
+            const contQ = document.getElementById('listaQfmQuincena');
+            const contF = document.getElementById('listaQfmFinMes');
+            if (!contQ || !contF) return;
+
+            contQ.innerHTML = "";
+            contF.innerHTML = "";
 
             filasQFMData.forEach((fila, idx) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>
-                            <input type="text" class="input-qfm-concepto" value="${fila.conceptoQ || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoQ', this.value)">
-                        </td>
-                        <td style="text-align:center;">$</td>
-                        <td style="text-align:right; white-space:nowrap;">
+                contQ.innerHTML += `
+                    <div class="qfm-item-gasto">
+                        <input type="text" class="input-qfm-concepto" value="${fila.conceptoQ || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoQ', this.value)">
+                        <div class="qfm-item-derecha">
+                            <span class="qfm-moneda">$</span>
                             <input type="number" step="0.01" class="input-qfm-monto" value="${(parseFloat(fila.montoQ) || 0).toFixed(2)}" oninput="actualizarQFM(${idx}, 'montoQ', this.value)">
                             <button type="button" class="btn-qfm-quitar" onclick="quitarFilaQFM(${idx})" title="Quitar fila">✕</button>
-                        </td>
-                        <td class="sep-celda"></td>
-                        <td>
-                            <input type="text" class="input-qfm-concepto" value="${fila.conceptoF || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoF', this.value)">
-                        </td>
-                        <td style="text-align:center;">$</td>
-                        <td style="text-align:right; white-space:nowrap;">
+                        </div>
+                    </div>
+                `;
+
+                contF.innerHTML += `
+                    <div class="qfm-item-gasto">
+                        <input type="text" class="input-qfm-concepto" value="${fila.conceptoF || ''}" placeholder="CONCEPTO" oninput="actualizarQFM(${idx}, 'conceptoF', this.value)">
+                        <div class="qfm-item-derecha">
+                            <span class="qfm-moneda">$</span>
                             <input type="number" step="0.01" class="input-qfm-monto" value="${(parseFloat(fila.montoF) || 0).toFixed(2)}" oninput="actualizarQFM(${idx}, 'montoF', this.value)">
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 `;
             });
 
@@ -2848,13 +3090,22 @@
             const valorRealF = percibidoF - deudaF;
             const totalAPercibir = valorRealQ + valorRealF;
 
-            document.getElementById('qfmDeudaTotalQ').innerText = deudaQ.toFixed(2);
-            document.getElementById('qfmDeudaTotalF').innerText = deudaF.toFixed(2);
-            document.getElementById('qfmValorRealQ').innerText = valorRealQ.toFixed(2);
-            document.getElementById('qfmValorRealF').innerText = valorRealF.toFixed(2);
+            document.getElementById('qfmDeudaTotalQ').innerText = `$ ${deudaQ.toFixed(2)}`;
+            document.getElementById('qfmDeudaTotalF').innerText = `$ ${deudaF.toFixed(2)}`;
+
+            const elRealQ = document.getElementById('qfmValorRealQ');
+            const elRealF = document.getElementById('qfmValorRealF');
+            const cajaRealQ = document.getElementById('cajaRealQ');
+            const cajaRealF = document.getElementById('cajaRealF');
+
+            elRealQ.innerText = `$ ${valorRealQ.toFixed(2)}`;
+            elRealF.innerText = `$ ${valorRealF.toFixed(2)}`;
+
+            cajaRealQ.classList.toggle("negativo", valorRealQ < 0);
+            cajaRealF.classList.toggle("negativo", valorRealF < 0);
 
             const elTotal = document.getElementById('qfmTotalAPercibir');
-            elTotal.innerText = totalAPercibir.toFixed(2);
+            elTotal.innerText = `$ ${totalAPercibir.toFixed(2)}`;
             elTotal.classList.remove("animar-pulso");
             void elTotal.offsetWidth;
             elTotal.classList.add("animar-pulso");
