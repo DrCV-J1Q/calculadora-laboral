@@ -19,7 +19,7 @@
             --feriado-excel: #ffff00;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --sidebar-width: 248px;
+            --sidebar-width: 256px;
         }
 
         *, *::before, *::after {
@@ -145,18 +145,18 @@
         }
 
         .logo-drcv-img {
-            width: 54px;
-            height: 54px;
+            width: 56px;
+            height: 56px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 14px;
             flex-shrink: 0;
-            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.28);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .logo-drcv-img:hover {
             transform: scale(1.06) rotate(-2deg);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.35);
+            box-shadow: 0 12px 22px rgba(15, 23, 42, 0.38);
         }
 
         .login-cabecera {
@@ -248,9 +248,9 @@
         .columna-youtube {
             width: var(--sidebar-width);
             flex-shrink: 0;
-            background: rgba(10, 15, 28, 0.96);
-            border-right: 1px solid rgba(148, 163, 184, 0.16);
-            padding: 12px 10px;
+            background: linear-gradient(180deg, #0b1120 0%, #090e1a 100%);
+            border-right: 1px solid rgba(148, 163, 184, 0.14);
+            padding: 14px 10px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -260,12 +260,12 @@
             overflow-y: auto;
             transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
             z-index: 40;
-            box-shadow: 8px 0 28px rgba(0, 0, 0, 0.25);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.32);
         }
 
         .columna-youtube.plegada {
-            width: 68px;
-            padding: 12px 8px;
+            width: 72px;
+            padding: 14px 10px;
         }
 
         .yt-cabecera-marca {
@@ -283,28 +283,29 @@
             min-height: 38px;
             padding: 0;
             margin: 0;
-            border: none;
-            border-radius: 999px;
-            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.45);
             color: #f8fafc;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
         }
 
         .btn-hamburguesa-yt:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05);
+            background-color: rgba(51, 65, 85, 0.75);
+            border-color: rgba(180, 211, 44, 0.45);
+            transform: scale(1.04);
         }
 
         .yt-marca-texto {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 10px;
             color: #ffffff;
             font-weight: 800;
             font-size: 15px;
@@ -312,14 +313,15 @@
             white-space: nowrap;
             overflow: hidden;
             transition: opacity 0.2s ease, max-width 0.25s ease;
-            max-width: 175px;
+            max-width: 185px;
         }
 
         .yt-marca-texto .logo-drcv-img {
             width: 34px;
             height: 34px;
-            border-radius: 8px;
-            box-shadow: none;
+            border-radius: 9px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(180, 211, 44, 0.35);
         }
 
         .columna-youtube.plegada .yt-marca-texto,
@@ -331,23 +333,24 @@
         }
 
         .yt-seccion-titulo {
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10.5px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #94a3b8;
-            padding: 8px 12px 4px;
+            letter-spacing: 0.9px;
+            color: #64748b;
+            padding: 10px 12px 4px;
             white-space: nowrap;
             overflow: hidden;
             transition: opacity 0.2s ease;
         }
 
+        /* MINIATURAS VECTORIALES PROFESIONALES */
         .yt-item {
             position: relative;
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 10px 12px;
+            gap: 12px;
+            padding: 8px 10px;
             border-radius: 12px;
             color: #cbd5e1;
             font-size: 13.5px;
@@ -356,39 +359,87 @@
             user-select: none;
             white-space: nowrap;
             overflow: hidden;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+            border: 1px solid transparent;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .yt-item:hover {
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: rgba(30, 41, 59, 0.65);
+            border-color: rgba(148, 163, 184, 0.16);
             color: #ffffff;
-            transform: translateX(3px);
+            transform: translateX(2px);
         }
 
         .yt-item.activa {
-            background-color: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(90deg, rgba(180, 211, 44, 0.16) 0%, rgba(30, 41, 59, 0.85) 100%);
+            border-color: rgba(180, 211, 44, 0.35);
             color: #ffffff;
             font-weight: 700;
-            box-shadow: inset 3px 0 0 #b4d32c;
+            box-shadow: inset 3px 0 0 #b4d32c, 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .yt-item-icono {
-            font-size: 17px;
+        .miniatura-pro {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             flex-shrink: 0;
-            width: 22px;
-            text-align: center;
-            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 10px rgba(0, 0, 0, 0.32);
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
         }
 
-        .yt-item:hover .yt-item-icono {
-            transform: scale(1.12);
+        .yt-item:hover .miniatura-pro {
+            transform: scale(1.06);
+        }
+
+        .yt-item.activa .miniatura-pro {
+            border-color: rgba(180, 211, 44, 0.65);
+            box-shadow: 0 0 0 2px rgba(180, 211, 44, 0.2), 0 6px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .miniatura-calc {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #eff6ff;
+        }
+
+        .miniatura-rol {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: #ecfdf5;
+        }
+
+        .miniatura-beneficios {
+            background: linear-gradient(135deg, #f59e0b 0%, #c2410c 100%);
+            color: #fffbeb;
+        }
+
+        .miniatura-pdf {
+            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            color: #eef2ff;
+        }
+
+        .miniatura-salir {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #fef2f2;
+        }
+
+        .miniatura-pro svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .yt-item-texto {
             overflow: hidden;
             text-overflow: ellipsis;
             transition: opacity 0.2s ease, max-width 0.25s ease;
-            max-width: 170px;
+            max-width: 175px;
         }
 
         .yt-separador {
@@ -1056,21 +1107,21 @@
                 left: 0;
                 top: 0;
                 height: 100dvh;
-                width: 256px;
+                width: 264px;
                 transform: translateX(-100%);
             }
             .columna-youtube.abierta-movil {
                 transform: translateX(0);
             }
             .columna-youtube.plegada {
-                width: 256px;
-                padding: 12px 10px;
+                width: 264px;
+                padding: 14px 10px;
             }
             .columna-youtube.plegada .yt-marca-texto,
             .columna-youtube.plegada .yt-item-texto,
             .columna-youtube.plegada .yt-seccion-titulo {
                 opacity: 1;
-                max-width: 175px;
+                max-width: 185px;
                 pointer-events: auto;
             }
             .area-contenido-yt {
@@ -1171,17 +1222,42 @@
             <div class="yt-seccion-titulo">Principal</div>
 
             <div class="yt-item activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">
-                <span class="yt-item-icono">🧮</span>
+                <span class="miniatura-pro miniatura-calc" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="4" y="3" width="16" height="18" rx="2.5"></rect>
+                        <line x1="8" y1="7.5" x2="16" y2="7.5"></line>
+                        <circle cx="8.5" cy="12" r="1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="15.5" cy="12" r="1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="8.5" cy="16" r="1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"></circle>
+                        <circle cx="15.5" cy="16" r="1" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                </span>
                 <span class="yt-item-texto">Planilla / Calculadora</span>
             </div>
 
             <div class="yt-item" id="tabRol" onclick="cambiarMenu('ROL')">
-                <span class="yt-item-icono">💵</span>
+                <span class="miniatura-pro miniatura-rol" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2.5" y="6" width="19" height="12" rx="2.5"></rect>
+                        <circle cx="12" cy="12" r="2.5"></circle>
+                        <path d="M6 9h.01M18 15h.01"></path>
+                    </svg>
+                </span>
                 <span class="yt-item-texto">Rol de Pagos</span>
             </div>
 
             <div class="yt-item" id="tabBeneficios" onclick="cambiarMenu('BENEFICIOS')">
-                <span class="yt-item-icono">📅</span>
+                <span class="miniatura-pro miniatura-beneficios" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect>
+                        <line x1="3.5" y1="9.5" x2="20.5" y2="9.5"></line>
+                        <line x1="8" y1="3" x2="8" y2="6.5"></line>
+                        <line x1="16" y1="3" x2="16" y2="6.5"></line>
+                        <rect x="7.5" y="12.5" width="3.5" height="3.5" rx="0.8" fill="currentColor" stroke="none"></rect>
+                    </svg>
+                </span>
                 <span class="yt-item-texto">Beneficios Sociales</span>
             </div>
 
@@ -1189,12 +1265,25 @@
             <div class="yt-seccion-titulo">Acciones</div>
 
             <div class="yt-item" onclick="exportarReporteMensual()">
-                <span class="yt-item-icono">📄</span>
+                <span class="miniatura-pro miniatura-pdf" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 3 14 8 19 8"></polyline>
+                        <line x1="12" y1="11" x2="12" y2="17"></line>
+                        <polyline points="9.5 14.5 12 17 14.5 14.5"></polyline>
+                    </svg>
+                </span>
                 <span class="yt-item-texto">Exportar PDF</span>
             </div>
 
             <div class="yt-item" onclick="cerrarSesion()">
-                <span class="yt-item-icono">🚪</span>
+                <span class="miniatura-pro miniatura-salir" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </span>
                 <span class="yt-item-texto">Cerrar Sesión</span>
             </div>
         </aside>
