@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Dr CV - Cálculo de Horas Extras, Rol y Beneficios</title>
+    <title>Dr CV - Cálculo de Horas Extras, KPI, Rol y Beneficios</title>
     <style>
         :root {
             --primary: #1e40af;
@@ -14,6 +14,7 @@
             --warning-hover: #b45309;
             --danger: #ef4444;
             --danger-hover: #dc2626;
+            --lime-brand: #b4d32c;
             --naranja-excel: #ed7d31;
             --finde-excel: #f4b084;
             --feriado-excel: #ffff00;
@@ -400,6 +401,11 @@
             box-shadow: 0 0 0 2px rgba(180, 211, 44, 0.2), 0 6px 14px rgba(0, 0, 0, 0.4);
         }
 
+        .miniatura-kpi {
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+            color: #ecfeff;
+        }
+
         .miniatura-calc {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: #eff6ff;
@@ -476,7 +482,7 @@
         /* CONTENEDORES APP */
         .contenedor {
             background: #ffffff;
-            padding: 20px;
+            padding: 22px;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             width: 100%;
@@ -627,9 +633,9 @@
             margin-bottom: 14px;
             font-size: 13px;
             font-weight: 500;
-            background: rgba(15, 23, 42, 0.82);
+            background: rgba(15, 23, 42, 0.86);
             border: 1px solid rgba(148, 163, 184, 0.22);
-            padding: 10px 14px;
+            padding: 10px 16px;
             border-radius: 12px;
             width: 100%;
             max-width: 1040px;
@@ -639,7 +645,26 @@
         .estado-izq {
             display: flex;
             align-items: center;
+            gap: 10px;
+        }
+
+        .bienvenida-pill {
+            display: inline-flex;
+            align-items: center;
             gap: 8px;
+            color: #f8fafc;
+            font-size: 13.5px;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+        }
+
+        .bienvenida-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background-color: var(--lime-brand);
+            box-shadow: 0 0 8px rgba(180, 211, 44, 0.8);
+            flex-shrink: 0;
         }
 
         .btn-menu-movil-top {
@@ -672,68 +697,368 @@
 
         .error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; font-weight: 600; }
 
-        /* BARRA SUPERIOR PLANILLA EXCEL */
-        .barra-controles-planilla {
+        /* CABECERA PROFESIONAL DE LA PLANILLA (REEMPLAZA EL CUADRO ANTERIOR) */
+        .cabecera-ejecutiva-planilla {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
             align-items: center;
             justify-content: space-between;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 14px;
+            gap: 12px;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .grupo-control {
+        .titulo-planilla-grupo {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .grupo-control label {
+        .titulo-planilla-grupo h2 {
+            text-align: left;
             margin: 0;
-            font-size: 12px;
+            font-size: clamp(18px, 2.5vw, 22px);
             color: #0f172a;
         }
 
-        .grupo-control select, .grupo-control input {
-            width: auto;
-            min-width: 84px;
-            margin: 0;
-            padding: 8px 10px;
-            font-size: 13px;
+        .subtitulo-planilla-periodo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: #64748b;
             font-weight: 600;
+        }
+
+        .pill-mes-activo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            border: 1px solid rgba(180, 211, 44, 0.45);
+        }
+
+        .pill-mes-activo::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--lime-brand);
+        }
+
+        .panel-filtros-pro {
+            display: grid;
+            grid-template-columns: 1.5fr 0.85fr 1fr;
+            gap: 12px;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 16px;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .campo-filtro-card {
             background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 9px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .badge-mes-excel {
-            background-color: var(--naranja-excel);
-            color: #000000;
+        .campo-filtro-card:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+        }
+
+        .campo-filtro-label {
+            font-size: 10.5px;
             font-weight: 800;
-            padding: 7px 12px;
-            border: 1px solid #1e293b;
-            font-size: 12px;
             text-transform: uppercase;
-            border-radius: 6px 0 0 6px;
+            letter-spacing: 0.6px;
+            color: #64748b;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .badge-mes-nombre {
-            background-color: var(--naranja-excel);
-            color: #000000;
+        .campo-filtro-card select,
+        .campo-filtro-card input {
+            margin: 0;
+            padding: 4px 2px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .input-prefijo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .input-prefijo-simbolo {
+            font-size: 14px;
             font-weight: 800;
-            padding: 7px 14px;
-            border: 1px solid #1e293b;
-            border-left: none;
-            font-size: 12px;
-            text-transform: uppercase;
-            border-radius: 0 6px 6px 0;
+            color: var(--success);
         }
 
+        /* PESTAÑA RESUMEN EJECUTIVO KPI */
+        .kpi-ficha-usuario {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.35);
+        }
+
+        .kpi-usuario-identidad {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .kpi-avatar-circulo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #b4d32c 0%, #84cc16 100%);
+            color: #0f172a;
+            font-weight: 900;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 6px 14px rgba(180, 211, 44, 0.3);
+        }
+
+        .kpi-usuario-datos h3 {
+            margin: 0;
+            padding: 0;
+            border: none;
+            color: #ffffff;
+            font-size: 17px;
+        }
+
+        .kpi-usuario-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+
+        .kpi-badges-rapidos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .kpi-mini-pill {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 10px;
+            padding: 8px 12px;
+            min-width: 120px;
+        }
+
+        .kpi-mini-pill span {
+            display: block;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .kpi-mini-pill strong {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .kpi-grid-principal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .kpi-card {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 6px 16px -6px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 22px -8px rgba(15, 23, 42, 0.14);
+        }
+
+        .kpi-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .kpi-card-50::before { background: linear-gradient(90deg, #2563eb, #38bdf8); }
+        .kpi-card-100::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
+        .kpi-card-noct::before { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+        .kpi-card-total::before { background: linear-gradient(90deg, #059669, #b4d32c); }
+
+        .kpi-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-card-titulo {
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+        }
+
+        .kpi-tag-porcentaje {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+
+        .tag-50 { background: #dbeafe; color: #1d4ed8; }
+        .tag-100 { background: #fef3c7; color: #b45309; }
+        .tag-noct { background: #f3e8ff; color: #6d28d9; }
+        .tag-total { background: #dcfce7; color: #047857; }
+
+        .kpi-valor-dinero {
+            font-size: 26px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-detalle-horas {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .kpi-input-nocturno-box {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 12px;
+            color: #475569;
+            font-weight: 700;
+        }
+
+        .kpi-input-nocturno {
+            width: 82px;
+            margin: 0;
+            padding: 5px 8px;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: right;
+            border-radius: 7px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .kpi-barra-distribucion {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .kpi-barra-track {
+            height: 12px;
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+            display: flex;
+            margin: 10px 0 8px;
+        }
+
+        .seg-50 { background: #2563eb; transition: width 0.35s ease; }
+        .seg-100 { background: #f59e0b; transition: width 0.35s ease; }
+        .seg-noct { background: #8b5cf6; transition: width 0.35s ease; }
+
+        .kpi-leyenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .leyenda-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .leyenda-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        /* TABLA EXCEL */
         .tabla-contenedor {
-            border-radius: 8px;
+            border-radius: 10px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             border: 1px solid #64748b;
@@ -1097,7 +1422,7 @@
             padding: 12px;
         }
 
-        /* RESPONSIVE COLUMNA LATERAL TIPO YOUTUBE */
+        /* RESPONSIVE */
         @media (max-width: 820px) {
             .btn-menu-movil-top {
                 display: inline-flex;
@@ -1131,6 +1456,9 @@
                 padding: 14px;
                 border-radius: 14px;
             }
+            .panel-filtros-pro {
+                grid-template-columns: 1fr;
+            }
             .login-card {
                 padding: 22px 16px;
                 border-radius: 16px;
@@ -1145,7 +1473,7 @@
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .barra-controles-planilla, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
+            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .panel-filtros-pro, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar {
                 display: none !important;
             }
             .area-contenido-yt { padding: 0; display: block; }
@@ -1166,7 +1494,7 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .badge-mes-excel, .badge-mes-nombre, .tabla-rol th, .celda-gris-total, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .pill-mes-activo, .tabla-rol th, .celda-gris-total, .tabla-qfm th.cab-quincena, .tabla-qfm th.cab-finmes {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -1209,7 +1537,7 @@
 
         <div class="backdrop-movil" id="backdropMovil" onclick="cerrarMenuMovil()"></div>
 
-        <!-- COLUMNA LATERAL ESTILO YOUTUBE -->
+        <!-- COLUMNA LATERAL -->
         <aside class="columna-youtube" id="columnaYoutube">
             <div class="yt-cabecera-marca">
                 <button type="button" class="btn-hamburguesa-yt" onclick="alternarColumnaYoutube()" title="Alternar menú">☰</button>
@@ -1220,6 +1548,17 @@
             </div>
 
             <div class="yt-seccion-titulo">Principal</div>
+
+            <div class="yt-item" id="tabKpi" onclick="cambiarMenu('KPI')">
+                <span class="miniatura-pro miniatura-kpi" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </span>
+                <span class="yt-item-texto">Resumen KPI</span>
+            </div>
 
             <div class="yt-item activa" id="tabCalculadora" onclick="cambiarMenu('CALCULADORA')">
                 <span class="miniatura-pro miniatura-calc" aria-hidden="true">
@@ -1294,19 +1633,133 @@
             <div class="barra-estado-superior animar-entrada">
                 <div class="estado-izq">
                     <button type="button" class="btn-menu-movil-top" onclick="alternarColumnaYoutube()" title="Abrir menú">☰</button>
-                    <span id="saludoUsuario" style="color: #f8fafc; font-size: 13px;"></span>
+                    <span class="bienvenida-pill">
+                        <span class="bienvenida-dot"></span>
+                        <span id="saludoUsuario"></span>
+                    </span>
                 </div>
                 <span id="fechaHoraActual" class="reloj-actual"></span>
             </div>
 
-            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL -->
-            <div class="contenedor contenedor-ancho animar-entrada" id="seccionApp">
-                <h2>CALCULO DE HORAS EXTRAS</h2>
+            <!-- NUEVA PESTAÑA: RESUMEN EJECUTIVO KPI + DATOS DE USUARIO -->
+            <div class="contenedor contenedor-ancho oculto" id="bloqueKpi">
+                <h2>PANEL GENERAL KPI — HORAS EXTRAS Y RECARGOS</h2>
 
-                <div class="barra-controles-planilla">
-                    <div class="grupo-control">
-                        <span class="badge-mes-excel">MES</span>
-                        <span class="badge-mes-nombre" id="etiquetaMesActual">NOVIEMBRE</span>
+                <!-- FICHA DE DATOS DEL USUARIO -->
+                <div class="kpi-ficha-usuario">
+                    <div class="kpi-usuario-identidad">
+                        <div class="kpi-avatar-circulo" id="kpiAvatarIniciales">DR</div>
+                        <div class="kpi-usuario-datos">
+                            <h3 id="kpiNombreUsuario">Usuario</h3>
+                            <div class="kpi-usuario-meta">
+                                <span>ID Cuenta: <strong id="kpiCuentaUsuario" style="color:#ffffff;">-</strong></span>
+                                <span>Periodo: <strong id="kpiPeriodoTexto" style="color:#b4d32c;">NOVIEMBRE 2026</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-badges-rapidos">
+                        <div class="kpi-mini-pill">
+                            <span>Sueldo Base</span>
+                            <strong id="kpiSueldoBase">$0.00</strong>
+                        </div>
+                        <div class="kpi-mini-pill">
+                            <span>Valor Hora Normal</span>
+                            <strong id="kpiValorHoraNormal">$0.00</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETAS KPI -->
+                <div class="kpi-grid-principal">
+                    <div class="kpi-card kpi-card-50">
+                        <div class="kpi-card-top">
+                            <span class="kpi-card-titulo">Horas Extras al 50%</span>
+                            <span class="kpi-tag-porcentaje tag-50">× 1.50</span>
+                        </div>
+                        <div class="kpi-valor-dinero" id="kpiDinero50">$0.00</div>
+                        <div class="kpi-detalle-horas">
+                            <span>Tiempo acumulado:</span>
+                            <strong id="kpiHoras50" style="color:#1e40af;">00:00 hrs</strong>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card kpi-card-100">
+                        <div class="kpi-card-top">
+                            <span class="kpi-card-titulo">Horas Extras al 100%</span>
+                            <span class="kpi-tag-porcentaje tag-100">× 2.00</span>
+                        </div>
+                        <div class="kpi-valor-dinero" id="kpiDinero100">$0.00</div>
+                        <div class="kpi-detalle-horas">
+                            <span>Tiempo acumulado:</span>
+                            <strong id="kpiHoras100" style="color:#b45309;">00:00 hrs</strong>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card kpi-card-noct">
+                        <div class="kpi-card-top">
+                            <span class="kpi-card-titulo">Recargo Nocturno</span>
+                            <span class="kpi-tag-porcentaje tag-noct">+25%</span>
+                        </div>
+                        <div class="kpi-valor-dinero" id="kpiDineroNocturno">$0.00</div>
+                        <div class="kpi-input-nocturno-box">
+                            <label for="inputHorasNocturnas" style="margin:0; font-size:11px; color:#475569;">Horas nocturnas:</label>
+                            <input type="number" step="0.5" min="0" id="inputHorasNocturnas" class="kpi-input-nocturno" value="0" oninput="actualizarVistaKPI()">
+                        </div>
+                    </div>
+
+                    <div class="kpi-card kpi-card-total">
+                        <div class="kpi-card-top">
+                            <span class="kpi-card-titulo">Total General Extras</span>
+                            <span class="kpi-tag-porcentaje tag-total">50% + 100% + 25%</span>
+                        </div>
+                        <div class="kpi-valor-dinero" id="kpiDineroTotalGeneral" style="color:#065f46;">$0.00</div>
+                        <div class="kpi-detalle-horas">
+                            <span>Horas totales:</span>
+                            <strong id="kpiHorasTotalesGeneral" style="color:#065f46;">00:00 hrs</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARRA DE DISTRIBUCIÓN VISUAL -->
+                <div class="kpi-barra-distribucion">
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:800; color:#0f172a;">
+                        <span>DISTRIBUCIÓN DE INGRESOS ADICIONALES DEL PERIODO</span>
+                        <span id="kpiPorcentajeDominante" style="color:#64748b; font-weight:700;">Sin horas registradas</span>
+                    </div>
+                    <div class="kpi-barra-track">
+                        <div class="seg-50" id="kpiSeg50" style="width: 0%;"></div>
+                        <div class="seg-100" id="kpiSeg100" style="width: 0%;"></div>
+                        <div class="seg-noct" id="kpiSegNoct" style="width: 0%;"></div>
+                    </div>
+                    <div class="kpi-leyenda">
+                        <span class="leyenda-item"><span class="leyenda-color" style="background:#2563eb;"></span> Extras 50% (<span id="kpiPct50">0%</span>)</span>
+                        <span class="leyenda-item"><span class="leyenda-color" style="background:#f59e0b;"></span> Extras 100% (<span id="kpiPct100">0%</span>)</span>
+                        <span class="leyenda-item"><span class="leyenda-color" style="background:#8b5cf6;"></span> Recargo Nocturno 25% (<span id="kpiPctNoct">0%</span>)</span>
+                    </div>
+                </div>
+
+                <div class="barra-acciones-inferior">
+                    <button type="button" class="btn-accion btn-primario" onclick="cambiarMenu('CALCULADORA')">🧮 Editar Planilla Diaria</button>
+                    <button type="button" class="btn-accion btn-exito" onclick="irARolConHoras()">💵 Llevar al Rol de Pagos</button>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL CON CABECERA REDISEÑADA -->
+            <div class="contenedor contenedor-ancho animar-entrada" id="seccionApp">
+                <div class="cabecera-ejecutiva-planilla">
+                    <div class="titulo-planilla-grupo">
+                        <h2>CÁLCULO DE HORAS EXTRAS</h2>
+                        <div class="subtitulo-planilla-periodo">
+                            <span>Control diario de jornada y recargos</span>
+                        </div>
+                    </div>
+                    <span class="pill-mes-activo" id="etiquetaMesActual">NOVIEMBRE 2026</span>
+                </div>
+
+                <div class="panel-filtros-pro">
+                    <div class="campo-filtro-card">
+                        <label class="campo-filtro-label" for="selectorMes">📅 Periodo de Corte (16 al 15)</label>
                         <select id="selectorMes" onchange="generarPlanillaMes(); cargarControlQFM();">
                             <option value="0">Enero (16 Dic - 15 Ene)</option>
                             <option value="1">Febrero (16 Ene - 15 Feb)</option>
@@ -1321,14 +1774,19 @@
                             <option value="10" selected>Noviembre (16 Oct - 15 Nov)</option>
                             <option value="11">Diciembre (16 Nov - 15 Dic)</option>
                         </select>
-
-                        <label for="selectorAnio">AÑO:</label>
-                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" style="width: 84px;" onchange="generarPlanillaMes(); cargarControlQFM();">
                     </div>
 
-                    <div class="grupo-control">
-                        <label for="sueldo">SUELDO BASE ($):</label>
-                        <input type="number" id="sueldo" value="487.77" step="0.01" style="width: 98px;" onchange="recalcularPlanillaCompleta(); sincronizarSueldoRol();">
+                    <div class="campo-filtro-card">
+                        <label class="campo-filtro-label" for="selectorAnio">🗓️ Año Fiscal</label>
+                        <input type="number" id="selectorAnio" value="2026" min="2020" max="2035" onchange="generarPlanillaMes(); cargarControlQFM();">
+                    </div>
+
+                    <div class="campo-filtro-card">
+                        <label class="campo-filtro-label" for="sueldo">💵 Sueldo Base Mensual</label>
+                        <div class="input-prefijo-wrap">
+                            <span class="input-prefijo-simbolo">$</span>
+                            <input type="number" id="sueldo" value="487.77" step="0.01" onchange="recalcularPlanillaCompleta(); sincronizarSueldoRol();">
+                        </div>
                     </div>
                 </div>
 
@@ -1367,6 +1825,7 @@
                 </div>
 
                 <div class="barra-acciones-inferior">
+                    <button type="button" class="btn-accion btn-primario" onclick="cambiarMenu('KPI')">📊 Ver Panel KPI</button>
                     <button type="button" class="btn-accion btn-exito" onclick="irARolConHoras()">💵 Pasar Horas al Rol</button>
                 </div>
             </div>
@@ -1680,6 +2139,15 @@
             elemento.classList.add("animar-entrada");
         }
 
+        function obtenerIniciales(nombre) {
+            return nombre
+                .split(" ")
+                .filter(Boolean)
+                .slice(0, 2)
+                .map(p => p[0].toUpperCase())
+                .join("") || "DR";
+        }
+
         function validarAcceso() {
             const userInput = document.getElementById('usuarioInput').value.trim().toLowerCase();
             const passInput = document.getElementById('passInput').value.trim();
@@ -1695,15 +2163,16 @@
 
                 loginWrap.classList.add('oculto');
                 document.getElementById('pantallaApp').classList.remove('oculto');
-                document.getElementById('saludoUsuario').innerText = "👤 Conectado como: " + cliente.nombre;
+                document.getElementById('saludoUsuario').innerText = `Bienvenido .- ${cliente.nombre}`;
                 errorMsg.classList.add('oculto');
                 actualizarFechaHoraActual();
 
-                cambiarMenu('CALCULADORA');
+                cambiarMenu('KPI');
                 generarPlanillaMes();
                 cargarDatosRolGuardados();
                 cargarControlQFM();
                 cargarBeneficiosAnuales();
+                actualizarVistaKPI();
             } else {
                 errorMsg.classList.remove('oculto');
                 loginCard.classList.remove('animar-shake');
@@ -1766,6 +2235,7 @@
                     cargarDatosRolGuardados();
                     cargarControlQFM();
                     cargarBeneficiosAnuales();
+                    actualizarVistaKPI();
                     alert("✅ Datos del usuario cargados correctamente.");
                 } catch (err) {
                     alert("❌ No se pudo leer el archivo JSON.");
@@ -1776,18 +2246,25 @@
         }
 
         function cambiarMenu(menu) {
+            const tabKpi = document.getElementById('tabKpi');
             const tabCalc = document.getElementById('tabCalculadora');
             const tabRol = document.getElementById('tabRol');
             const tabBen = document.getElementById('tabBeneficios');
 
+            const seccionKpi = document.getElementById('bloqueKpi');
             const seccionCalc = document.getElementById('seccionApp');
             const seccionRol = document.getElementById('bloqueRol');
             const seccionBen = document.getElementById('bloqueBeneficios');
 
-            [tabCalc, tabRol, tabBen].forEach(t => t.classList.remove('activa'));
-            [seccionCalc, seccionRol, seccionBen].forEach(s => s.classList.add('oculto'));
+            [tabKpi, tabCalc, tabRol, tabBen].forEach(t => t.classList.remove('activa'));
+            [seccionKpi, seccionCalc, seccionRol, seccionBen].forEach(s => s.classList.add('oculto'));
 
-            if (menu === 'CALCULADORA') {
+            if (menu === 'KPI') {
+                tabKpi.classList.add('activa');
+                seccionKpi.classList.remove('oculto');
+                activarAnimacionSeccion(seccionKpi);
+                actualizarVistaKPI();
+            } else if (menu === 'CALCULADORA') {
                 tabCalc.classList.add('activa');
                 seccionCalc.classList.remove('oculto');
                 activarAnimacionSeccion(seccionCalc);
@@ -1858,12 +2335,84 @@
             document.getElementById('mesAnioBeneficiosEtiqueta').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
         }
 
+        /* ACTUALIZACIÓN DE LA PESTAÑA KPI */
+        function actualizarVistaKPI() {
+            const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
+            const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
+            const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
+            const valorHoraNormal = sueldoBase / 240;
+
+            document.getElementById('kpiAvatarIniciales').innerText = obtenerIniciales(nombreActivo);
+            document.getElementById('kpiNombreUsuario').innerText = nombreActivo || "Usuario";
+            document.getElementById('kpiCuentaUsuario').innerText = usuarioActivo || "-";
+            document.getElementById('kpiPeriodoTexto').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
+            document.getElementById('kpiSueldoBase').innerText = `$${sueldoBase.toFixed(2)}`;
+            document.getElementById('kpiValorHoraNormal').innerText = `$${valorHoraNormal.toFixed(2)} / hr`;
+
+            let sumaH50 = 0, sumaH100 = 0, sumaPago50 = 0, sumaPago100 = 0;
+            filasPlanillaData.forEach(f => {
+                sumaH50 += f.h50 || 0;
+                sumaH100 += f.h100 || 0;
+                sumaPago50 += f.pago50 || 0;
+                sumaPago100 += f.pago100 || 0;
+            });
+
+            const claveNoct = `horasNocturnas_${usuarioActivo}_${anio}_${mesIdx}`;
+            const inputNoct = document.getElementById('inputHorasNocturnas');
+            if (document.activeElement !== inputNoct && usuarioActivo) {
+                const guardadoNoct = localStorage.getItem(claveNoct);
+                if (guardadoNoct !== null) {
+                    inputNoct.value = guardadoNoct;
+                }
+            }
+
+            const horasNocturnas = Math.max(0, parseFloat(inputNoct.value) || 0);
+            if (usuarioActivo) {
+                localStorage.setItem(claveNoct, horasNocturnas.toString());
+            }
+
+            // Recargo nocturno: +25% sobre el valor de la hora normal (valorHoraNormal * 1.25)
+            const pagoNocturno = horasNocturnas * valorHoraNormal * 1.25;
+            const totalDinero = sumaPago50 + sumaPago100 + pagoNocturno;
+            const totalHoras = sumaH50 + sumaH100 + horasNocturnas;
+
+            document.getElementById('kpiDinero50').innerText = `$${sumaPago50.toFixed(2)}`;
+            document.getElementById('kpiHoras50').innerText = `${horasDecimalAHHMM(sumaH50)} hrs`;
+
+            document.getElementById('kpiDinero100').innerText = `$${sumaPago100.toFixed(2)}`;
+            document.getElementById('kpiHoras100').innerText = `${horasDecimalAHHMM(sumaH100)} hrs`;
+
+            document.getElementById('kpiDineroNocturno').innerText = `$${pagoNocturno.toFixed(2)}`;
+
+            document.getElementById('kpiDineroTotalGeneral').innerText = `$${totalDinero.toFixed(2)}`;
+            document.getElementById('kpiHorasTotalesGeneral').innerText = `${horasDecimalAHHMM(totalHoras)} hrs`;
+
+            // Distribución porcentual
+            let pct50 = 0, pct100 = 0, pctNoct = 0;
+            if (totalDinero > 0) {
+                pct50 = Math.round((sumaPago50 / totalDinero) * 100);
+                pct100 = Math.round((sumaPago100 / totalDinero) * 100);
+                pctNoct = Math.max(0, 100 - pct50 - pct100);
+                document.getElementById('kpiPorcentajeDominante').innerText = `Total acumulado: $${totalDinero.toFixed(2)}`;
+            } else {
+                document.getElementById('kpiPorcentajeDominante').innerText = "Sin horas registradas en este periodo";
+            }
+
+            document.getElementById('kpiSeg50').style.width = `${pct50}%`;
+            document.getElementById('kpiSeg100').style.width = `${pct100}%`;
+            document.getElementById('kpiSegNoct').style.width = `${pctNoct}%`;
+
+            document.getElementById('kpiPct50').innerText = `${pct50}%`;
+            document.getElementById('kpiPct100').innerText = `${pct100}%`;
+            document.getElementById('kpiPctNoct').innerText = `${pctNoct}%`;
+        }
+
         /* PLANILLA ESTILO EXCEL (16 AL 15) */
         function generarPlanillaMes() {
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
 
-            document.getElementById('etiquetaMesActual').innerText = NOMBRES_MESES[mesIdx];
+            document.getElementById('etiquetaMesActual').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
             actualizarEtiquetaMesAnioBeneficios();
 
             const fechaInicio = new Date(anio, mesIdx - 1, 16);
@@ -2049,6 +2598,8 @@
                 void el.offsetWidth;
                 el.classList.add("animar-pulso");
             });
+
+            actualizarVistaKPI();
         }
 
         function exportarReporteMensual() {
