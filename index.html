@@ -144,16 +144,19 @@
             margin-bottom: 10px;
         }
 
-        .logo-drcv-svg {
-            width: 44px;
-            height: 44px;
+        .logo-drcv-img {
+            width: 54px;
+            height: 54px;
+            object-fit: cover;
+            border-radius: 12px;
             flex-shrink: 0;
-            border-radius: 999px;
-            transition: transform 0.25s ease;
+            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.25);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .logo-drcv-svg:hover {
+        .logo-drcv-img:hover {
             transform: scale(1.06) rotate(-2deg);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.35);
         }
 
         .login-cabecera {
@@ -301,7 +304,7 @@
         .yt-marca-texto {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
             color: #ffffff;
             font-weight: 800;
             font-size: 15px;
@@ -310,6 +313,13 @@
             overflow: hidden;
             transition: opacity 0.2s ease, max-width 0.25s ease;
             max-width: 175px;
+        }
+
+        .yt-marca-texto .logo-drcv-img {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            box-shadow: none;
         }
 
         .columna-youtube.plegada .yt-marca-texto,
@@ -1120,14 +1130,7 @@
         <div class="login-card">
             <div class="login-cabecera">
                 <div class="login-logo-box">
-                    <svg class="logo-drcv-svg" viewBox="0 0 100 100" aria-label="Logo Dr. CV">
-                        <circle cx="50" cy="50" r="48" fill="#181818"/>
-                        <rect x="62" y="14" width="24" height="9" fill="#b4d32c"/>
-                        <path d="M22 35 H45 C57 35 64 41 64 50 C64 59 57 65 45 65 H22 Z M34 44 V56 H44 C49 56 52 54 52 50 C52 46 49 44 44 44 Z" fill="#b4d32c"/>
-                        <path d="M62 35 H76 C83 35 87 39 87 45 C87 50 84 53 79 54 L88 65 H75 L68 55 H62 Z M69 43 V48 H75 C77 48 78 47 78 45.5 C78 44 77 43 75 43 Z" fill="#b4d32c"/>
-                        <rect x="69" y="57" width="9" height="8" fill="#b4d32c"/>
-                        <text x="50" y="79" text-anchor="middle" fill="#b4d32c" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">CV</text>
-                    </svg>
+                    <img src="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg" alt="Logo Dr. CV" class="logo-drcv-img">
                 </div>
                 <h2>Dr. CV - Login</h2>
                 <p class="login-subtitulo">Ingresa tus credenciales para continuar</p>
@@ -1160,14 +1163,7 @@
             <div class="yt-cabecera-marca">
                 <button type="button" class="btn-hamburguesa-yt" onclick="alternarColumnaYoutube()" title="Alternar menú">☰</button>
                 <div class="yt-marca-texto">
-                    <svg class="logo-drcv-svg" style="width:30px; height:30px;" viewBox="0 0 100 100" aria-label="Logo Dr. CV">
-                        <circle cx="50" cy="50" r="48" fill="#181818" stroke="#b4d32c" stroke-width="3"/>
-                        <rect x="62" y="14" width="24" height="9" fill="#b4d32c"/>
-                        <path d="M22 35 H45 C57 35 64 41 64 50 C64 59 57 65 45 65 H22 Z M34 44 V56 H44 C49 56 52 54 52 50 C52 46 49 44 44 44 Z" fill="#b4d32c"/>
-                        <path d="M62 35 H76 C83 35 87 39 87 45 C87 50 84 53 79 54 L88 65 H75 L68 55 H62 Z M69 43 V48 H75 C77 48 78 47 78 45.5 C78 44 77 43 75 43 Z" fill="#b4d32c"/>
-                        <rect x="69" y="57" width="9" height="8" fill="#b4d32c"/>
-                        <text x="50" y="79" text-anchor="middle" fill="#b4d32c" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">CV</text>
-                    </svg>
+                    <img src="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg" alt="Logo Dr. CV" class="logo-drcv-img">
                     <span>Dr. CV</span>
                 </div>
             </div>
