@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Dr CV - Cálculo de Horas Extras, KPI, Rol, Beneficios y Casa</title>
+    <title>Dr CV - Cálculo de Horas Extras, KPI, Rol y Beneficios</title>
     <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg">
+    <link rel="shortcut" type="image/jpeg" href="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/PLXj2CXn/Whats-App-Image-2026-11-23-at-23-47-04.jpg">
     <style>
         :root {
@@ -44,32 +44,19 @@
             overflow-x: hidden;
         }
 
-        /* ANIMACIONES */
         @keyframes fadeSlideIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes loginCardEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(22px) scale(0.97);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            0% { opacity: 0; transform: translateY(22px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes loginFieldEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes shakeError {
@@ -105,7 +92,6 @@
             width: 100%;
         }
 
-        /* LOGIN PROFESIONAL ANIMADO */
         .login-card {
             position: relative;
             background: rgba(255, 255, 255, 0.96);
@@ -215,33 +201,16 @@
             transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
         }
 
-        .btn-login-pro::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -120%;
-            width: 65%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.55s ease;
-        }
-
         .btn-login-pro:hover {
             transform: translateY(-2px);
             box-shadow: 0 14px 22px -4px rgba(30, 64, 175, 0.5);
             filter: brightness(1.04);
         }
 
-        .btn-login-pro:hover::after {
-            left: 140%;
-        }
-
         .btn-login-pro:active {
             transform: translateY(0) scale(0.985);
         }
 
-        /* LAYOUT ESTILO YOUTUBE (COLUMNA LATERAL + CONTENIDO) */
         .app-shell {
             display: flex;
             min-height: 100dvh;
@@ -348,7 +317,6 @@
             transition: opacity 0.2s ease;
         }
 
-        /* MINIATURAS VECTORIALES PROFESIONALES */
         .yt-item {
             position: relative;
             display: flex;
@@ -404,40 +372,12 @@
             box-shadow: 0 0 0 2px rgba(180, 211, 44, 0.2), 0 6px 14px rgba(0, 0, 0, 0.4);
         }
 
-        .miniatura-kpi {
-            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
-            color: #ecfeff;
-        }
-
-        .miniatura-calc {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: #eff6ff;
-        }
-
-        .miniatura-rol {
-            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
-            color: #ecfdf5;
-        }
-
-        .miniatura-beneficios {
-            background: linear-gradient(135deg, #f59e0b 0%, #c2410c 100%);
-            color: #fffbeb;
-        }
-
-        .miniatura-casa {
-            background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
-            color: #f0fdfa;
-        }
-
-        .miniatura-pdf {
-            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-            color: #eef2ff;
-        }
-
-        .miniatura-salir {
-            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            color: #fef2f2;
-        }
+        .miniatura-kpi { background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%); color: #ecfeff; }
+        .miniatura-calc { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #eff6ff; }
+        .miniatura-rol { background: linear-gradient(135deg, #10b981 0%, #047857 100%); color: #ecfdf5; }
+        .miniatura-beneficios { background: linear-gradient(135deg, #f59e0b 0%, #c2410c 100%); color: #fffbeb; }
+        .miniatura-pdf { background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); color: #eef2ff; }
+        .miniatura-salir { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: #fef2f2; }
 
         .miniatura-pro svg {
             width: 18px;
@@ -487,7 +427,6 @@
             align-items: center;
         }
 
-        /* CONTENEDORES APP */
         .contenedor {
             background: #ffffff;
             padding: 22px;
@@ -549,7 +488,6 @@
             background-color: #ffffff;
         }
 
-        /* BOTONES PROFESIONALES Y COMPACTOS */
         .btn-accion {
             width: auto;
             min-height: 38px;
@@ -585,9 +523,6 @@
 
         .btn-exito { background-color: var(--success); }
         .btn-exito:hover { background-color: var(--success-hover); }
-
-        .btn-advertencia { background-color: var(--warning); color: #ffffff; }
-        .btn-advertencia:hover { background-color: var(--warning-hover); }
 
         .btn-secundario {
             background-color: #f1f5f9;
@@ -705,7 +640,6 @@
 
         .error { color: var(--danger); font-size: 13px; text-align: center; margin-top: 12px; font-weight: 600; }
 
-        /* CABECERA PROFESIONAL DE LA PLANILLA */
         .cabecera-ejecutiva-planilla {
             display: flex;
             flex-wrap: wrap;
@@ -827,7 +761,6 @@
             color: var(--success);
         }
 
-        /* PESTAÑA RESUMEN EJECUTIVO KPI + SELECTOR DE MES DIRECTO */
         .kpi-selector-periodo-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1121,7 +1054,123 @@
             border-radius: 3px;
         }
 
-        /* TABLA EXCEL */
+        /* CUADRO COMPARATIVO DE HORAS EXTRAS ENTRE DOS MESES */
+        .kpi-comparativa-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+
+        .kpi-comparativa-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .kpi-comparativa-header h3 {
+            margin: 0;
+            border-left-color: var(--primary);
+        }
+
+        .kpi-comparativa-selectores {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kpi-comp-select {
+            width: auto;
+            min-width: 155px;
+            margin: 0;
+            padding: 7px 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            color: #0f172a;
+        }
+
+        .kpi-comp-anio {
+            width: 82px;
+            margin: 0;
+            padding: 7px 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            color: #0f172a;
+            text-align: center;
+        }
+
+        .kpi-comp-vs {
+            font-size: 11.5px;
+            font-weight: 900;
+            color: #64748b;
+            padding: 0 2px;
+        }
+
+        .tabla-comparativa-kpi {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: #ffffff;
+            min-width: 640px;
+        }
+
+        .tabla-comparativa-kpi th {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.4px;
+            border: 1px solid #334155;
+            padding: 9px 10px;
+            text-align: center;
+        }
+
+        .tabla-comparativa-kpi td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+            color: #0f172a;
+        }
+
+        .tabla-comparativa-kpi td:first-child {
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .tabla-comparativa-kpi tr.fila-total-comp td {
+            background-color: #f1f5f9;
+            font-weight: 900;
+            border-top: 2px solid #64748b;
+        }
+
+        .var-positiva {
+            color: #047857;
+            font-weight: 800;
+        }
+
+        .var-negativa {
+            color: #b91c1c;
+            font-weight: 800;
+        }
+
+        .var-neutra {
+            color: #64748b;
+            font-weight: 700;
+        }
+
         .tabla-contenedor {
             border-radius: 10px;
             overflow-x: auto;
@@ -1221,7 +1270,6 @@
             font-size: 14px;
         }
 
-        /* ROL DE PAGOS */
         .rol-header-periodo {
             display: flex;
             flex-wrap: wrap;
@@ -1307,7 +1355,6 @@
         }
         .btn-mini:hover { background-color: #1e293b; transform: translateY(-1px); }
 
-        /* CUADRO PROFESIONAL QUINCENA Y FIN DE MES */
         .qfm-grid-tarjetas {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1558,7 +1605,6 @@
             letter-spacing: -0.3px;
         }
 
-        /* BENEFICIOS SOCIALES */
         .tabla-beneficios {
             width: 100%;
             border-collapse: collapse;
@@ -1607,333 +1653,6 @@
             padding: 12px;
         }
 
-        /* PESTAÑA CASA - DISEÑO PROFESIONAL CON FOTO, FAMILIA, MZ/VILLA, TOTAL $67,007 Y PORCENTAJES */
-        .casa-hero-card {
-            display: grid;
-            grid-template-columns: 275px 1fr;
-            gap: 20px;
-            background: linear-gradient(135deg, #0b1324 0%, #172554 55%, #0f172a 100%);
-            border: 1px solid rgba(148, 163, 184, 0.25);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 18px;
-            color: #f8fafc;
-            box-shadow: 0 14px 28px -10px rgba(15, 23, 42, 0.45);
-            align-items: center;
-        }
-
-        .casa-foto-frame {
-            position: relative;
-            width: 100%;
-            height: 205px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid rgba(180, 211, 44, 0.65);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-            background: #0b1120;
-        }
-
-        .casa-foto-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.35s ease;
-        }
-
-        .casa-foto-frame:hover img {
-            transform: scale(1.04);
-        }
-
-        .casa-foto-badge {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(15, 23, 42, 0.88);
-            color: #ecfccb;
-            font-size: 10.5px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(180, 211, 44, 0.5);
-            backdrop-filter: blur(4px);
-        }
-
-        .casa-info-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            min-width: 0;
-        }
-
-        .casa-titulo-fila {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .casa-titulo-fila h3 {
-            margin: 0;
-            padding: 0;
-            border: none;
-            color: #ffffff;
-            font-size: 19px;
-            letter-spacing: -0.2px;
-        }
-
-        .casa-familia-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 4px;
-            font-size: 13px;
-            font-weight: 800;
-            color: #d9f99d;
-        }
-
-        .casa-ubicacion-edit {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .casa-tag-campo {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 8px;
-            padding: 4px 8px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #e2e8f0;
-        }
-
-        .casa-input-ubicacion {
-            width: 86px;
-            margin: 0;
-            padding: 3px 6px;
-            font-size: 12px;
-            font-weight: 800;
-            color: #ffffff;
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .casa-kpis-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .casa-kpi-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 12px;
-            padding: 10px 12px;
-        }
-
-        .casa-kpi-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 6px;
-            margin-bottom: 4px;
-        }
-
-        .casa-kpi-box span.etiqueta-kpi {
-            font-size: 10.5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #cbd5e1;
-            font-weight: 700;
-        }
-
-        .casa-pct-pill {
-            font-size: 11px;
-            font-weight: 800;
-            padding: 2px 7px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.14);
-            color: #ffffff;
-        }
-
-        .casa-kpi-box.pagado .casa-pct-pill {
-            background: rgba(34, 197, 94, 0.25);
-            color: #bbf7d0;
-        }
-
-        .casa-kpi-box.pendiente .casa-pct-pill {
-            background: rgba(250, 204, 21, 0.22);
-            color: #fef08a;
-        }
-
-        .casa-kpi-box strong.valor-kpi {
-            font-size: 18px;
-            font-weight: 900;
-            color: #ffffff;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .casa-kpi-box.pagado strong.valor-kpi { color: #86efac; }
-        .casa-kpi-box.pendiente strong.valor-kpi { color: #fde047; }
-
-        .casa-input-total-inline {
-            width: 112px;
-            margin: 0;
-            padding: 2px 6px;
-            font-size: 17px;
-            font-weight: 900;
-            color: #ffffff;
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(180, 211, 44, 0.45);
-            border-radius: 6px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .casa-subnota-kpi {
-            display: block;
-            margin-top: 3px;
-            font-size: 11px;
-            color: #94a3b8;
-        }
-
-        .casa-barra-avance {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 10px;
-            padding: 8px 12px;
-        }
-
-        .casa-barra-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 6px;
-        }
-
-        .casa-barra-track {
-            height: 10px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.14);
-            border-radius: 999px;
-            overflow: hidden;
-            display: flex;
-        }
-
-        .casa-barra-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #22c55e 0%, #b4d32c 100%);
-            transition: width 0.35s ease;
-        }
-
-        .tabla-casa {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: #ffffff;
-            min-width: 740px;
-        }
-
-        .tabla-casa th {
-            background-color: #0f172a;
-            color: #ffffff;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.4px;
-            border: 1px solid #334155;
-            padding: 9px 8px;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .th-col-extra-wrap {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-eliminar-col {
-            background: rgba(239, 68, 68, 0.25);
-            color: #fecaca;
-            border: 1px solid rgba(248, 113, 113, 0.45);
-            border-radius: 4px;
-            padding: 1px 5px;
-            font-size: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            line-height: 1.2;
-        }
-
-        .btn-eliminar-col:hover {
-            background: #ef4444;
-            color: #ffffff;
-        }
-
-        .tabla-casa td {
-            border: 1px solid #cbd5e1;
-            padding: 6px 7px;
-            text-align: center;
-            background: #ffffff;
-        }
-
-        .tabla-casa tr:nth-child(even) td {
-            background-color: #f8fafc;
-        }
-
-        .input-casa-celda {
-            width: 100%;
-            min-width: 95px;
-            margin: 0;
-            padding: 6px 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #0f172a;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            background: #ffffff;
-        }
-
-        .input-casa-monto {
-            text-align: right;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
-            min-width: 100px;
-        }
-
-        .select-casa-estado {
-            width: 100%;
-            min-width: 115px;
-            margin: 0;
-            padding: 6px 8px;
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-        }
-
-        .estado-pagado {
-            background-color: #dcfce7;
-            color: #065f46;
-            border-color: #86efac;
-        }
-
-        .estado-pendiente {
-            background-color: #fef3c7;
-            color: #92400e;
-            border-color: #fcd34d;
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 820px) {
             .btn-menu-movil-top {
                 display: inline-flex;
@@ -1968,9 +1687,7 @@
                 border-radius: 14px;
             }
             .panel-filtros-pro,
-            .qfm-grid-tarjetas,
-            .casa-hero-card,
-            .casa-kpis-grid {
+            .qfm-grid-tarjetas {
                 grid-template-columns: 1fr;
             }
             .login-card {
@@ -1987,7 +1704,7 @@
 
         @media print {
             body { background: white !important; color: black; display: block; padding: 0; }
-            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .panel-filtros-pro, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar, .kpi-selector-periodo-bar, .btn-eliminar-col, .btn-limpiar-fila {
+            #seccionLogin, .columna-youtube, .backdrop-movil, .barra-estado-superior, .barra-acciones-inferior, .barra-sincronizacion, .panel-filtros-pro, .barra-herramientas-rol, .resumen-dinero-barra, .btn-extraer-neto, .btn-qfm-quitar, .kpi-selector-periodo-bar, .kpi-comparativa-selectores, .btn-limpiar-fila {
                 display: none !important;
             }
             .area-contenido-yt { padding: 0; display: block; }
@@ -2000,7 +1717,7 @@
                 display: block !important;
                 animation: none !important;
             }
-            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-qfm-concepto, .input-qfm-monto, .input-casa-celda, .select-casa-estado, .casa-input-ubicacion, .casa-input-total-inline {
+            .input-hora-excel, .select-tipo-excel, .input-rol, .rol-input-fecha, .input-monto-tabla, .input-qfm-concepto, .input-qfm-monto {
                 border: none !important;
                 background: transparent !important;
                 padding: 0 !important;
@@ -2008,7 +1725,7 @@
                 color: #000000 !important;
                 -webkit-appearance: none;
             }
-            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .pill-mes-activo, .tabla-rol th, .celda-gris-total, .qfm-tarjeta-head, .qfm-banner-total, .casa-hero-card, .tabla-casa th {
+            .tabla-excel th, .celda-subtotal-label, .fila-finde td.celda-dia, .fila-finde td.celda-fecha, .fila-feriado td.celda-dia, .fila-feriado td.celda-fecha, .pill-mes-activo, .tabla-rol th, .celda-gris-total, .qfm-tarjeta-head, .qfm-banner-total, .tabla-comparativa-kpi th {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -2018,7 +1735,6 @@
 </head>
 <body>
 
-    <!-- LOGIN PROFESIONAL CON ANIMACIONES -->
     <div class="wrapper-login" id="seccionLogin">
         <div class="login-card">
             <div class="login-cabecera">
@@ -2033,12 +1749,12 @@
                 <label for="usuarioInput">Usuario:</label>
                 <input type="text" id="usuarioInput" placeholder="Ingresa tu usuario" autocomplete="username">
             </div>
-            
+
             <div class="login-campo login-campo-2">
                 <label for="passInput">Contraseña:</label>
                 <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
             </div>
-            
+
             <div class="login-accion">
                 <button type="button" class="btn-login-pro" onclick="validarAcceso()">Entrar al Sistema</button>
                 <p id="mensajeError" class="error oculto">Usuario o contraseña incorrectos</p>
@@ -2046,12 +1762,10 @@
         </div>
     </div>
 
-    <!-- APLICACIÓN CON COLUMNA LATERAL TIPO YOUTUBE -->
     <div id="pantallaApp" class="app-shell oculto">
 
         <div class="backdrop-movil" id="backdropMovil" onclick="cerrarMenuMovil()"></div>
 
-        <!-- COLUMNA LATERAL -->
         <aside class="columna-youtube" id="columnaYoutube">
             <div class="yt-cabecera-marca">
                 <button type="button" class="btn-hamburguesa-yt" onclick="alternarColumnaYoutube()" title="Alternar menú">☰</button>
@@ -2114,17 +1828,6 @@
                 <span class="yt-item-texto">Beneficios Sociales</span>
             </div>
 
-            <div class="yt-item" id="tabCasa" onclick="cambiarMenu('CASA')">
-                <span class="miniatura-pro miniatura-casa" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M3 10.5L12 3l9 7.5"></path>
-                        <path d="M5 9.5V20h14V9.5"></path>
-                        <path d="M9.5 20v-6h5v6"></path>
-                    </svg>
-                </span>
-                <span class="yt-item-texto">Casa</span>
-            </div>
-
             <div class="yt-separador"></div>
             <div class="yt-seccion-titulo">Acciones</div>
 
@@ -2152,7 +1855,6 @@
             </div>
         </aside>
 
-        <!-- CONTENIDO PRINCIPAL -->
         <div class="area-contenido-yt">
 
             <div class="barra-estado-superior animar-entrada">
@@ -2166,11 +1868,10 @@
                 <span id="fechaHoraActual" class="reloj-actual"></span>
             </div>
 
-            <!-- PESTAÑA INICIO: RESUMEN EJECUTIVO KPI + SELECTOR DE MES DIRECTO -->
+            <!-- PESTAÑA INICIO: RESUMEN EJECUTIVO KPI + CUADRO COMPARATIVO ENTRE DOS MESES -->
             <div class="contenedor contenedor-ancho oculto" id="bloqueKpi">
                 <h2>PANEL GENERAL KPI — HORAS EXTRAS Y RECARGOS</h2>
 
-                <!-- SELECTOR DIRECTO DE MES Y AÑO DESDE EL INICIO -->
                 <div class="kpi-selector-periodo-bar">
                     <div class="kpi-selector-titulo">
                         <span>📅 Seleccionar Periodo de Consulta</span>
@@ -2194,7 +1895,6 @@
                     </div>
                 </div>
 
-                <!-- FICHA DE DATOS DEL USUARIO -->
                 <div class="kpi-ficha-usuario">
                     <div class="kpi-usuario-identidad">
                         <div class="kpi-avatar-circulo" id="kpiAvatarIniciales">DR</div>
@@ -2219,7 +1919,6 @@
                     </div>
                 </div>
 
-                <!-- TARJETAS KPI -->
                 <div class="kpi-grid-principal">
                     <div class="kpi-card kpi-card-50">
                         <div class="kpi-card-top">
@@ -2270,7 +1969,6 @@
                     </div>
                 </div>
 
-                <!-- BARRA DE DISTRIBUCIÓN VISUAL -->
                 <div class="kpi-barra-distribucion">
                     <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:800; color:#0f172a;">
                         <span>DISTRIBUCIÓN DE INGRESOS ADICIONALES DEL PERIODO</span>
@@ -2288,13 +1986,70 @@
                     </div>
                 </div>
 
+                <!-- CUADRO COMPARATIVO DE HORAS EXTRAS ENTRE DOS MESES -->
+                <div class="kpi-comparativa-box">
+                    <div class="kpi-comparativa-header">
+                        <h3>📊 Comparativo de Horas Extras entre Dos Meses</h3>
+                        <div class="kpi-comparativa-selectores">
+                            <select id="compMesA" class="kpi-comp-select" onchange="actualizarComparativoDosMeses()">
+                                <option value="0">Enero</option>
+                                <option value="1">Febrero</option>
+                                <option value="2">Marzo</option>
+                                <option value="3">Abril</option>
+                                <option value="4">Mayo</option>
+                                <option value="5">Junio</option>
+                                <option value="6">Julio</option>
+                                <option value="7">Agosto</option>
+                                <option value="8">Septiembre</option>
+                                <option value="9" selected>Octubre</option>
+                                <option value="10">Noviembre</option>
+                                <option value="11">Diciembre</option>
+                            </select>
+                            <input type="number" id="compAnioA" class="kpi-comp-anio" value="2026" min="2020" max="2035" onchange="actualizarComparativoDosMeses()">
+
+                            <span class="kpi-comp-vs">VS</span>
+
+                            <select id="compMesB" class="kpi-comp-select" onchange="actualizarComparativoDosMeses()">
+                                <option value="0">Enero</option>
+                                <option value="1">Febrero</option>
+                                <option value="2">Marzo</option>
+                                <option value="3">Abril</option>
+                                <option value="4">Mayo</option>
+                                <option value="5">Junio</option>
+                                <option value="6">Julio</option>
+                                <option value="7">Agosto</option>
+                                <option value="8">Septiembre</option>
+                                <option value="9">Octubre</option>
+                                <option value="10" selected>Noviembre</option>
+                                <option value="11">Diciembre</option>
+                            </select>
+                            <input type="number" id="compAnioB" class="kpi-comp-anio" value="2026" min="2020" max="2035" onchange="actualizarComparativoDosMeses()">
+                        </div>
+                    </div>
+
+                    <div class="tabla-contenedor">
+                        <table class="tabla-comparativa-kpi" id="tablaComparativaDosMeses">
+                            <thead>
+                                <tr>
+                                    <th>RUBRO / CONCEPTO</th>
+                                    <th id="thCompMesA">OCTUBRE 2026</th>
+                                    <th id="thCompMesB">NOVIEMBRE 2026</th>
+                                    <th>DIFERENCIA (B - A)</th>
+                                    <th>VARIACIÓN %</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoComparativaDosMeses"></tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="barra-acciones-inferior">
                     <button type="button" class="btn-accion btn-primario" onclick="cambiarMenu('CALCULADORA')">🧮 Editar Planilla Diaria</button>
                     <button type="button" class="btn-accion btn-exito" onclick="irARolConHoras()">💵 Llevar al Rol de Pagos</button>
                 </div>
             </div>
 
-            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL CON CABECERA REDISEÑADA -->
+            <!-- PESTAÑA 1: PLANILLA ESTILO EXCEL -->
             <div class="contenedor contenedor-ancho animar-entrada" id="seccionApp">
                 <div class="cabecera-ejecutiva-planilla">
                     <div class="titulo-planilla-grupo">
@@ -2509,9 +2264,7 @@
                     <button type="button" class="btn-mini" onclick="guardarControlQFM()">💾 Guardar Quincena / Fin de Mes</button>
                 </div>
 
-                <!-- CUADRO PROFESIONAL DE QUINCENA Y FIN DE MES -->
                 <div class="qfm-grid-tarjetas">
-                    <!-- TARJETA QUINCENA -->
                     <div class="qfm-tarjeta">
                         <div class="qfm-tarjeta-head qfm-head-quincena">
                             <span>QUINCENA</span>
@@ -2537,7 +2290,6 @@
                         </div>
                     </div>
 
-                    <!-- TARJETA FIN DE MES -->
                     <div class="qfm-tarjeta">
                         <div class="qfm-tarjeta-head qfm-head-finmes">
                             <span>FIN DE MES</span>
@@ -2564,7 +2316,6 @@
                     </div>
                 </div>
 
-                <!-- BANNER EJECUTIVO TOTAL A PERCIBIR -->
                 <div class="qfm-banner-total">
                     <div class="qfm-banner-etiqueta">
                         <strong>TOTAL A PERCIBIR (QUINCENA + FIN DE MES)</strong>
@@ -2627,101 +2378,6 @@
                 </div>
             </div>
 
-            <!-- PESTAÑA 4: CASA (CONTROL DE PAGOS, FAMILIA QUITUISACA CHIMBOLEMA, MZ/VILLA, TOTAL $67,007 Y PORCENTAJES) -->
-            <div class="contenedor contenedor-ancho oculto" id="bloqueCasa">
-                <h2>CONTROL DE PROPIEDAD — CASA</h2>
-
-                <!-- CABECERA EJECUTIVA CON FOTO, FAMILIA QUITUISACA CHIMBOLEMA, MZ/VILLA, TOTAL $67,007 Y PORCENTAJES -->
-                <div class="casa-hero-card">
-                    <div class="casa-foto-frame">
-                        <img src="https://i.postimg.cc/W4ycrH4n/Whats-App-Image-2026-11-14-at-22-28-37.jpg" alt="Foto de la Casa">
-                        <span class="casa-foto-badge">🏡 Propiedad Registrada</span>
-                    </div>
-
-                    <div class="casa-info-panel">
-                        <div class="casa-titulo-fila">
-                            <div>
-                                <h3>Gestión de Cuotas, Abonos y Documentación</h3>
-                                <div class="casa-familia-badge">👨‍👩‍👧‍👦 Familia Quituisaca Chimbolema</div>
-                            </div>
-
-                            <div class="casa-ubicacion-edit">
-                                <span class="casa-tag-campo">
-                                    <span>MZ:</span>
-                                    <input type="text" id="casaMzInput" class="casa-input-ubicacion" value="Mz -" placeholder="Ej. 12" oninput="actualizarUbicacionCasa('mz', this.value)">
-                                </span>
-                                <span class="casa-tag-campo">
-                                    <span>VILLA:</span>
-                                    <input type="text" id="casaVillaInput" class="casa-input-ubicacion" value="Villa -" placeholder="Ej. 04" oninput="actualizarUbicacionCasa('villa', this.value)">
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="casa-kpis-grid">
-                            <div class="casa-kpi-box">
-                                <div class="casa-kpi-top">
-                                    <span class="etiqueta-kpi">Valor Total Casa</span>
-                                    <span class="casa-pct-pill">100.00%</span>
-                                </div>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <strong class="valor-kpi">$</strong>
-                                    <input type="number" step="0.01" id="casaValorTotalInput" class="casa-input-total-inline" value="67007.00" oninput="actualizarValorTotalCasa(this.value)">
-                                </div>
-                                <span class="casa-subnota-kpi">Precio total de la vivienda</span>
-                            </div>
-
-                            <div class="casa-kpi-box pagado">
-                                <div class="casa-kpi-top">
-                                    <span class="etiqueta-kpi">Total Pagado</span>
-                                    <span class="casa-pct-pill" id="casaPctPagado">0.00%</span>
-                                </div>
-                                <strong class="valor-kpi" id="casaTotalPagado">$0.00</strong>
-                                <span class="casa-subnota-kpi" id="casaNotaPagado">Abonos registrados como PAGADO</span>
-                            </div>
-
-                            <div class="casa-kpi-box pendiente">
-                                <div class="casa-kpi-top">
-                                    <span class="etiqueta-kpi">Saldo Pendiente</span>
-                                    <span class="casa-pct-pill" id="casaPctPendiente">100.00%</span>
-                                </div>
-                                <strong class="valor-kpi" id="casaTotalPendiente">$67,007.00</strong>
-                                <span class="casa-subnota-kpi" id="casaCuotasPendientesTexto">Cuotas en tabla: $0.00</span>
-                            </div>
-                        </div>
-
-                        <div class="casa-barra-avance">
-                            <div class="casa-barra-header">
-                                <span>Avance de pago sobre el valor total de la casa</span>
-                                <span id="casaResumenAvanceTexto">0.00% pagado · 100.00% por pagar</span>
-                            </div>
-                            <div class="casa-barra-track">
-                                <div class="casa-barra-fill" id="casaBarraProgreso" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BARRA DE HERRAMIENTAS EDITABLE (FILAS Y COLUMNAS) -->
-                <div class="barra-herramientas-rol">
-                    <button type="button" class="btn-mini" onclick="agregarFilaCasa()">➕ Agregar Fila / Cuota</button>
-                    <button type="button" class="btn-mini" style="background-color: var(--primary);" onclick="agregarColumnaCasa()">📊 Agregar Columna</button>
-                    <button type="button" class="btn-mini" style="background-color: var(--success);" onclick="guardarDatosCasa()">💾 Guardar Cambios</button>
-                </div>
-
-                <!-- TABLA PROFESIONAL EDITABLE -->
-                <div class="tabla-contenedor">
-                    <table class="tabla-casa" id="tablaCasa">
-                        <thead id="cabeceraTablaCasa"></thead>
-                        <tbody id="cuerpoTablaCasa"></tbody>
-                    </table>
-                </div>
-
-                <div class="barra-acciones-inferior">
-                    <button type="button" class="btn-accion btn-primario" onclick="agregarColumnaCasa()">📊 Nueva Columna</button>
-                    <button type="button" class="btn-accion btn-exito" onclick="guardarDatosCasa()">💾 Guardar Control Casa</button>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -2744,11 +2400,6 @@
         let nombreActivo = "";
         let filasPlanillaData = [];
         let filasQFMData = [];
-        let casaValorTotal = 67007.00;
-        let casaMz = "";
-        let casaVilla = "";
-        let casaColumnasExtra = [];
-        let casaFilasData = [];
 
         function alternarColumnaYoutube() {
             const columna = document.getElementById("columnaYoutube");
@@ -2806,7 +2457,6 @@
                 .join("") || "DR";
         }
 
-        /* SINCRONIZACIÓN DE PERIODO (MES Y AÑO) ENTRE KPI Y PLANILLA */
         function sincronizarSelectoresPeriodo(origen) {
             const kpiMes = document.getElementById("kpiSelectorMes");
             const kpiAnio = document.getElementById("kpiSelectorAnio");
@@ -2856,8 +2506,8 @@
                 cargarDatosRolGuardados();
                 cargarControlQFM();
                 cargarBeneficiosAnuales();
-                cargarDatosCasa();
                 actualizarVistaKPI();
+                actualizarComparativoDosMeses();
             } else {
                 errorMsg.classList.remove('oculto');
                 loginCard.classList.remove('animar-shake');
@@ -2866,7 +2516,6 @@
             }
         }
 
-        /* RESPALDO / TRANSFERENCIA DE DATOS POR USUARIO */
         function exportarRespaldoUsuario() {
             if (!usuarioActivo) return;
             const prefijo = `_${usuarioActivo}`;
@@ -2920,8 +2569,8 @@
                     cargarDatosRolGuardados();
                     cargarControlQFM();
                     cargarBeneficiosAnuales();
-                    cargarDatosCasa();
                     actualizarVistaKPI();
+                    actualizarComparativoDosMeses();
                     alert("✅ Datos del usuario cargados correctamente.");
                 } catch (err) {
                     alert("❌ No se pudo leer el archivo JSON.");
@@ -2936,16 +2585,14 @@
             const tabCalc = document.getElementById('tabCalculadora');
             const tabRol = document.getElementById('tabRol');
             const tabBen = document.getElementById('tabBeneficios');
-            const tabCasa = document.getElementById('tabCasa');
 
             const seccionKpi = document.getElementById('bloqueKpi');
             const seccionCalc = document.getElementById('seccionApp');
             const seccionRol = document.getElementById('bloqueRol');
             const seccionBen = document.getElementById('bloqueBeneficios');
-            const seccionCasa = document.getElementById('bloqueCasa');
 
-            [tabKpi, tabCalc, tabRol, tabBen, tabCasa].forEach(t => t.classList.remove('activa'));
-            [seccionKpi, seccionCalc, seccionRol, seccionBen, seccionCasa].forEach(s => s.classList.add('oculto'));
+            [tabKpi, tabCalc, tabRol, tabBen].forEach(t => t.classList.remove('activa'));
+            [seccionKpi, seccionCalc, seccionRol, seccionBen].forEach(s => s.classList.add('oculto'));
 
             if (menu === 'KPI') {
                 tabKpi.classList.add('activa');
@@ -2953,6 +2600,7 @@
                 activarAnimacionSeccion(seccionKpi);
                 sincronizarSelectoresPeriodo("planilla");
                 actualizarVistaKPI();
+                actualizarComparativoDosMeses();
             } else if (menu === 'CALCULADORA') {
                 tabCalc.classList.add('activa');
                 seccionCalc.classList.remove('oculto');
@@ -2971,11 +2619,6 @@
                 renderizarControlQFM();
                 renderizarTablaDecimoTercero();
                 recalcularBeneficiosExtra();
-            } else if (menu === 'CASA') {
-                tabCasa.classList.add('activa');
-                seccionCasa.classList.remove('oculto');
-                activarAnimacionSeccion(seccionCasa);
-                renderizarTablaCasa();
             }
 
             if (window.innerWidth <= 820) {
@@ -3008,10 +2651,11 @@
         }
 
         function horasDecimalAHHMM(decimalHoras) {
-            const totalMinutos = Math.round((parseFloat(decimalHoras) || 0) * 60);
+            const signo = (parseFloat(decimalHoras) || 0) < 0 ? "-" : "";
+            const totalMinutos = Math.round(Math.abs(parseFloat(decimalHoras) || 0) * 60);
             const h = Math.floor(totalMinutos / 60);
             const m = totalMinutos % 60;
-            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+            return `${signo}${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
         }
 
         function actualizarRangoAutomaticoRol() {
@@ -3029,7 +2673,167 @@
             document.getElementById('mesAnioBeneficiosEtiqueta').innerText = `${NOMBRES_MESES[mesIdx]} ${anio}`;
         }
 
-        /* ACTUALIZACIÓN DE LA PESTAÑA KPI */
+        /* CALCULO DE RESUMEN PARA CUALQUIER MES/AÑO GUARDADO */
+        function calcularResumenPeriodo(anio, mesIdx, sueldoBase) {
+            const fechaInicio = new Date(anio, mesIdx - 1, 16);
+            const fechaFin = new Date(anio, mesIdx, 15);
+            const claveGuardado = `planillaExcel_${usuarioActivo}_${anio}_${mesIdx}`;
+            const datosGuardados = JSON.parse(localStorage.getItem(claveGuardado)) || {};
+
+            const valorHoraNormal = (parseFloat(sueldoBase) || 0) / 240;
+            let h50 = 0, h100 = 0, pago50 = 0, pago100 = 0;
+
+            let cursor = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
+            while (cursor <= fechaFin) {
+                const iso = formatearISO(cursor);
+                const diaNum = cursor.getDay();
+                const esFinDeSemana = (diaNum === 0 || diaNum === 6);
+                const reg = datosGuardados[iso];
+                const tipoDia = (reg && reg.tipoDia) ? reg.tipoDia : (esFinDeSemana ? "FIN_DE_SEMANA" : "NORMAL");
+                const entrada = reg ? reg.entrada : "";
+                const salida = reg ? reg.salida : "";
+
+                if (entrada && salida) {
+                    const inicio = new Date(`2026-01-01T${entrada}:00`);
+                    const fin = new Date(`2026-01-01T${salida}:00`);
+                    let diffHoras = (fin - inicio) / (1000 * 60 * 60);
+                    if (diffHoras < 0) diffHoras += 24;
+
+                    if (tipoDia === "NORMAL") {
+                        const extra50 = Math.max(0, diffHoras - 8);
+                        h50 += extra50;
+                        pago50 += extra50 * valorHoraNormal * 1.5;
+                    } else {
+                        h100 += diffHoras;
+                        pago100 += diffHoras * valorHoraNormal * 2;
+                    }
+                }
+                cursor.setDate(cursor.getDate() + 1);
+            }
+
+            const claveNoct = `horasNocturnas_${usuarioActivo}_${anio}_${mesIdx}`;
+            const hNoct = Math.max(0, parseFloat(localStorage.getItem(claveNoct)) || 0);
+            const pagoNoct = hNoct * valorHoraNormal * 1.25;
+
+            return {
+                h50,
+                h100,
+                hNoct,
+                totalHoras: h50 + h100 + hNoct,
+                pago50,
+                pago100,
+                pagoNoct,
+                totalDinero: pago50 + pago100 + pagoNoct
+            };
+        }
+
+        function actualizarComparativoDosMeses() {
+            if (!usuarioActivo) return;
+            const mesA = parseInt(document.getElementById('compMesA').value, 10);
+            const anioA = parseInt(document.getElementById('compAnioA').value, 10) || 2026;
+            const mesB = parseInt(document.getElementById('compMesB').value, 10);
+            const anioB = parseInt(document.getElementById('compAnioB').value, 10) || 2026;
+            const sueldoBase = parseFloat(document.getElementById('sueldo').value) || 0;
+
+            document.getElementById('thCompMesA').innerText = `${NOMBRES_MESES[mesA]} ${anioA}`;
+            document.getElementById('thCompMesB').innerText = `${NOMBRES_MESES[mesB]} ${anioB}`;
+
+            const resA = calcularResumenPeriodo(anioA, mesA, sueldoBase);
+            const resB = calcularResumenPeriodo(anioB, mesB, sueldoBase);
+
+            const filas = [
+                {
+                    label: "Horas Extras 50% (Tiempo)",
+                    valA: resA.h50,
+                    valB: resB.h50,
+                    fmt: (v) => `${horasDecimalAHHMM(v)} hrs`,
+                    fmtDiff: (d) => `${horasDecimalAHHMM(d)} hrs`,
+                    esTotal: false
+                },
+                {
+                    label: "Horas Extras 100% (Tiempo)",
+                    valA: resA.h100,
+                    valB: resB.h100,
+                    fmt: (v) => `${horasDecimalAHHMM(v)} hrs`,
+                    fmtDiff: (d) => `${horasDecimalAHHMM(d)} hrs`,
+                    esTotal: false
+                },
+                {
+                    label: "Horas Nocturnas 25% (Tiempo)",
+                    valA: resA.hNoct,
+                    valB: resB.hNoct,
+                    fmt: (v) => `${horasDecimalAHHMM(v)} hrs`,
+                    fmtDiff: (d) => `${horasDecimalAHHMM(d)} hrs`,
+                    esTotal: false
+                },
+                {
+                    label: "Pago Extras 50% ($)",
+                    valA: resA.pago50,
+                    valB: resB.pago50,
+                    fmt: (v) => `$${v.toFixed(2)}`,
+                    fmtDiff: (d) => `${d >= 0 ? "+" : "-"}$${Math.abs(d).toFixed(2)}`,
+                    esTotal: false
+                },
+                {
+                    label: "Pago Extras 100% ($)",
+                    valA: resA.pago100,
+                    valB: resB.pago100,
+                    fmt: (v) => `$${v.toFixed(2)}`,
+                    fmtDiff: (d) => `${d >= 0 ? "+" : "-"}$${Math.abs(d).toFixed(2)}`,
+                    esTotal: false
+                },
+                {
+                    label: "Pago Recargo Nocturno 25% ($)",
+                    valA: resA.pagoNoct,
+                    valB: resB.pagoNoct,
+                    fmt: (v) => `$${v.toFixed(2)}`,
+                    fmtDiff: (d) => `${d >= 0 ? "+" : "-"}$${Math.abs(d).toFixed(2)}`,
+                    esTotal: false
+                },
+                {
+                    label: "TOTAL HORAS EXTRAS",
+                    valA: resA.totalHoras,
+                    valB: resB.totalHoras,
+                    fmt: (v) => `${horasDecimalAHHMM(v)} hrs`,
+                    fmtDiff: (d) => `${horasDecimalAHHMM(d)} hrs`,
+                    esTotal: true
+                },
+                {
+                    label: "TOTAL A PAGAR EXTRAS ($)",
+                    valA: resA.totalDinero,
+                    valB: resB.totalDinero,
+                    fmt: (v) => `$${v.toFixed(2)}`,
+                    fmtDiff: (d) => `${d >= 0 ? "+" : "-"}$${Math.abs(d).toFixed(2)}`,
+                    esTotal: true
+                }
+            ];
+
+            const tbody = document.getElementById('cuerpoComparativaDosMeses');
+            tbody.innerHTML = filas.map(f => {
+                const diff = f.valB - f.valA;
+                let pctTexto = "0.0%";
+                if (f.valA > 0) {
+                    const pct = (diff / f.valA) * 100;
+                    pctTexto = `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%`;
+                } else if (f.valB > 0) {
+                    pctTexto = "+100.0%";
+                }
+
+                const claseVar = diff > 0.0001 ? "var-positiva" : (diff < -0.0001 ? "var-negativa" : "var-neutra");
+                const prefijoHoras = (!f.fmtDiff.toString().includes("$") && diff > 0.0001) ? "+" : "";
+
+                return `
+                    <tr class="${f.esTotal ? 'fila-total-comp' : ''}">
+                        <td>${f.label}</td>
+                        <td>${f.fmt(f.valA)}</td>
+                        <td>${f.fmt(f.valB)}</td>
+                        <td class="${claseVar}">${prefijoHoras}${f.fmtDiff(diff)}</td>
+                        <td class="${claseVar}">${pctTexto}</td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
         function actualizarVistaKPI() {
             const mesIdx = parseInt(document.getElementById('kpiSelectorMes').value, 10);
             const anio = parseInt(document.getElementById('kpiSelectorAnio').value, 10) || 2026;
@@ -3055,11 +2859,7 @@
             const inputNoct = document.getElementById('inputHorasNocturnas');
             if (document.activeElement !== inputNoct && usuarioActivo) {
                 const guardadoNoct = localStorage.getItem(claveNoct);
-                if (guardadoNoct !== null) {
-                    inputNoct.value = guardadoNoct;
-                } else {
-                    inputNoct.value = "0";
-                }
+                inputNoct.value = guardadoNoct !== null ? guardadoNoct : "0";
             }
 
             const horasNocturnas = Math.max(0, parseFloat(inputNoct.value) || 0);
@@ -3099,9 +2899,10 @@
             document.getElementById('kpiPct50').innerText = `${pct50}%`;
             document.getElementById('kpiPct100').innerText = `${pct100}%`;
             document.getElementById('kpiPctNoct').innerText = `${pctNoct}%`;
+
+            actualizarComparativoDosMeses();
         }
 
-        /* PLANILLA ESTILO EXCEL (16 AL 15) */
         function generarPlanillaMes() {
             const mesIdx = parseInt(document.getElementById('selectorMes').value, 10);
             const anio = parseInt(document.getElementById('selectorAnio').value, 10) || 2026;
@@ -3300,7 +3101,6 @@
             window.print();
         }
 
-        /* ROL DE PAGOS */
         function sincronizarSueldoRol() {
             const sueldoCalc = parseFloat(document.getElementById('sueldo').value) || 0;
             document.getElementById('rolSueldo').value = sueldoCalc.toFixed(2);
@@ -3437,7 +3237,6 @@
             cargarHorasDesdePlanilla();
         }
 
-        /* CONTROL QUINCENA Y FIN DE MES */
         function claveControlQFM(anio, mesIdx) {
             return `controlQFM_${usuarioActivo}_${anio}_${mesIdx}`;
         }
@@ -3581,7 +3380,6 @@
             alert("✅ Control de Quincena y Fin de Mes guardado.");
         }
 
-        /* BENEFICIOS SOCIALES */
         function obtenerIngresosAnuales(anio) {
             const guardados = JSON.parse(localStorage.getItem(`ingresosAnuales_${usuarioActivo}_${anio}`));
             if (Array.isArray(guardados) && guardados.length === 12) {
@@ -3683,269 +3481,6 @@
             document.getElementById('ultimoNetoExtraido').innerText = `$${ultimoNeto.toFixed(2)}`;
             renderizarTablaDecimoTercero();
             recalcularBeneficiosExtra();
-        }
-
-        /* =========================================================
-           PESTAÑA CASA: VALOR $67,007, PORCENTAJES, MZ/VILLA Y TABLA EDITABLE
-           ========================================================= */
-        function claveCasaUsuario() {
-            return `controlCasa_${usuarioActivo}`;
-        }
-
-        function filasCasaBase() {
-            return [
-                { concepto: "Reserva / Entrada Inicial", fecha: "2026-10-15", monto: 300.00, estado: "PAGADO", observacion: "Abono inicial registrado", extras: {} },
-                { concepto: "Cuota Mensual Hipoteca #1", fecha: "2026-11-30", monto: 365.08, estado: "PENDIENTE", observacion: "Cuota programada fin de mes", extras: {} },
-                { concepto: "Gastos Notariales / Trámites", fecha: "2026-12-10", monto: 250.00, estado: "PENDIENTE", observacion: "Documentación y escrituras", extras: {} }
-            ];
-        }
-
-        function cargarDatosCasa() {
-            if (!usuarioActivo) return;
-            const guardado = JSON.parse(localStorage.getItem(claveCasaUsuario()));
-            if (guardado) {
-                casaValorTotal = (guardado.valorTotal !== undefined) ? (parseFloat(guardado.valorTotal) || 67007.00) : 67007.00;
-                casaMz = guardado.mz || "";
-                casaVilla = guardado.villa || "";
-                casaColumnasExtra = Array.isArray(guardado.columnasExtra) ? guardado.columnasExtra : [];
-                casaFilasData = Array.isArray(guardado.filas) ? guardado.filas : filasCasaBase();
-            } else {
-                casaValorTotal = 67007.00;
-                casaMz = "";
-                casaVilla = "";
-                casaColumnasExtra = [];
-                casaFilasData = filasCasaBase();
-            }
-
-            const elTotal = document.getElementById("casaValorTotalInput");
-            const elMz = document.getElementById("casaMzInput");
-            const elVilla = document.getElementById("casaVillaInput");
-            if (elTotal) elTotal.value = casaValorTotal.toFixed(2);
-            if (elMz) elMz.value = casaMz;
-            if (elVilla) elVilla.value = casaVilla;
-
-            renderizarTablaCasa();
-        }
-
-        function guardarDatosCasa(silencioso = false) {
-            if (!usuarioActivo) return;
-            localStorage.setItem(claveCasaUsuario(), JSON.stringify({
-                valorTotal: casaValorTotal,
-                mz: casaMz,
-                villa: casaVilla,
-                columnasExtra: casaColumnasExtra,
-                filas: casaFilasData
-            }));
-            if (!silencioso) {
-                alert("✅ Datos de la Casa guardados correctamente.");
-            }
-        }
-
-        function actualizarValorTotalCasa(valor) {
-            casaValorTotal = Math.max(0, parseFloat(valor) || 0);
-            recalcularTotalesCasa();
-            guardarDatosCasa(true);
-        }
-
-        function actualizarUbicacionCasa(campo, valor) {
-            if (campo === "mz") casaMz = valor;
-            if (campo === "villa") casaVilla = valor;
-            guardarDatosCasa(true);
-        }
-
-        function agregarFilaCasa() {
-            const nuevaFila = {
-                concepto: "Nuevo Pago / Cuota",
-                fecha: formatearISO(new Date()),
-                monto: 0.00,
-                estado: "PENDIENTE",
-                observacion: "",
-                extras: {}
-            };
-            casaColumnasExtra.forEach(col => {
-                nuevaFila.extras[col.id] = "";
-            });
-            casaFilasData.push(nuevaFila);
-            renderizarTablaCasa();
-            guardarDatosCasa(true);
-        }
-
-        function eliminarFilaCasa(idx) {
-            casaFilasData.splice(idx, 1);
-            renderizarTablaCasa();
-            guardarDatosCasa(true);
-        }
-
-        function agregarColumnaCasa() {
-            const nombreCol = prompt("Escribe el nombre de la nueva columna (ej. Banco, Comprobante, Etapa):");
-            if (!nombreCol || !nombreCol.trim()) return;
-
-            const idCol = `col_${Date.now()}`;
-            const tituloLimpio = nombreCol.trim();
-            casaColumnasExtra.push({ id: idCol, titulo: tituloLimpio });
-
-            casaFilasData.forEach(fila => {
-                if (!fila.extras) fila.extras = {};
-                fila.extras[idCol] = "";
-            });
-
-            renderizarTablaCasa();
-            guardarDatosCasa(true);
-        }
-
-        function eliminarColumnaCasa(colIdx) {
-            const col = casaColumnasExtra[colIdx];
-            if (!col) return;
-            if (!confirm(`¿Eliminar la columna "${col.titulo}"?`)) return;
-
-            casaColumnasExtra.splice(colIdx, 1);
-            casaFilasData.forEach(fila => {
-                if (fila.extras && col.id in fila.extras) {
-                    delete fila.extras[col.id];
-                }
-            });
-
-            renderizarTablaCasa();
-            guardarDatosCasa(true);
-        }
-
-        function actualizarCampoCasa(idx, campo, valor) {
-            if (!casaFilasData[idx]) return;
-            if (campo === "monto") {
-                casaFilasData[idx].monto = parseFloat(valor) || 0;
-            } else {
-                casaFilasData[idx][campo] = valor;
-            }
-            if (campo === "estado") {
-                renderizarTablaCasa();
-            } else {
-                recalcularTotalesCasa();
-            }
-            guardarDatosCasa(true);
-        }
-
-        function actualizarCampoExtraCasa(idx, colId, valor) {
-            if (!casaFilasData[idx]) return;
-            if (!casaFilasData[idx].extras) casaFilasData[idx].extras = {};
-            casaFilasData[idx].extras[colId] = valor;
-            guardarDatosCasa(true);
-        }
-
-        function formatearMonedaComas(num) {
-            return (parseFloat(num) || 0).toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-        }
-
-        function recalcularTotalesCasa() {
-            let totalPagado = 0;
-            let cuotasPendientesTabla = 0;
-
-            casaFilasData.forEach(f => {
-                const m = parseFloat(f.monto) || 0;
-                if (f.estado === "PAGADO") {
-                    totalPagado += m;
-                } else {
-                    cuotasPendientesTabla += m;
-                }
-            });
-
-            const totalCasa = Math.max(0, parseFloat(casaValorTotal) || 0);
-            const saldoPendiente = Math.max(0, totalCasa - totalPagado);
-
-            const pctPagado = totalCasa > 0 ? Math.min(100, (totalPagado / totalCasa) * 100) : 0;
-            const pctPendiente = totalCasa > 0 ? Math.max(0, 100 - pctPagado) : 0;
-
-            document.getElementById("casaTotalPagado").innerText = `$${formatearMonedaComas(totalPagado)}`;
-            document.getElementById("casaTotalPendiente").innerText = `$${formatearMonedaComas(saldoPendiente)}`;
-            document.getElementById("casaPctPagado").innerText = `${pctPagado.toFixed(2)}%`;
-            document.getElementById("casaPctPendiente").innerText = `${pctPendiente.toFixed(2)}%`;
-            document.getElementById("casaCuotasPendientesTexto").innerText = `Cuotas en tabla: $${formatearMonedaComas(cuotasPendientesTabla)}`;
-            document.getElementById("casaResumenAvanceTexto").innerText = `${pctPagado.toFixed(2)}% pagado · ${pctPendiente.toFixed(2)}% por pagar`;
-            document.getElementById("casaBarraProgreso").style.width = `${pctPagado}%`;
-        }
-
-        function escaparHTML(texto) {
-            return String(texto ?? "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;");
-        }
-
-        function renderizarTablaCasa() {
-            const thead = document.getElementById("cabeceraTablaCasa");
-            const tbody = document.getElementById("cuerpoTablaCasa");
-            if (!thead || !tbody) return;
-
-            let thExtras = "";
-            casaColumnasExtra.forEach((col, colIdx) => {
-                thExtras += `
-                    <th>
-                        <span class="th-col-extra-wrap">
-                            <span>${escaparHTML(col.titulo)}</span>
-                            <button type="button" class="btn-eliminar-col" onclick="eliminarColumnaCasa(${colIdx})" title="Eliminar columna">✕</button>
-                        </span>
-                    </th>
-                `;
-            });
-
-            thead.innerHTML = `
-                <tr>
-                    <th>CONCEPTO / CUOTA</th>
-                    <th>FECHA</th>
-                    <th>MONTO ($)</th>
-                    <th>ESTADO</th>
-                    <th>OBSERVACIONES</th>
-                    ${thExtras}
-                    <th style="width:60px;">QUITAR</th>
-                </tr>
-            `;
-
-            tbody.innerHTML = "";
-            casaFilasData.forEach((fila, idx) => {
-                const claseEstado = fila.estado === "PAGADO" ? "estado-pagado" : "estado-pendiente";
-                let tdExtras = "";
-
-                casaColumnasExtra.forEach(col => {
-                    const valExtra = (fila.extras && fila.extras[col.id] !== undefined) ? fila.extras[col.id] : "";
-                    tdExtras += `
-                        <td>
-                            <input type="text" class="input-casa-celda" value="${escaparHTML(valExtra)}" placeholder="Editar..." oninput="actualizarCampoExtraCasa(${idx}, '${col.id}', this.value)">
-                        </td>
-                    `;
-                });
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td>
-                            <input type="text" class="input-casa-celda" value="${escaparHTML(fila.concepto)}" placeholder="Concepto..." oninput="actualizarCampoCasa(${idx}, 'concepto', this.value)">
-                        </td>
-                        <td>
-                            <input type="date" class="input-casa-celda" value="${escaparHTML(fila.fecha)}" onchange="actualizarCampoCasa(${idx}, 'fecha', this.value)">
-                        </td>
-                        <td>
-                            <input type="number" step="0.01" class="input-casa-celda input-casa-monto" value="${(parseFloat(fila.monto) || 0).toFixed(2)}" oninput="actualizarCampoCasa(${idx}, 'monto', this.value)">
-                        </td>
-                        <td>
-                            <select class="select-casa-estado ${claseEstado}" onchange="actualizarCampoCasa(${idx}, 'estado', this.value)">
-                                <option value="PAGADO" ${fila.estado === "PAGADO" ? "selected" : ""}>PAGADO</option>
-                                <option value="PENDIENTE" ${fila.estado === "PENDIENTE" ? "selected" : ""}>PENDIENTE</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" class="input-casa-celda" value="${escaparHTML(fila.observacion)}" placeholder="Nota..." oninput="actualizarCampoCasa(${idx}, 'observacion', this.value)">
-                        </td>
-                        ${tdExtras}
-                        <td>
-                            <button type="button" class="btn-limpiar-fila" onclick="eliminarFilaCasa(${idx})" title="Eliminar fila">✕</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            recalcularTotalesCasa();
         }
     </script>
 </body>
